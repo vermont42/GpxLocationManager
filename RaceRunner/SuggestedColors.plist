@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>colors</key>
+	<dict>
+		<key>HEX alpha Format</key>
+		<string>ff7373,0.8</string>
+		<key>Hex Format</key>
+		<string>ff7373</string>
+		<key>RGB Format</key>
+		<string>rgb(128,128,128)</string>
+		<key>RGBA Format</key>
+		<string>rgba(128,128,128,0.5</string>
+		<key>light</key>
+		<string>rgb(247,225,215)</string>
+		<key>dark</key>
+		<string>rgb(74,87,89)</string>
+		<key>intermediate1</key>
+		<string>rgb(237,175,184)</string>
+		<key>intermediate2</key>
+		<string>rgb(222,219,210)</string>
+		<key>intermediate3</key>
+		<string>rgb(176,196,177)</string>
+	</dict>
+	<key>useMyColors</key>
+	<true/>
+</dict>
+</plist>

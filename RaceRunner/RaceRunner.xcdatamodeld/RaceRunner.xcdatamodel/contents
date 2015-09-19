@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7527" systemVersion="14D105g" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="Location" representedClassName="RaceRunner.Location" syncable="YES">
+        <attribute name="altitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="run" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Run" inverseName="locations" inverseEntity="Run" syncable="YES"/>
+    </entity>
+    <entity name="Run" representedClassName="RaceRunner.Run" syncable="YES">
+        <attribute name="altitudeGained" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="altitudeLost" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="autoName" attributeType="String" syncable="YES"/>
+        <attribute name="customName" attributeType="String" syncable="YES"/>
+        <attribute name="distance" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="duration" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="maxAltitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="maxLatitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="maxLongitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minAltitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minLatitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="minLongitude" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="temperature" optional="YES" attributeType="Float" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="timestamp" attributeType="Date" syncable="YES"/>
+        <attribute name="weather" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="locations" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Location" inverseName="run" inverseEntity="Location" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Location" positionX="-63" positionY="-18" width="128" height="120"/>
+        <element name="Run" positionX="214" positionY="-0" width="128" height="283"/>
+    </elements>
+</model>
