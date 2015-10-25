@@ -84,7 +84,7 @@ public class GpxLocationManager {
                     if abs(currentLocation.timestamp.timeIntervalSinceDate(startDate.dateByAddingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
                         if !self.isPaused {
                             dispatch_async(self.callerQueue, {
-                                self.delegate.locationManager?(dummyCLLocationManager, didUpdateLocations: [currentLocation])
+                                self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
 
                             })
                         }
