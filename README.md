@@ -6,8 +6,9 @@ Xcode’s iOS-app simulator helpfully provides four sets of GPS data for develop
 
 In an epic bout of [yak shaving](http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html), I have remedied these deficiencies by developing `GpxLocationManager`. This class can replace `CLLocationManager` at compile- or runtime, allowing clients to access GPS data from two sources: [GPX](https://en.wikipedia.org/wiki/GPS_Exchange_Format) files and arrays of `CLLocation`s. In particular, `GpxLocationManager` invokes its clients’ `didUpdateLocation()` method with GPS data from either of these two sources. `GpxLocationManager` can provide this data at the same speed it was recorded or sped up by an arbitrary amount.
 
-Development of the sample app continues [here](https://github.com/vermont42/RaceRunner).
+Development of the sample app continues [here](https://github.com/vermont42/RaceRunner). I welcome pull requests for `GpxLocationManager`.
 
+I recently demonstrated `GpxLocationManager` to the [Swift Language User Group](http://www.meetup.com/swift-language/) in [San Francisco](http://www.sanfrancisco.travel). [Realm](http://realm.io) was [kind](https://www.youtube.com/watch?v=LI7-Cu-9wWM) enough to record, transcribe, and host [my talk](http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html).
 
 ## Use
 Here are the steps to use `GpxLocationManager` in your app.
