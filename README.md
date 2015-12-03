@@ -8,7 +8,7 @@ In an epic bout of [yak shaving](http://sethgodin.typepad.com/seths_blog/2005/03
 
 Development of the sample app continues [here](https://github.com/vermont42/RaceRunner). I welcome pull requests for `GpxLocationManager`.
 
-I recently demonstrated `GpxLocationManager` to the [Swift Language User Group](http://www.meetup.com/swift-language/) in [San Francisco](http://www.sanfrancisco.travel). [Realm](http://realm.io) was [kind](https://www.youtube.com/watch?v=LI7-Cu-9wWM) enough to record, transcribe, and host [my talk](http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html).
+I recently demonstrated `GpxLocationManager` to the [Swift Language User Group](http://www.meetup.com/swift-language/) in [San Francisco](http://www.sanfrancisco.travel). [Realm](http://realm.io) was [kind](https://www.youtube.com/watch?v=LI7-Cu-9wWM) enough to record, transcribe, and host [my talk](https://realm.io/news/josh-adams-gpx-location-manager/).
 
 ## Use
 Here are the steps to use `GpxLocationManager` in your app.
