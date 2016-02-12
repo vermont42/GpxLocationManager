@@ -13,7 +13,7 @@ I recently demonstrated `GpxLocationManager` to the [Swift Language User Group](
 ## Use
 Here are the steps to use `GpxLocationManager` in your app.
 
-1. Obtain the framework via Cocoapods or by copying the files RaceRunner/GpxLocationManager.swift, LocationManager.swift, and GpxParser.swift to your project. If you go the Cocoapods route, you will need to `import GpxLocationManager` in any file using classes from that framework.
+1. Obtain the framework via CocoaPods or by copying the files RaceRunner/GpxLocationManager.swift, LocationManager.swift, and GpxParser.swift to your project. If you go the CocoaPods route, you will need to `import GpxLocationManager` in any file using classes from that framework.
 
 2. Where you were declaring and instantiating a `CLLocationManager`, instead declare and instantiate a `LocationManager`. Depending on how you instantiate `LocationManager`, there are three possibilities: (1) No arguments: `LocationManager` instantiates a `CLLocationManager` (2) Pass a `String` `gpxFile`: `LocationManager` instantiates a `GpxLocationManager` using the GPX filename you pass in, appending .gpx to the filename. (3) Pass a `[CLLocation]` `locations`: `LocationManager` instantiates a `GpxLocationManager` using the array of `CLLocation`s passed in. The wrapper `LocationManager` exists so that you can decide at run time whether you want a `GpxLocationManager` or `CLLocationManager` running under the hood. The demo uses this flexibility. If you don’t need this flexibility, you can instantiate `GpxLocationManager` directly, avoiding the `LocationManager` wrapper.
 
