@@ -66,7 +66,7 @@ public class GpxLocationManager {
             let startDate = NSDate()
             let timeInterval = round(startDate.timeIntervalSinceDate(locations[0].timestamp))
             for i in 0 ..< locations.count {
-                locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, timestamp: locations[i].timestamp.dateByAddingTimeInterval(timeInterval))
+                locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, course: locations[i].course, speed: locations[i].speed, timestamp: locations[i].timestamp.dateByAddingTimeInterval(timeInterval))
             }
             callerQueue = NSOperationQueue.currentQueue()?.underlyingQueue
             let updateQueue = dispatch_queue_create("update queue", nil)
@@ -80,7 +80,7 @@ public class GpxLocationManager {
                         return
                     }
                     var currentLocation = self.locations[currentIndex]
-                    currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, timestamp: currentLocation.timestamp.dateByAddingTimeInterval((routeDuration + NSTimeInterval(1.0)) * NSTimeInterval(loopsCompleted)))
+                    currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.dateByAddingTimeInterval((routeDuration + NSTimeInterval(1.0)) * NSTimeInterval(loopsCompleted)))
                     if abs(currentLocation.timestamp.timeIntervalSinceDate(startDate.dateByAddingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
                         if !self.isPaused {
                             dispatch_async(self.callerQueue, {

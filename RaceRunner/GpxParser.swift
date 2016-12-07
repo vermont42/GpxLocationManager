@@ -18,6 +18,8 @@ class GpxParser: NSObject, NSXMLParserDelegate {
     private var curLatString: NSString = ""
     private var curLonString: NSString = ""
     private var curEleString: NSString = ""
+    private var curSpeedString: NSString = ""
+    private var curCourseString: NSString = ""
     private var curTimeString: String = ""
     private var startedTrackPoints = false
     private static let dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
@@ -27,6 +29,8 @@ class GpxParser: NSObject, NSXMLParserDelegate {
         case Name = "name"
         case Ele = "ele"
         case Time = "time"
+        case speed = "speed"
+        case course = "course"
         init() {
             self = .Name
         }
@@ -70,6 +74,10 @@ class GpxParser: NSObject, NSXMLParserDelegate {
                 buffer = ""
                 parsingState = .Time
             }
+        case ParsingState.speed.rawValue:
+            parsingState = .speed
+        case ParsingState.course.rawValue:
+            parsingState = .course
         default:
             break
         }
@@ -94,6 +102,10 @@ class GpxParser: NSObject, NSXMLParserDelegate {
             if startedTrackPoints {
                 curTimeString = buffer
             }
+        case ParsingState.speed.rawValue:
+            curSpeedString = buffer
+        case ParsingState.course.rawValue:
+            curCourseString = buffer
         default:
             break
         }
