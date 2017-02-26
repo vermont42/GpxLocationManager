@@ -8,28 +8,28 @@
 import Foundation
 import CoreLocation
 
-public class DarkSky {
+open class DarkSky {
     static let temperatureError: Float = -1000.0
     static let weatherError = "weather error"
     static let basePath = "https://api.forecast.io/forecast/"
     static let apiKey = ""
     
     public enum Result {
-        case Success(NSURLResponse!, NSDictionary!)
-        case Error(NSURLResponse!, NSError!)
+        case success(URLResponse?, NSDictionary?)
+        case Error(URLResponse?, NSError?)
         
         public func data() -> NSDictionary? {
             switch self {
-            case .Success(_, let dictionary):
+                case .success(_, let dictionary):
                 return dictionary
-            case .Error(_, _):
+                case .Error(_, _):
                 return nil
             }
         }
         
-        public func response() -> NSURLResponse? {
+        public func response() -> URLResponse? {
             switch self {
-            case .Success(let response, _):
+            case .success(let response, _):
                 return response
             case .Error(let response, _):
                 return response
@@ -38,7 +38,7 @@ public class DarkSky {
         
         public func error() -> NSError? {
             switch self {
-            case .Success(_, _):
+            case .success(_, _):
                 return nil
             case .Error(_, let error):
                 return error
@@ -46,44 +46,44 @@ public class DarkSky {
         }
     }
     
-    private var queue: NSOperationQueue;
+    fileprivate var queue: OperationQueue;
     
     public init() {
-        self.queue = NSOperationQueue()
+        self.queue = OperationQueue()
     }
     
-    public func currentWeather(coordinate: CLLocationCoordinate2D, callback: (Result) -> ()) {
+    open func currentWeather(_ coordinate: CLLocationCoordinate2D, callback: @escaping (Result) -> ()) {
         let coordinateString = "\(coordinate.latitude),\(coordinate.longitude)"
         call(coordinateString, callback: callback);
     }
     
-    private func call(method: String, callback: (Result) -> ()) {
+    fileprivate func call(_ method: String, callback: @escaping (Result) -> ()) {
         if DarkSky.apiKey == "" {
             print("This app cannot query Dark Sky for current temperature and weather until you obtain an API key and put it in DarkSky.swift. Here is the website to get an API key: https://developer.forecast.io/register You can ignore the following error message, which Dark Sky returned due to the empty API key.")
         }
         let url = DarkSky.basePath + DarkSky.apiKey + "/" + method
-        let request = NSURLRequest(URL: NSURL(string: url)!)
-        let currentQueue = NSOperationQueue.currentQueue();
+        let request = URLRequest(url: URL(string: url)!)
+        let currentQueue = OperationQueue.current;
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue) { (response: NSURLResponse?, data: NSData?, error: NSError?) -> Void in
+        NSURLConnection.sendAsynchronousRequest(request, queue: queue) { (response: URLResponse?, data: Data?, error: NSError?) -> Void in
             let error: NSError? = error
             var dictionary: NSDictionary?
             
             if let data = data {
                 do {
-                    try dictionary = NSJSONSerialization.JSONObjectWithData(data, options: .MutableContainers) as? NSDictionary
+                    try dictionary = JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary
                 }
                 catch let error as NSError {
                     print(error.localizedDescription)
                 }
             }
-            currentQueue?.addOperationWithBlock {
+            currentQueue?.addOperation {
                 var result = Result.Success(response, dictionary)
                 if error != nil {
                     result = Result.Error(response, error)
                 }
                 callback(result)
             }
-        }
+        } as! (URLResponse?, Data?, Error?) -> Void
     }
 }

@@ -17,5 +17,5 @@ class UiConstants {
     static let intermediate3Color = UIColor(red: 176.0/255.0, green: 196.0/255.0, blue: 177.0/255.0, alpha: 1.0)
     static let titleFont = "Avenir Next"
     static let titleFontSize: CGFloat = 42.0
-    static let panDuration: NSTimeInterval = 0.4
+    static let panDuration: TimeInterval = 0.4
 }

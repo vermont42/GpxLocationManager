@@ -9,26 +9,26 @@
 import Foundation
 
 class Stringifier {
-    private static let metersInKilometer: Double = 1000.0
-    private static let  metersInMile: Double = 1609.344
-    private static let feetInMeter: Double = 3.281
-    private static let fahrenheitMultiplier: Float = 9.0 / 5.0
-    private static let celsiusFraction: Float = 5.0 / 9.0
-    private static let fahrenheitAmountToAdd: Float = 32.0
-    private static let fahrenheitUnitName: String = "F"
-    private static let celsiusMultiplier: Float = 1.0
-    private static let celsiusAmountToAdd: Float = 0.0
-    private static let celsiusUnitName: String = "C"
-    private static let imperialLongUnitName: String = "mi"
-    private static let metricLongUnitName: String = "km"
-    private static let imperialShortUnitName: String = "ft"
-    private static let metricShortUnitName: String = "m"
+    fileprivate static let metersInKilometer: Double = 1000.0
+    fileprivate static let  metersInMile: Double = 1609.344
+    fileprivate static let feetInMeter: Double = 3.281
+    fileprivate static let fahrenheitMultiplier: Float = 9.0 / 5.0
+    fileprivate static let celsiusFraction: Float = 5.0 / 9.0
+    fileprivate static let fahrenheitAmountToAdd: Float = 32.0
+    fileprivate static let fahrenheitUnitName: String = "F"
+    fileprivate static let celsiusMultiplier: Float = 1.0
+    fileprivate static let celsiusAmountToAdd: Float = 0.0
+    fileprivate static let celsiusUnitName: String = "C"
+    fileprivate static let imperialLongUnitName: String = "mi"
+    fileprivate static let metricLongUnitName: String = "km"
+    fileprivate static let imperialShortUnitName: String = "ft"
+    fileprivate static let metricShortUnitName: String = "m"
     
-    class func convertFahrenheitToCelsius(temperature: Float) -> Float {
+    class func convertFahrenheitToCelsius(_ temperature: Float) -> Float {
         return celsiusFraction * (temperature - fahrenheitAmountToAdd)
     }
     
-    class func stringifyDistance(meters: Double) -> String {
+    class func stringifyDistance(_ meters: Double) -> String {
         var unitDivider: Double
         var unitName: String
         if SettingsManager.getUnitType() == .Metric {
@@ -42,7 +42,7 @@ class Stringifier {
         return NSString(format: "%.2f %@", meters / unitDivider, unitName) as String
     }
 
-    class func stringifySecondCount(seconds: Int, useLongFormat: Bool) -> String {
+    class func stringifySecondCount(_ seconds: Int, useLongFormat: Bool) -> String {
         var remainingSeconds = seconds
         let hours = remainingSeconds / 3600
         remainingSeconds -= hours * 3600
@@ -68,7 +68,7 @@ class Stringifier {
         }
     }
     
-    class func stringifyAveragePaceFromDistance(meters: Double, seconds:(Int)) -> String {
+    class func stringifyAveragePaceFromDistance(_ meters: Double, seconds:(Int)) -> String {
         if seconds == 0 || meters == 0.0 {
             return "0"
         }
@@ -89,7 +89,7 @@ class Stringifier {
         return NSString(format: "%d:%02d %@", paceMin, paceSec, unitName) as String
     }
 
-    class func stringifyAltitude(meters: Double) -> String {
+    class func stringifyAltitude(_ meters: Double) -> String {
         var unitMultiplier: Double
         var unitName: String
         if SettingsManager.getUnitType() == .Metric {
@@ -103,7 +103,7 @@ class Stringifier {
         return NSString(format: "%.1f %@", meters * unitMultiplier, unitName) as String
     }
     
-    class func stringifyTemperature(temperature: Float) -> String {
+    class func stringifyTemperature(_ temperature: Float) -> String {
         var unitName: String
         var multiplier: Float
         var amountToAdd: Float

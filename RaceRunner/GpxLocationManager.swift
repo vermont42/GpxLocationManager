@@ -9,93 +9,93 @@
 import Foundation
 import CoreLocation
 
-public class GpxLocationManager {
-    public var pausesLocationUpdatesAutomatically: Bool = true
-    public var distanceFilter: CLLocationDistance =  kCLDistanceFilterNone
-    public var desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBest
-    public var activityType: CLActivityType = .Other
-    public var headingFilter: CLLocationDegrees = 1
-    public var headingOrientation: CLDeviceOrientation = .Portrait
-    public var monitoredRegions: Set<NSObject>! { get { return Set<NSObject>() } }
-    public var maximumRegionMonitoringDistance: CLLocationDistance { get { return -1 } }
-    public var rangedRegions: Set<NSObject>! { get { return Set<NSObject>() } }
-    public var heading: CLHeading! { get { return nil } }
-    public var secondLength = 1.0
-    private var locations: [CLLocation] = []
-    private var lastLocation = 0
-    private var hasStarted = false
-    private var isPaused = false
-    private var callerQueue: dispatch_queue_t!
-    private var updateQueue: dispatch_queue_t!
-    private var dateFormatter = NSDateFormatter()
-    static let dateFudge: NSTimeInterval = 1.0
-    private static let dateFormat = "yyyy-MM-dd HH:mm:ss"
-    private var dummyCLLocationManager: CLLocationManager!
+open class GpxLocationManager {
+    open var pausesLocationUpdatesAutomatically: Bool = true
+    open var distanceFilter: CLLocationDistance =  kCLDistanceFilterNone
+    open var desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyBest
+    open var activityType: CLActivityType = .other
+    open var headingFilter: CLLocationDegrees = 1
+    open var headingOrientation: CLDeviceOrientation = .portrait
+    open var monitoredRegions: Set<NSObject>! { get { return Set<NSObject>() } }
+    open var maximumRegionMonitoringDistance: CLLocationDistance { get { return -1 } }
+    open var rangedRegions: Set<NSObject>! { get { return Set<NSObject>() } }
+    open var heading: CLHeading! { get { return nil } }
+    open var secondLength = 1.0
+    fileprivate var locations: [CLLocation] = []
+    fileprivate var lastLocation = 0
+    fileprivate var hasStarted = false
+    fileprivate var isPaused = false
+    fileprivate var callerQueue: DispatchQueue!
+    fileprivate var updateQueue: DispatchQueue!
+    fileprivate var dateFormatter = DateFormatter()
+    static let dateFudge: TimeInterval = 1.0
+    fileprivate static let dateFormat = "yyyy-MM-dd HH:mm:ss"
+    fileprivate var dummyCLLocationManager: CLLocationManager!
     
-    public func requestWhenInUseAuthorization() {}
-    public func requestAlwaysAuthorization() {}
-    public func startMonitoringSignificantLocationChanges() {}
-    public func stopMonitoringSignificantLocationChanges() {}
-    public func startUpdatingHeading() {}
-    public func stopUpdatingHeading() {}
-    public func dismissHeadingCalibrationDisplay() {}
-    public func startMonitoringForRegion(region:CLRegion) {}
-    public func stopMonitoringForRegion(region: CLRegion) {}
-    public func startRangingBeaconsInRegion(region: CLBeaconRegion) {}
-    public func stopRangingBeaconsInRegion(region: CLBeaconRegion) {}
-    public func requestStateForRegion(region: CLRegion) {}
-    public func startMonitoringVisits() {}
-    public func stopMonitoringVisits() {}
-    public func allowDeferredLocationUpdatesUntilTraveled(distance: CLLocationDistance = 0, timeout: NSTimeInterval) {}
-    public func disallowDeferredLocationUpdates() {}
-    public class func authorizationStatus() -> CLAuthorizationStatus { return CLAuthorizationStatus.AuthorizedAlways }
-    public class func locationServicesEnabled() -> Bool { return true }
-    public class func deferredLocationUpdatesAvailable() -> Bool { return true }
-    public class func significantLocationChangeMonitoringAvailable() -> Bool { return true }
-    public class func headingAvailable() -> Bool { return true }
-    public class func isMonitoringAvailableForClass(regionClass: AnyClass! = nil) -> Bool { return true }
-    public class func isRangingAvailable() -> Bool { return true }
-    public var location: CLLocation! { get { return locations[lastLocation] } }
-    public weak var delegate: CLLocationManagerDelegate!
-    public var shouldKill = false
+    open func requestWhenInUseAuthorization() {}
+    open func requestAlwaysAuthorization() {}
+    open func startMonitoringSignificantLocationChanges() {}
+    open func stopMonitoringSignificantLocationChanges() {}
+    open func startUpdatingHeading() {}
+    open func stopUpdatingHeading() {}
+    open func dismissHeadingCalibrationDisplay() {}
+    open func startMonitoringForRegion(_ region:CLRegion) {}
+    open func stopMonitoringForRegion(_ region: CLRegion) {}
+    open func startRangingBeaconsInRegion(_ region: CLBeaconRegion) {}
+    open func stopRangingBeaconsInRegion(_ region: CLBeaconRegion) {}
+    open func requestStateForRegion(_ region: CLRegion) {}
+    open func startMonitoringVisits() {}
+    open func stopMonitoringVisits() {}
+    open func allowDeferredLocationUpdatesUntilTraveled(_ distance: CLLocationDistance = 0, timeout: TimeInterval) {}
+    open func disallowDeferredLocationUpdates() {}
+    open class func authorizationStatus() -> CLAuthorizationStatus { return CLAuthorizationStatus.authorizedAlways }
+    open class func locationServicesEnabled() -> Bool { return true }
+    open class func deferredLocationUpdatesAvailable() -> Bool { return true }
+    open class func significantLocationChangeMonitoringAvailable() -> Bool { return true }
+    open class func headingAvailable() -> Bool { return true }
+    open class func isMonitoringAvailableForClass(_ regionClass: AnyClass! = nil) -> Bool { return true }
+    open class func isRangingAvailable() -> Bool { return true }
+    open var location: CLLocation! { get { return locations[lastLocation] } }
+    open weak var delegate: CLLocationManagerDelegate!
+    open var shouldKill = false
     
-    public func startUpdatingLocation() {
+    open func startUpdatingLocation() {
         if !hasStarted {
             hasStarted = true
             dummyCLLocationManager = CLLocationManager()
-            let startDate = NSDate()
-            let timeInterval = round(startDate.timeIntervalSinceDate(locations[0].timestamp))
+            let startDate = Date()
+            let timeInterval = round(startDate.timeIntervalSince(locations[0].timestamp))
             for i in 0 ..< locations.count {
-                locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, course: locations[i].course, speed: locations[i].speed, timestamp: locations[i].timestamp.dateByAddingTimeInterval(timeInterval))
+                locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, course: locations[i].course, speed: locations[i].speed, timestamp: locations[i].timestamp.addingTimeInterval(timeInterval))
             }
-            callerQueue = NSOperationQueue.currentQueue()?.underlyingQueue
-            let updateQueue = dispatch_queue_create("update queue", nil)
-            dispatch_async(updateQueue, {
+            callerQueue = OperationQueue.current?.underlyingQueue
+            let updateQueue = DispatchQueue(label: "update queue", attributes: [])
+            updateQueue.async(execute: {
                 var currentIndex: Int = 0
                 var timeIntervalSinceStart = 0.0
                 var loopsCompleted = 0
-                let routeDuration = round(self.locations[self.locations.count - 1].timestamp.timeIntervalSinceDate(self.locations[0].timestamp))
+                let routeDuration = round(self.locations[self.locations.count - 1].timestamp.timeIntervalSince(self.locations[0].timestamp))
                 while true {
                     if self.shouldKill {
                         return
                     }
                     var currentLocation = self.locations[currentIndex]
-                    currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.dateByAddingTimeInterval((routeDuration + NSTimeInterval(1.0)) * NSTimeInterval(loopsCompleted)))
-                    if abs(currentLocation.timestamp.timeIntervalSinceDate(startDate.dateByAddingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
+                    currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
+                    if abs(currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
                         if !self.isPaused {
-                            dispatch_async(self.callerQueue, {
+                            self.callerQueue.async(execute: {
                                 self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
 
                             })
                         }
-                        currentIndex++
+                        currentIndex += 1
                     }
                     timeIntervalSinceStart += 1.0
                     if currentIndex == self.locations.count {
                         currentIndex = 0
-                        loopsCompleted++
+                        loopsCompleted += 1
                     }
-                    NSThread.sleepForTimeInterval(self.secondLength)
+                    Thread.sleep(forTimeInterval: self.secondLength)
                 }
             })
         }
@@ -104,11 +104,11 @@ public class GpxLocationManager {
         }
     }
     
-    public func stopUpdatingLocation() {
+    open func stopUpdatingLocation() {
         self.isPaused = true
     }
     
-    public func kill() {
+    open func kill() {
         shouldKill = true
     }
     
@@ -130,7 +130,7 @@ public class GpxLocationManager {
         self.locations = locations
     }
     
-    private func makeLoc(latitude: NSString, longitude: NSString, altitude: NSString, timestamp: NSString) -> CLLocation {
-        return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue), altitude: altitude.doubleValue, horizontalAccuracy: 5.0, verticalAccuracy: 5.0, timestamp: dateFormatter.dateFromString(timestamp as String)!)
+    fileprivate func makeLoc(_ latitude: NSString, longitude: NSString, altitude: NSString, timestamp: NSString) -> CLLocation {
+        return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue), altitude: altitude.doubleValue, horizontalAccuracy: 5.0, verticalAccuracy: 5.0, timestamp: dateFormatter.date(from: timestamp as String)!)
     }
 }

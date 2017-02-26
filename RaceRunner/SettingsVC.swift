@@ -15,25 +15,25 @@ class SettingsVC: ChildVC {
     @IBOutlet var viewControllerTitle: UILabel!
     @IBOutlet var showMenuButton: UIButton!
     
-    @IBAction func showMenu(sender: UIButton) {
+    @IBAction func showMenu(_ sender: UIButton) {
         showMenu()
     }
     
     override func viewDidLoad() {
         if SettingsManager.getUnitType() == .Imperial {
-            units.on = false
+            units.isOn = false
         }
         else {
-            units.on = true
+            units.isOn = true
         }
         updateMultiplierLabel()
         multiplierSlider.value = Float(SettingsManager.getMultiplier())
         viewControllerTitle.attributedText = UiHelpers.letterPressedText(viewControllerTitle.text!)
-        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), forState: .Normal)
+        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), for: UIControlState())
     }
     
-    @IBAction func toggleUnitType(sender: UISwitch) {
-        if sender.on {
+    @IBAction func toggleUnitType(_ sender: UISwitch) {
+        if sender.isOn {
             SettingsManager.setUnitType(.Metric)
         }
         else {
@@ -41,7 +41,7 @@ class SettingsVC: ChildVC {
         }
     }
     
-    @IBAction func multiplierChanged(sender: UISlider) {
+    @IBAction func multiplierChanged(_ sender: UISlider) {
         SettingsManager.setMultiplier(round(Double(sender.value)))
         updateMultiplierLabel()
     }

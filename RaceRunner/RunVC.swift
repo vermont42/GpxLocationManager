@@ -21,33 +21,33 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
     @IBOutlet var map: MKMapView!
     var currentCoordinate: CLLocationCoordinate2D!
     var pin: MKPointAnnotation!
-    private static let overlayWidth: CGFloat = 3.0
-    private static let regionSize: CLLocationDistance = 500.0
-    private static let gpxTitle = "GPX File"
-    private static let couldNotSaveMessage = "RaceRunner did not save this run because RaceRunner did not detect any locations using your device's GPS sensor."
-    private static let bummerButtonTitle = "Bummer"
-    private static let sadFaceTitle = "😢"
-    private static let startTitle = " Start "
-    private static let pauseTitle = " Pause "
-    private static let stopTitle = " Stop "
-    private static let resumeTitle = " Resume "
-    private var runnerIcons = RunnerIcons()
-    private var lastDirection: RunnerIcons.Direction = .Stationary
+    fileprivate static let overlayWidth: CGFloat = 3.0
+    fileprivate static let regionSize: CLLocationDistance = 500.0
+    fileprivate static let gpxTitle = "GPX File"
+    fileprivate static let couldNotSaveMessage = "RaceRunner did not save this run because RaceRunner did not detect any locations using your device's GPS sensor."
+    fileprivate static let bummerButtonTitle = "Bummer"
+    fileprivate static let sadFaceTitle = "😢"
+    fileprivate static let startTitle = " Start "
+    fileprivate static let pauseTitle = " Pause "
+    fileprivate static let stopTitle = " Stop "
+    fileprivate static let resumeTitle = " Resume "
+    fileprivate var runnerIcons = RunnerIcons()
+    fileprivate var lastDirection: RunnerIcons.Direction = .stationary
     var runToSimulate: Run?
     var gpxFile: String?
     
     override func viewDidLoad() {
-        MKMapView.appearance().tintColor = UIColor.redColor()
+        MKMapView.appearance().tintColor = UIColor.red
         map.delegate = self
-        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), forState: .Normal)
+        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), for: UIControlState())
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if let runToSimulate = runToSimulate {
             RunModel.initializeRunModel(runToSimulate)
-            if runToSimulate.customName.isEqualToString("") {
+            if runToSimulate.customName.isEqual(to: "") {
                 viewControllerTitle.text = runToSimulate.autoName as String
             }
             else {
@@ -69,50 +69,50 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
         let runModel = RunModel.runModel
         runModel.runDelegate = self
         switch runModel.status {
-        case .PreRun:
+        case .preRun:
             hideLabels()
             startStopButton.backgroundColor = UiConstants.intermediate3Color
-            startStopButton.setTitle(RunVC.startTitle, forState: UIControlState.Normal)
-            startStopButton.hidden = false
-            pauseResume.hidden = true
-        case .InProgress:
+            startStopButton.setTitle(RunVC.startTitle, for: UIControlState())
+            startStopButton.isHidden = false
+            pauseResume.isHidden = true
+        case .inProgress:
             showLabels()
             startStopButton.backgroundColor = UiConstants.intermediate1Color
-            startStopButton.setTitle(RunVC.stopTitle, forState: UIControlState.Normal)
-            pauseResume.hidden = false
-            startStopButton.hidden = false
-            pauseResume.setTitle(RunVC.pauseTitle, forState: UIControlState.Normal)
+            startStopButton.setTitle(RunVC.stopTitle, for: UIControlState())
+            pauseResume.isHidden = false
+            startStopButton.isHidden = false
+            pauseResume.setTitle(RunVC.pauseTitle, for: UIControlState())
             addOverlays()
-        case .Paused:
+        case .paused:
             showLabels()
-            pauseResume.hidden = false
-            startStopButton.hidden = false
+            pauseResume.isHidden = false
+            startStopButton.isHidden = false
             startStopButton.backgroundColor = UiConstants.intermediate1Color
-            startStopButton.setTitle(RunVC.stopTitle, forState: UIControlState.Normal)
-            pauseResume.setTitle(RunVC.resumeTitle, forState: UIControlState.Normal)
+            startStopButton.setTitle(RunVC.stopTitle, for: UIControlState())
+            pauseResume.setTitle(RunVC.resumeTitle, for: UIControlState())
             addOverlays()
             let region = MKCoordinateRegionMakeWithDistance(currentCoordinate, RunVC.regionSize, RunVC.regionSize)
             map.setRegion(region, animated: true)
         }
     }
     
-    override func viewDidDisappear(animated: Bool) {
+    override func viewDidDisappear(_ animated: Bool) {
         RunModel.runModel.runDelegate = nil
     }
     
     func addOverlays() {
         let locations = RunModel.runModel.locations
-        for var i = 0; i < locations.count - 1; i++ {
-            var coords: [CLLocationCoordinate2D] = [locations[i].coordinate, locations[i + 1].coordinate]
-            map.addOverlay(MKPolyline(coordinates: &coords, count: 2))
+        for i in 0 ..< (locations?.count)! - 1 {
+            var coords: [CLLocationCoordinate2D] = [locations![i].coordinate, locations![i + 1].coordinate]
+            map.add(MKPolyline(coordinates: &coords, count: 2))
             
         }
-        currentCoordinate = locations.last?.coordinate
+        currentCoordinate = locations?.last?.coordinate
         pin = MKPointAnnotation()
     }
     
-    func showInitialCoordinate(coordinate: CLLocationCoordinate2D) {
-        map.hidden = false
+    func showInitialCoordinate(_ coordinate: CLLocationCoordinate2D) {
+        map.isHidden = false
         let region = MKCoordinateRegionMakeWithDistance(coordinate, RunVC.regionSize, RunVC.regionSize)
         map.setRegion(region, animated: true)
         currentCoordinate = coordinate
@@ -123,21 +123,21 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
         pin.coordinate = coordinate
     }
     
-    func plotToCoordinate(coordinate: CLLocationCoordinate2D) {
+    func plotToCoordinate(_ coordinate: CLLocationCoordinate2D) {
         if currentCoordinate != nil {
             if currentCoordinate.longitude > coordinate.longitude {
-                runnerIcons.direction = .West
-                lastDirection = .West
+                runnerIcons.direction = .west
+                lastDirection = .west
             }
             else if currentCoordinate.longitude < coordinate.longitude {
-                runnerIcons.direction = .East
-                lastDirection = .East
+                runnerIcons.direction = .east
+                lastDirection = .east
             }
             var coords: [CLLocationCoordinate2D] = [currentCoordinate, coordinate]
             let region = MKCoordinateRegionMakeWithDistance(coordinate, RunVC.regionSize, RunVC.regionSize)
             map.setRegion(region, animated: true)
             let overlay = MKPolyline(coordinates: &coords, count: 2)
-            map.addOverlay(overlay)
+            map.add(overlay)
             map.removeAnnotation(pin)
             pin.coordinate = coordinate
             map.addAnnotation(pin)
@@ -148,21 +148,21 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
         }
     }
     
-    func receiveProgress(distance: Double, time: Int) {
+    func receiveProgress(_ distance: Double, time: Int) {
         timeLabel.text = "Time: \(Stringifier.stringifySecondCount(time, useLongFormat: true))"
         distanceLabel.text = "Distance: \(Stringifier.stringifyDistance(distance))"
         paceLabel.text = "Pace: \(Stringifier.stringifyAveragePaceFromDistance(distance, seconds: time))"
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(overlay: overlay)
-        renderer.strokeColor = UIColor.grayColor()
+        renderer.strokeColor = UIColor.gray
         renderer.lineWidth = RunVC.overlayWidth
         return renderer
     }
     
-    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        var pinView = map.dequeueReusableAnnotationViewWithIdentifier("Runner Pin View")
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        var pinView = map.dequeueReusableAnnotationView(withIdentifier: "Runner Pin View")
         if pinView == nil {
             pinView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Runner Pin View")
         }
@@ -170,7 +170,7 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
         return pinView
     }
     
-    @IBAction func showMenu(sender: UIButton) {
+    @IBAction func showMenu(_ sender: UIButton) {
         if runToSimulate != nil || gpxFile != nil {
             RunModel.runModel.stop()
         }
@@ -179,103 +179,103 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
     
     @IBAction func startStop() {
         switch RunModel.runModel.status {
-        case .PreRun:
+        case .preRun:
             showLabels()
             startStopButton.backgroundColor = UiConstants.intermediate1Color
-            startStopButton.setTitle("  Stop  ", forState: UIControlState.Normal)
-            pauseResume.hidden = false
-            pauseResume.setTitle("  Pause  ", forState: UIControlState.Normal)
+            startStopButton.setTitle("  Stop  ", for: UIControlState())
+            pauseResume.isHidden = false
+            pauseResume.setTitle("  Pause  ", for: UIControlState())
             RunModel.runModel.start()
-        case .InProgress:
+        case .inProgress:
             stop()
-        case .Paused:
+        case .paused:
             stop()
         }
     }
     
     func stop() {
-        runnerIcons.direction = .Stationary
+        runnerIcons.direction = .stationary
         startStopButton.backgroundColor = UiConstants.intermediate3Color
-        startStopButton.setTitle("  Start  ", forState: UIControlState.Normal)
-        pauseResume.hidden = true
+        startStopButton.setTitle("  Start  ", for: UIControlState())
+        pauseResume.isHidden = true
         map.removeAnnotation(pin)
         RunModel.runModel.stop()
         if runToSimulate == nil && gpxFile == nil {
             if RunModel.runModel.run.locations.count > 0 {
-                performSegueWithIdentifier("pan details from run", sender: self)
+                performSegue(withIdentifier: "pan details from run", sender: self)
                 for overlay in map.overlays {
-                    map.removeOverlay(overlay )
+                    map.remove(overlay )
                 }
             }
             else {
-                let alertController = UIAlertController(title: RunVC.sadFaceTitle, message: RunVC.couldNotSaveMessage, preferredStyle: .Alert)
-                let bummerAction: UIAlertAction = UIAlertAction(title: RunVC.bummerButtonTitle, style: .Cancel) { action -> Void in
+                let alertController = UIAlertController(title: RunVC.sadFaceTitle, message: RunVC.couldNotSaveMessage, preferredStyle: .alert)
+                let bummerAction: UIAlertAction = UIAlertAction(title: RunVC.bummerButtonTitle, style: .cancel) { action -> Void in
                     self.showMenu()
                 }
                 alertController.addAction(bummerAction)
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.present(alertController, animated: true, completion: nil)
             }
         }
         else if runToSimulate != nil {
-            self.performSegueWithIdentifier("unwind pan log", sender: self)
+            self.performSegue(withIdentifier: "unwind pan log", sender: self)
         }
         else { // if gpxFile != nil
             showMenu()
         }
     }
     
-    @IBAction func pauseResume(sender: UIButton) {
+    @IBAction func pauseResume(_ sender: UIButton) {
         let runModel = RunModel.runModel
         switch runModel.status {
-        case .PreRun:
+        case .preRun:
             abort()
-        case .InProgress:
-            pauseResume.setTitle(RunVC.resumeTitle, forState: UIControlState.Normal)
+        case .inProgress:
+            pauseResume.setTitle(RunVC.resumeTitle, for: UIControlState())
             runModel.pause()
-            runnerIcons.direction = .Stationary
+            runnerIcons.direction = .stationary
             map.removeAnnotation(pin)
             map.addAnnotation(pin)
-        case .Paused:
-            pauseResume.setTitle(RunVC.pauseTitle, forState: UIControlState.Normal)
+        case .paused:
+            pauseResume.setTitle(RunVC.pauseTitle, for: UIControlState())
             runnerIcons.direction = lastDirection
             runModel.resume()
         }
         
     }
     
-    @IBAction func returnFromSegueActions(sender: UIStoryboardSegue) {
+    @IBAction func returnFromSegueActions(_ sender: UIStoryboardSegue) {
         map.addAnnotation(pin)
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "pan details from run" {
-            let runDetailsVC: RunDetailsVC = segue.destinationViewController as! RunDetailsVC
+            let runDetailsVC: RunDetailsVC = segue.destination as! RunDetailsVC
             if runToSimulate == nil && gpxFile == nil {
                 runDetailsVC.run = RunModel.runModel.run
-                runDetailsVC.logType = .History
+                runDetailsVC.logType = .history
             }
         }
     }
     
-    override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
+    override func segueForUnwinding(to toViewController: UIViewController, from fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
         if let id = identifier{
             let unwindSegue = UnwindPanSegue(identifier: id, source: fromViewController, destination: toViewController, performHandler: { () -> Void in
             })
             return unwindSegue
         }
         
-        return super.segueForUnwindingToViewController(toViewController, fromViewController: fromViewController, identifier: identifier)!
+        return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)!
     }
     
     func hideLabels() {
-        distanceLabel.hidden = true
-        timeLabel.hidden = true
-        paceLabel.hidden = true
+        distanceLabel.isHidden = true
+        timeLabel.isHidden = true
+        paceLabel.isHidden = true
     }
     
     func showLabels() {
-        distanceLabel.hidden = false
-        timeLabel.hidden = false
-        paceLabel.hidden = false
+        distanceLabel.isHidden = false
+        timeLabel.isHidden = false
+        paceLabel.isHidden = false
     }
 }

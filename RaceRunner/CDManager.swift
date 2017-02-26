@@ -13,12 +13,12 @@ class CDManager {
     static let sharedCDManager = CDManager()
     
     init() {
-        let modelURL = NSBundle.mainBundle().URLForResource("RaceRunner", withExtension: "momd")
-        let managedObjectModel = NSManagedObjectModel(contentsOfURL: modelURL!)
-        let storeURL: NSURL = applicationDocumentsDirectory().URLByAppendingPathComponent("RaceRunner.sqlite")
+        let modelURL = Bundle.main.url(forResource: "RaceRunner", withExtension: "momd")
+        let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL!)
+        let storeURL: URL = applicationDocumentsDirectory().URLByAppendingPathComponent("RaceRunner.sqlite")
         let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
         do {
-            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: storeURL, options: nil)
+            try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)
         }
         catch let error as NSError {
             print("\(error.localizedDescription)")
@@ -28,8 +28,8 @@ class CDManager {
         context.persistentStoreCoordinator = coordinator
     }
     
-    func applicationDocumentsDirectory() -> NSURL {
-        return NSURL(fileURLWithPath: NSHomeDirectory() + "/Documents/")
+    func applicationDocumentsDirectory() -> URL {
+        return URL(fileURLWithPath: NSHomeDirectory() + "/Documents/")
     }
     
     class func saveContext () {

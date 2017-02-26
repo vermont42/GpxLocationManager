@@ -40,10 +40,10 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
         else {
             abort() // No need for graceful error handling because no run without locations is ever saved or displayed.
         }
-        customTitleButton.setImage(UiHelpers.maskedImageNamed("edit", color: UiConstants.intermediate2Color), forState: UIControlState.Normal)
+        customTitleButton.setImage(UiHelpers.maskedImageNamed("edit", color: UiConstants.intermediate2Color), for: UIControlState())
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
     
@@ -55,13 +55,13 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
         region.span.longitudeDelta = Double(run.maxLongitude.doubleValue - run.minLongitude.doubleValue) * 2.1
         map.setRegion(region, animated: true)
         addOverlays()
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        date.text = dateFormatter.stringFromDate(run.timestamp)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        date.text = dateFormatter.string(from: run.timestamp as Date)
         distance.text = "Dist: \(Stringifier.stringifyDistance(run.distance.doubleValue))"
-        time.text = "Time: \(Stringifier.stringifySecondCount(run.duration.integerValue, useLongFormat: false))"
-        pace.text = "Pace: \(Stringifier.stringifyAveragePaceFromDistance(run.distance.doubleValue, seconds: run.duration.integerValue))"
+        time.text = "Time: \(Stringifier.stringifySecondCount(run.duration.intValue, useLongFormat: false))"
+        pace.text = "Pace: \(Stringifier.stringifyAveragePaceFromDistance(run.distance.doubleValue, seconds: run.duration.intValue))"
         self.minAlt.text = "Min Alt: \(Stringifier.stringifyAltitude(run.minAltitude.doubleValue))"
         self.maxAlt.text = "Max Alt: \(Stringifier.stringifyAltitude(run.maxAltitude.doubleValue))"
         self.gain.text = "Gained: \(Stringifier.stringifyAltitude(run.altitudeGained.doubleValue))"
@@ -79,7 +79,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
             self.temp.text = "Temp: \(Stringifier.stringifyTemperature(run.temperature.floatValue))"
         }
         if run.customName == "" {
-            if self.run.autoName == RunModel.noStreetNameDetected {
+            if self.run.autoName as String == RunModel.noStreetNameDetected {
                 self.route.text = "Unnamed Route"
             }
             else {
@@ -97,26 +97,26 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
                 (paceOrAltitude.selectedSegmentIndex == 1 && colorAltitudeSegments.count == 0) {
                 var rawValues: [Double] = []
                 if paceOrAltitude.selectedSegmentIndex == 0 {
-                    for var i = 1; i < run.locations.count; i++ {
+                    for i in 1 ..< run.locations.count {
                         let firstLoc = run.locations[i - 1] as! Location
                         let secondLoc = run.locations[i] as! Location
                         let firstLocCL = CLLocation(latitude: firstLoc.latitude.doubleValue, longitude: firstLoc.longitude.doubleValue)
                         let secondLocCL = CLLocation(latitude: secondLoc.latitude.doubleValue, longitude: secondLoc.longitude.doubleValue)
-                        let distance = secondLocCL.distanceFromLocation(firstLocCL)
-                        let time = secondLoc.timestamp.timeIntervalSinceDate(firstLoc.timestamp)
+                        let distance = secondLocCL.distance(from: firstLocCL)
+                        let time = secondLoc.timestamp.timeIntervalSince(firstLoc.timestamp as Date)
                         let speed = distance / time
                         rawValues.append(speed)
                     }
                 }
                 else {
-                    for var i = 0; i < run.locations.count; i++ {
+                    for i in 0 ..< run.locations.count {
                         let location = run.locations[i] as! Location
                         rawValues.append(location.altitude.doubleValue)
                     }
                 }
                 let idealSmoothReachSize = 33 // about 133 locations/mile
                 var smoothValues: [Double] = []
-                for (var i = 0; i < rawValues.count; i++) {
+                for (i in 0..< rawValues.count) {
                     var lowerBound = i - idealSmoothReachSize / 2
                     var upperBound = i + idealSmoothReachSize / 2
                     if lowerBound < 0 {
@@ -128,7 +128,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
                     var range = NSRange()
                     range.location = lowerBound
                     range.length = upperBound - lowerBound
-                    let indexSet = NSMutableIndexSet(indexesInRange: range)
+                    let indexSet = NSMutableIndexSet(integersIn: range.toRange() ?? 0..<0)
                     var relevantValues: [Double] = []
                     for index in indexSet {
                         relevantValues.append(rawValues[index])
@@ -141,7 +141,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
                     smoothValues.append(smoothAverage)
                 }
                 var sortedValues = smoothValues
-                sortedValues.sortInPlace { $0 < $1 }
+                sortedValues.sort { $0 < $1 }
                 let medianValue = sortedValues[run.locations.count / 2]
                 let r_red: CGFloat = 1.0
                 let r_green: CGFloat = 20.0 / 255.0
@@ -153,7 +153,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
                 let g_green: CGFloat = 146.0 / 255.0
                 let g_blue: CGFloat = 78.0 / 255.0
                 var colorSegments: [MulticolorPolyline] = []
-                for var i = 1; i < run.locations.count; i++ {
+                for i in 1 ..< run.locations.count {
                     let firstLoc = run.locations[i - 1] as! Location
                     let secondLoc = run.locations[i] as! Location
                     let firstLocCL = CLLocation(latitude: firstLoc.latitude.doubleValue, longitude: firstLoc.longitude.doubleValue)
@@ -161,7 +161,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
                     var coords = [firstLocCL.coordinate, secondLocCL.coordinate]
                     let value = smoothValues[i - 1]
                     var color: UIColor
-                    var index = sortedValues.indexOf(value)
+                    var index = sortedValues.index(of: value)
                     if (index == nil) {
                         index = 0
                     }
@@ -197,7 +197,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
         }
     }
     
-    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polyLine = overlay as! MulticolorPolyline
         let renderer = MKPolylineRenderer(polyline: polyLine)
         renderer.strokeColor = polyLine.color
@@ -206,36 +206,36 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
     }
     
     @IBAction func setCustomName() {        
-        let alertController = UIAlertController(title: "Run Name", message: "Enter a new name for this run.", preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title: "Run Name", message: "Enter a new name for this run.", preferredStyle: UIAlertControllerStyle.alert)
         
-        let setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.Default, handler: { (action) in
+        let setAction = UIAlertAction(title: "Set", style: UIAlertActionStyle.default, handler: { (action) in
             let textFields = alertController.textFields!
             self.route.text = "Name: \(textFields[0].text!)"
-            self.run.customName = textFields[0].text!
+            self.run.customName = textFields[0].text! as NSString
             CDManager.saveContext()
         })
         alertController.addAction(setAction)
-        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: { (action) in })
+        let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: { (action) in })
         alertController.addAction(cancelAction)
-        alertController.addTextFieldWithConfigurationHandler { (textField) in
+        alertController.addTextField { (textField) in
             textField.placeholder = "Name"
         }
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
     }
-    @IBAction func changeOverlay(sender: UISegmentedControl) {
+    @IBAction func changeOverlay(_ sender: UISegmentedControl) {
         addOverlays()
     }
     
-    @IBAction func back(sender: UIButton) {
-        if logType == LogVC.LogType.History {
-            self.performSegueWithIdentifier("unwind pan log", sender: self)
+    @IBAction func back(_ sender: UIButton) {
+        if logType == LogVC.LogType.history {
+            self.performSegue(withIdentifier: "unwind pan log", sender: self)
         }
-        else if logType == LogVC.LogType.Simulate {
-            self.performSegueWithIdentifier("unwind pan", sender: self)
+        else if logType == LogVC.LogType.simulate {
+            self.performSegue(withIdentifier: "unwind pan", sender: self)
         }
     }
     
-    override func prefersStatusBarHidden() -> Bool {
+    override var prefersStatusBarHidden : Bool {
         return true
     }
 }

@@ -9,181 +9,181 @@
 import Foundation
 import CoreLocation
 
-public class LocationManager {
-    private var gpxLocationManager: GpxLocationManager!
-    private var cLLocationManager: CLLocationManager!
+open class LocationManager {
+    fileprivate var gpxLocationManager: GpxLocationManager!
+    fileprivate var cLLocationManager: CLLocationManager!
     public enum LocationManagerType {
-        case Gpx, CoreLocation
+        case gpx, coreLocation
         init() {
-            self = .CoreLocation
+            self = .coreLocation
         }
     }
-    public var location: CLLocation! {
+    open var location: CLLocation! {
         get {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 return gpxLocationManager.location
-            case .CoreLocation:
+            case .coreLocation:
                 return cLLocationManager.location
             }
         }
     }
-    public weak var delegate: CLLocationManagerDelegate! {
+    open weak var delegate: CLLocationManagerDelegate! {
         get {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 return gpxLocationManager.delegate
-            case .CoreLocation:
+            case .coreLocation:
                 return cLLocationManager.delegate
             }
         }
         set {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 gpxLocationManager.delegate = newValue
-            case .CoreLocation:
+            case .coreLocation:
                 cLLocationManager.delegate = newValue
             }
         }
     }
-    public var desiredAccuracy: CLLocationAccuracy {
+    open var desiredAccuracy: CLLocationAccuracy {
         get {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 return gpxLocationManager.desiredAccuracy
-            case .CoreLocation:
+            case .coreLocation:
                 return cLLocationManager.desiredAccuracy
             }
         }
         set {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 gpxLocationManager.desiredAccuracy = newValue
-            case .CoreLocation:
+            case .coreLocation:
                 cLLocationManager.desiredAccuracy = newValue
             }
         }
     }
-    public var activityType: CLActivityType {
+    open var activityType: CLActivityType {
         get {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 return gpxLocationManager.activityType
-            case .CoreLocation:
+            case .coreLocation:
                 return cLLocationManager.activityType
             }
         }
         set {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 gpxLocationManager.activityType = newValue
-            case .CoreLocation:
+            case .coreLocation:
                 cLLocationManager.activityType = newValue
             }
         }
     }
-    public var distanceFilter: CLLocationDistance {
+    open var distanceFilter: CLLocationDistance {
         get {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 return gpxLocationManager.distanceFilter
-            case .CoreLocation:
+            case .coreLocation:
                 return cLLocationManager.distanceFilter
             }
         }
         set {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 gpxLocationManager.distanceFilter = newValue
-            case .CoreLocation:
+            case .coreLocation:
                 cLLocationManager.distanceFilter = newValue
             }
         }
     }
-    public var pausesLocationUpdatesAutomatically: Bool {
+    open var pausesLocationUpdatesAutomatically: Bool {
         get {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 return gpxLocationManager.pausesLocationUpdatesAutomatically
-            case .CoreLocation:
+            case .coreLocation:
                 return cLLocationManager.pausesLocationUpdatesAutomatically
             }
         }
         set {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 gpxLocationManager.pausesLocationUpdatesAutomatically = newValue
-            case .CoreLocation:
+            case .coreLocation:
                 cLLocationManager.pausesLocationUpdatesAutomatically = newValue
             }
         }
     }
-    public func requestAlwaysAuthorization() {
+    open func requestAlwaysAuthorization() {
         switch locationManagerType {
-        case .Gpx:
+        case .gpx:
             gpxLocationManager.requestAlwaysAuthorization()
-        case .CoreLocation:
+        case .coreLocation:
             cLLocationManager.requestAlwaysAuthorization()
         }
     }
-    public var secondLength: Double {
+    open var secondLength: Double {
         get {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 return gpxLocationManager.secondLength
-            case .CoreLocation:
+            case .coreLocation:
                 return 1.0
             }
         }
         set {
             switch locationManagerType {
-            case .Gpx:
+            case .gpx:
                 gpxLocationManager.secondLength = newValue
-            case .CoreLocation:
+            case .coreLocation:
                 break
             }
         }
     }
-    public func kill() {
+    open func kill() {
         switch locationManagerType {
-        case .Gpx:
+        case .gpx:
             gpxLocationManager.kill()
-        case .CoreLocation:
+        case .coreLocation:
             break
         }
     }
 
-    public let locationManagerType: LocationManagerType
+    open let locationManagerType: LocationManagerType
     
     public init() {
         cLLocationManager = CLLocationManager()
-        locationManagerType = .CoreLocation
+        locationManagerType = .coreLocation
     }
     
     public init(gpxFile: String) {
         gpxLocationManager = GpxLocationManager(gpxFile: gpxFile)
-        locationManagerType = .Gpx
+        locationManagerType = .gpx
     }
     
     public init(locations: [CLLocation]) {
         gpxLocationManager = GpxLocationManager(locations: locations)
-        locationManagerType = .Gpx
+        locationManagerType = .gpx
     }
     
-    public func stopUpdatingLocation() {
+    open func stopUpdatingLocation() {
         switch locationManagerType {
-        case .Gpx:
+        case .gpx:
             gpxLocationManager.stopUpdatingLocation()
-        case .CoreLocation:
+        case .coreLocation:
             cLLocationManager.stopUpdatingLocation()
         }
     }
     
-    public func startUpdatingLocation() {
+    open func startUpdatingLocation() {
         switch locationManagerType {
-        case .Gpx:
+        case .gpx:
             gpxLocationManager.startUpdatingLocation()
-        case .CoreLocation:
+        case .coreLocation:
             cLLocationManager.startUpdatingLocation()
         }
     }
