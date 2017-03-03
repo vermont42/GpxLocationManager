@@ -65,8 +65,8 @@ open class DarkSky {
         let request = URLRequest(url: URL(string: url)!)
         let currentQueue = OperationQueue.current;
         
-        NSURLConnection.sendAsynchronousRequest(request, queue: queue) { (response: URLResponse?, data: Data?, error: NSError?) -> Void in
-            let error: NSError? = error
+        NSURLConnection.sendAsynchronousRequest(request, queue: currentQueue!, completionHandler: { (response, data, error) -> Void in
+            let error: NSError? = error as NSError?
             var dictionary: NSDictionary?
             
             if let data = data {
@@ -78,12 +78,12 @@ open class DarkSky {
                 }
             }
             currentQueue?.addOperation {
-                var result = Result.Success(response, dictionary)
+                var result = Result.success(response, dictionary)
                 if error != nil {
                     result = Result.Error(response, error)
                 }
                 callback(result)
             }
-        } as! (URLResponse?, Data?, Error?) -> Void
+        })
     }
 }

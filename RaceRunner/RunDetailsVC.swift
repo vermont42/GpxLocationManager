@@ -116,7 +116,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
                 }
                 let idealSmoothReachSize = 33 // about 133 locations/mile
                 var smoothValues: [Double] = []
-                for (i in 0..< rawValues.count) {
+                for (i, _) in rawValues.enumerated() {
                     var lowerBound = i - idealSmoothReachSize / 2
                     var upperBound = i + idealSmoothReachSize / 2
                     if lowerBound < 0 {
@@ -128,7 +128,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
                     var range = NSRange()
                     range.location = lowerBound
                     range.length = upperBound - lowerBound
-                    let indexSet = NSMutableIndexSet(integersIn: range.toRange() ?? 0..<0)
+                    let indexSet = NSIndexSet(indexesIn: range)
                     var relevantValues: [Double] = []
                     for index in indexSet {
                         relevantValues.append(rawValues[index])
