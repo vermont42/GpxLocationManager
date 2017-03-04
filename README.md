@@ -4,7 +4,7 @@ GpxLocationManager
 
 Xcode’s iOS-app simulator helpfully provides four sets of GPS data for development of apps using `CLLocationManager`: Apple campus, city bike ride, city run, and highway drive. I was developing an app that uses GPS and found this data deficient in two ways. First, the data contain no altitudes other than “0”. Altitude tracking is important for my app, and this inability to test my app’s altitude tracking was unacceptable. Second, the simulator provides data only at normal speed. During my develop/run/debug/run cycle, I became impatient waiting for the simulator to provide GPS data to my app, even using the relatively fast-moving highway-drive mode.
 
-In an epic bout of [yak shaving](http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html), I have remedied these deficiencies by developing `GpxLocationManager`. This class can replace `CLLocationManager` at compile- or runtime, allowing clients to access GPS data from two sources: [GPX](https://en.wikipedia.org/wiki/GPS_Exchange_Format) files and arrays of `CLLocation`s. In particular, `GpxLocationManager` invokes its clients’ `didUpdateLocation()` method with GPS data from either of these two sources. `GpxLocationManager` can provide this data at the same speed it was recorded or sped up by an arbitrary amount.
+In an epic bout of [yak shaving](http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html), I have remedied these deficiencies by developing `GpxLocationManager`. This class can replace `CLLocationManager` at compile- or runtime, allowing clients to access GPS data from two sources: [GPX](https://en.wikipedia.org/wiki/GPS_Exchange_Format) files and arrays of `CLLocation`s. In particular, `GpxLocationManager` invokes its clients’ `didUpdateLocation()` method with GPS data from either of these two sources. `GpxLocationManager` can provide this data at the same speed it was recorded or sped up by an arbitrary amount. Thanks to the hard work of [Nehal Kanetkar](https://github.com/nkanetka), `GpxLocationManager` supports simulating course and speed.
 
 Development of the sample app continues [here](https://github.com/vermont42/RaceRunner). I welcome pull requests for `GpxLocationManager`.
 
@@ -36,7 +36,7 @@ The demo for `GpxLocationManager` is a pre-release version of my race-tracking a
 
 The app’s main menu currently has the following options:
 * Device GPS: This starts a run using location data from the device’s GPS or the simulator’s GPS, depending on where the app is running.
-* CLLocations: This starts a run using data from an array of `CLLocation`s. In RaceRunner, the array is built using a GPX file, but the `CLLocation`s can come from anywhere. 
+* CLLocations: This starts a run using data from an array of `CLLocation`s. In RaceRunner, the array is built using a GPX file, but the `CLLocation`s can come from anywhere.
 * GPX File: This starts a run using data from a GPX file.
 * History: This allows you to see details about past runs.
 * Settings: This allows you to change the playback speed of simulated locations from 100% to 1000%. These percentages correspond to second lengths of 1.0 and 0.1 seconds, respectively.

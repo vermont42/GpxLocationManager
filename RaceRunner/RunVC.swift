@@ -102,13 +102,15 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
     
     func addOverlays() {
         let locations = RunModel.runModel.locations
-        for i in 0 ..< (locations?.count)! - 1 {
-            var coords: [CLLocationCoordinate2D] = [locations![i].coordinate, locations![i + 1].coordinate]
-            map.add(MKPolyline(coordinates: &coords, count: 2))
-            
+        if let locations = locations, locations.count > 2 {
+            for i in 0 ..< locations.count - 1 {
+                var coords: [CLLocationCoordinate2D] = [locations[i].coordinate, locations[i + 1].coordinate]
+                map.add(MKPolyline(coordinates: &coords, count: 2))
+                
+            }
+            currentCoordinate = locations.last?.coordinate
+            pin = MKPointAnnotation()
         }
-        currentCoordinate = locations?.last?.coordinate
-        pin = MKPointAnnotation()
     }
     
     func showInitialCoordinate(_ coordinate: CLLocationCoordinate2D) {

@@ -27,7 +27,6 @@ class MenuVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         menuTable.scrollsToTop = false
         menuTable.delegate = self
         menuTable.dataSource = self
-        SettingsManager.getUnitType()
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
