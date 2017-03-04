@@ -30,7 +30,7 @@ Here are the steps to use `GpxLocationManager` in your app.
 
 ## Demo
 
-The demo for `GpxLocationManager` is a stripped-down version of my race-tracking app, [RaceRunner](https://itunes.apple.com/us/app/racerunner-run-tracking-app/id1065017082).
+The demo for `GpxLocationManager` is a stripped-down version of my run-tracking app, [RaceRunner](https://itunes.apple.com/us/app/racerunner-run-tracking-app/id1065017082).
 
 [Click here](https://vimeo.com/138813570) to watch the demo in action. In this run, `GpxLocationManager` gets GPS data from a GPX file, and RaceRunner plays the data back sped up ten times. Note that a 40-minute run takes four minutes to watch.
 
