@@ -15,7 +15,7 @@ class CDManager {
     init() {
         let modelURL = Bundle.main.url(forResource: "RaceRunner", withExtension: "momd")
         let managedObjectModel = NSManagedObjectModel(contentsOf: modelURL!)
-        let storeURL: URL = applicationDocumentsDirectory().URLByAppendingPathComponent("RaceRunner.sqlite")
+        let storeURL: URL = applicationDocumentsDirectory().appendingPathComponent("RaceRunner.sqlite")
         let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel!)
         do {
             try coordinator!.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: storeURL, options: nil)

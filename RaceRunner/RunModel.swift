@@ -153,10 +153,14 @@ class RunModel: NSObject, CLLocationManagerDelegate {
                         case .Error(_, _):
                             self.temperature = DarkSky.temperatureError
                             self.weather = DarkSky.weatherError
-                        case .Success(_, let dictionary):
+                        case .success(_, let dictionary):
                             if dictionary != nil {
-                                self.temperature = Stringifier.convertFahrenheitToCelsius(dictionary["currently"]!["apparentTemperature"] as! Float)
-                                self.weather = dictionary["currently"]!["summary"] as! String
+                                let currently = dictionary?["currently"] as! [String:Any]
+                                let temp = currently["apparentTemperature"] as! Float
+                                let summary = currently["summary"] as! String
+                                
+                                self.temperature = Stringifier.convertFahrenheitToCelsius(temp)
+                                self.weather = summary
                                 //let synth = AVSpeechSynthesizer()
                                 //var utterance = AVSpeechUtterance(string: self.weather)
                                 //utterance.rate = 0.3
@@ -260,28 +264,28 @@ class RunModel: NSObject, CLLocationManagerDelegate {
     
     fileprivate class func addRun(_ coordinates: [CLLocation], customName: String, autoName: String, timestamp: Date, weather: String, temperature: Float, distance: Double, maxAltitude: Double, minAltitude: Double, maxLongitude: Double, minLongitude: Double, maxLatitude: Double, minLatitude: Double, altitudeGained: Double, altitudeLost: Double) -> Run {
         let newRun: Run = NSEntityDescription.insertNewObject(forEntityName: "Run", into: CDManager.sharedCDManager.context) as! Run
-        newRun.distance = NSNumber(distance)
-        newRun.duration = NSNumber(coordinates[coordinates.count - 1].timestamp.timeIntervalSince(coordinates[0].timestamp))
+        newRun.distance = NSNumber(value: distance)
+        newRun.duration = NSNumber(value: coordinates[coordinates.count - 1].timestamp.timeIntervalSince(coordinates[0].timestamp))
         newRun.timestamp = timestamp
         newRun.weather = weather as NSString
-        newRun.temperature = NSNumber(temperature)
+        newRun.temperature = NSNumber(value: temperature)
         newRun.customName = customName as NSString
         newRun.autoName = autoName as NSString
-        newRun.maxAltitude = NSNumber(maxAltitude)
-        newRun.minAltitude = NSNumber(minAltitude)
-        newRun.maxLatitude = NSNumber(maxLatitude)
-        newRun.minLatitude = NSNumber(minLatitude)
-        newRun.maxLongitude = NSNumber(maxLongitude)
-        newRun.minLongitude = NSNumber(minLongitude)
-        newRun.altitudeGained = NSNumber(altitudeGained)
-        newRun.altitudeLost = NSNumber(altitudeLost)
+        newRun.maxAltitude = NSNumber(value: maxAltitude)
+        newRun.minAltitude = NSNumber(value: minAltitude)
+        newRun.maxLatitude = NSNumber(value: maxLatitude)
+        newRun.minLatitude = NSNumber(value: minLatitude)
+        newRun.maxLongitude = NSNumber(value: maxLongitude)
+        newRun.minLongitude = NSNumber(value: minLongitude)
+        newRun.altitudeGained = NSNumber(value: altitudeGained)
+        newRun.altitudeLost = NSNumber(value: altitudeLost)
         var locationArray: [Location] = []
         for location in coordinates {
             let locationObject: Location = NSEntityDescription.insertNewObject(forEntityName: "Location", into: CDManager.sharedCDManager.context) as! Location
             locationObject.timestamp = location.timestamp
-            locationObject.latitude = NSNumber(location.coordinate.latitude)
-            locationObject.longitude = NSNumber(location.coordinate.longitude)
-            locationObject.altitude = NSNumber(location.altitude)
+            locationObject.latitude = NSNumber(value: location.coordinate.latitude)
+            locationObject.longitude = NSNumber(value: location.coordinate.longitude)
+            locationObject.altitude = NSNumber(value: location.altitude)
             locationArray.append(locationObject)
         }
         newRun.locations = NSOrderedSet(array: locationArray)
