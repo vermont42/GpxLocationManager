@@ -2,13 +2,13 @@ GpxLocationManager
 ===================
 [DEMO](https://vimeo.com/138813570)
 
-Xcode’s iOS-app simulator helpfully provides four sets of GPS data for development of apps using `CLLocationManager`: Apple campus, city bike ride, city run, and highway drive. I was developing an app that uses GPS and found this data deficient in two ways. First, the data contain no altitudes other than “0”. Altitude tracking is important for my app, and this inability to test my app’s altitude tracking was unacceptable. Second, the simulator provides data only at normal speed. During my develop/run/debug/run cycle, I became impatient waiting for the simulator to provide GPS data to my app, even using the relatively fast-moving highway-drive mode.
+Xcode’s iOS-app simulator helpfully provides four sets of GPS data for development of apps using `CLLocationManager`: Apple campus, city bike ride, city run, and highway drive. I developed an app that uses GPS and found this data deficient in two ways. First, the data contain no altitudes other than “0”. Altitude tracking is important for my app, and this inability to test my app’s altitude tracking was unacceptable. Second, the simulator provides data only at normal speed. During my develop/run/debug/run cycle, I became impatient waiting for the simulator to provide GPS data to my app, even using the relatively fast-moving highway-drive mode.
 
 In an epic bout of [yak shaving](http://sethgodin.typepad.com/seths_blog/2005/03/dont_shave_that.html), I have remedied these deficiencies by developing `GpxLocationManager`. This class can replace `CLLocationManager` at compile- or runtime, allowing clients to access GPS data from two sources: [GPX](https://en.wikipedia.org/wiki/GPS_Exchange_Format) files and arrays of `CLLocation`s. In particular, `GpxLocationManager` invokes its clients’ `didUpdateLocation()` method with GPS data from either of these two sources. `GpxLocationManager` can provide this data at the same speed it was recorded or sped up by an arbitrary amount. Thanks to the hard work of [Nehal Kanetkar](https://github.com/nkanetka), `GpxLocationManager` supports simulating course and speed.
 
-Development of the sample app continues [here](https://github.com/vermont42/RaceRunner). I welcome pull requests for `GpxLocationManager`.
+Development of the sample [app](https://itunes.apple.com/us/app/racerunner-run-tracking-app/id1065017082) continues [here](https://github.com/vermont42/RaceRunner). I welcome pull requests for both `RaceRunner` and `GpxLocationManager`.
 
-I recently demonstrated `GpxLocationManager` to the [Swift Language User Group](http://www.meetup.com/swift-language/) in [San Francisco](http://www.sanfrancisco.travel). [Realm](http://realm.io) was [kind](https://www.youtube.com/watch?v=LI7-Cu-9wWM) enough to record, transcribe, and host [my talk](https://realm.io/news/josh-adams-gpx-location-manager/).
+I demonstrated `GpxLocationManager` to the [Swift Language User Group](http://www.meetup.com/swift-language/) in [San Francisco](http://www.sanfrancisco.travel). [Realm](http://realm.io) was [kind](https://www.youtube.com/watch?v=LI7-Cu-9wWM) enough to record, transcribe, and host [my talk](https://realm.io/news/josh-adams-gpx-location-manager/).
 
 ## Use
 Here are the steps to use `GpxLocationManager` in your app.
@@ -30,7 +30,7 @@ Here are the steps to use `GpxLocationManager` in your app.
 
 ## Demo
 
-The demo for `GpxLocationManager` is a pre-release version of my race-tracking app, RaceRunner.
+The demo for `GpxLocationManager` is a stripped-down version of my race-tracking app, [RaceRunner](https://itunes.apple.com/us/app/racerunner-run-tracking-app/id1065017082).
 
 [Click here](https://vimeo.com/138813570) to watch the demo in action. In this run, `GpxLocationManager` gets GPS data from a GPX file, and RaceRunner plays the data back sped up ten times. Note that a 40-minute run takes four minutes to watch.
 
@@ -44,7 +44,7 @@ The app’s main menu currently has the following options:
 
 ## Comments
 
-`GpxLocationManager` is written in Swift 2.0.
+`GpxLocationManager` is written in Swift 3.0.
 
 To see examples of `LocationManager` being instantiated in different ways, take a look at `RunModel.swift`.
 
@@ -53,14 +53,6 @@ If you use or are intrigued by `GpxLocationManager`, please consider starring th
 `GpxLocationManager` is not a functionally complete replacement for `CLLocationManager`. The former lacks much of the latter’s functionality. `GpxLocationManager`’s primary function is to invoke `didUpdateLocations()` with arbitrary location data. That said, `GpxLocationManager` could certainly serve as a starting point for a functionally complete replacement for `CLLocationManager`.
 
 `GpxLocationManager` correctly parses GPX files created by iSmoothRun, Runmeter, and Runkeeper. I have not tested GPX files from other sources.
-
-RaceRunner can detect current temperature and weather, but only if you obtain an API key from [Dark Sky](http://developer.forecast.io) and set `apiKey` in `DarkSky.swift`. I will credit Dark Sky in the UI before I release RaceRunner.
-
-RaceRunner does not pretend to be a functionally complete race-tracking app. Rather, at this point, RaceRunner is largely a Swift translation of [Matt Luedke’s](https://github.com/mluedke2) [MoonRunner](https://github.com/mluedke2/moonrunner) with the addition of three features: an animated pin, colored altitude overlays, and (potentially) simulated GPS data. I plan to polish the UI, implement certain racing-oriented features, and eventually release RaceRunner into the App Store. Please let me know if you are interested in beta-testing RaceRunner.
-
-RaceRunner does not gracefully handle massive datasets. By massive, I mean “the drive from Berkeley to Lake Tahoe”. I plan to fix this at some point.
-
-I recognize that RaceRunner’s error handling is unfinished.
 
 ## Creator
 
