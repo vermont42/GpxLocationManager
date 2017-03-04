@@ -13,6 +13,6 @@ class Location: NSManagedObject {
     @NSManaged var altitude: NSNumber
     @NSManaged var latitude: NSNumber
     @NSManaged var longitude: NSNumber
-    @NSManaged var timestamp: NSDate
+    @NSManaged var timestamp: Date
     @NSManaged var run: Run
 }

@@ -19,61 +19,61 @@ class LogVC: ChildVC, UITableViewDataSource, UITableViewDelegate {
     var runs: [Run]?
     var selectedRun = 0
     enum LogType {
-        case History
-        case Simulate
+        case history
+        case simulate
     }
     var logType: LogType!
     var gpxFile = ""
     var locFile = "iSmoothRun"
-    private static let rowHeight: CGFloat = 92.0
+    fileprivate static let rowHeight: CGFloat = 92.0
 
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return LogVC.rowHeight
     }
     
     override func viewDidLoad() {
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.separatorStyle = UITableViewCellSeparatorStyle.None
-        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), forState: .Normal)
+        tableView.separatorStyle = UITableViewCellSeparatorStyle.none
+        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), for: UIControlState())
         super.viewDidLoad()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         self.viewControllerTitle.text = viewControllerTitleText
-        if logType == LogVC.LogType.History {
+        if logType == LogVC.LogType.history {
             viewControllerTitle.text = "History"
         }
-        else if logType == LogVC.LogType.Simulate {
+        else if logType == LogVC.LogType.simulate {
             viewControllerTitle.text = "Simulate"
         }
         viewControllerTitle.attributedText = UiHelpers.letterPressedText(viewControllerTitle.text!)
         fetchRuns()
     }
     
-    private func fetchRuns() {
-        let fetchRequest = NSFetchRequest()
+    fileprivate func fetchRuns() {
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>()
         let context = CDManager.sharedCDManager.context
-        fetchRequest.entity = NSEntityDescription.entityForName("Run", inManagedObjectContext: context)
+        fetchRequest.entity = NSEntityDescription.entity(forEntityName: "Run", in: context!)
         let sortDescriptor = NSSortDescriptor(key: "timestamp", ascending: false)
         fetchRequest.sortDescriptors = [sortDescriptor]
-        runs = (try? context.executeFetchRequest(fetchRequest)) as? [Run]
+        runs = (try? context?.fetch(fetchRequest)) as? [Run]
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         tableView.reloadData()
         super.viewDidAppear(animated)
     }
     
-    @IBAction func showMenu(sender: UIButton) {
+    @IBAction func showMenu(_ sender: UIButton) {
         showMenu()
     }
     
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let runs = runs {
             return runs.count
         }
@@ -93,48 +93,48 @@ class LogVC: ChildVC, UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as? LogCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as? LogCell
         cell?.displayRun(runs![indexPath.row])
         return cell!
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedRun = indexPath.row
-        if logType == .History {
-            performSegueWithIdentifier("pan details from log", sender: self)
+        if logType == .history {
+            performSegue(withIdentifier: "pan details from log", sender: self)
         }
-        else if logType == .Simulate {
-            performSegueWithIdentifier("pan run from log", sender: self)
+        else if logType == .simulate {
+            performSegue(withIdentifier: "pan run from log", sender: self)
         }
     }
 
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == UITableViewCellEditingStyle.Delete {
-            CDManager.sharedCDManager.context.deleteObject(runs![indexPath.row])
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            CDManager.sharedCDManager.context.delete(runs![indexPath.row])
             CDManager.saveContext()
-            runs!.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+            runs!.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.automatic)
         }
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "pan details from log" {
-            let runDetailsVC: RunDetailsVC = segue.destinationViewController as! RunDetailsVC
+            let runDetailsVC: RunDetailsVC = segue.destination as! RunDetailsVC
             runDetailsVC.run = runs![selectedRun]
-            runDetailsVC.logType = .History
+            runDetailsVC.logType = .history
         }
         else {
             if segue.identifier == "pan run from log" {
-                let runVC: RunVC = segue.destinationViewController as! RunVC
+                let runVC: RunVC = segue.destination as! RunVC
                 runVC.runToSimulate = runs![selectedRun]
             }
         }
     }
     
-    @IBAction func returnFromSegueActions(sender: UIStoryboardSegue) {}
+    @IBAction func returnFromSegueActions(_ sender: UIStoryboardSegue) {}
     
-    override func segueForUnwindingToViewController(toViewController: UIViewController, fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
+    override func segueForUnwinding(to toViewController: UIViewController, from fromViewController: UIViewController, identifier: String?) -> UIStoryboardSegue {
         if let id = identifier{
             let unwindSegue = UnwindPanSegue(identifier: id, source: fromViewController, destination: toViewController, performHandler: { () -> Void in
                 
@@ -142,7 +142,7 @@ class LogVC: ChildVC, UITableViewDataSource, UITableViewDelegate {
             return unwindSegue
         }
         
-        return super.segueForUnwindingToViewController(toViewController, fromViewController: fromViewController, identifier: identifier)!
+        return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)!
     }
 
 }

@@ -10,5 +10,5 @@ import Foundation
 import UIKit
 
 extension UIViewController {
-    public func viewWillAppearNoOp(animated: Bool) {}
+    public func viewWillAppearNoOp(_ animated: Bool) {}
 }

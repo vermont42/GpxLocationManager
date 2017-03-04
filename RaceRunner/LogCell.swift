@@ -16,13 +16,13 @@ class LogCell: UITableViewCell {
     @IBOutlet var duration: UILabel!
     @IBOutlet var route: UILabel!
     
-    func displayRun(run: Run) {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateStyle = NSDateFormatterStyle.ShortStyle
-        dateFormatter.timeStyle = NSDateFormatterStyle.ShortStyle
-        dateTime.text = dateFormatter.stringFromDate(run.timestamp)
-        duration.text = Stringifier.stringifySecondCount(run.duration.integerValue, useLongFormat: false)
-        pace.text = Stringifier.stringifyAveragePaceFromDistance(run.distance.doubleValue, seconds: run.duration.integerValue)
+    func displayRun(_ run: Run) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = DateFormatter.Style.short
+        dateFormatter.timeStyle = DateFormatter.Style.short
+        dateTime.text = dateFormatter.string(from: run.timestamp as Date)
+        duration.text = Stringifier.stringifySecondCount(run.duration.intValue, useLongFormat: false)
+        pace.text = Stringifier.stringifyAveragePaceFromDistance(run.distance.doubleValue, seconds: run.duration.intValue)
         distance.text = Stringifier.stringifyDistance(run.distance.doubleValue)
         if run.customName == "" {
             route.text = run.autoName as String

@@ -12,13 +12,13 @@ class SpectateVC: ChildVC {
     @IBOutlet var showMenuButton: UIButton!
     @IBOutlet var viewControllerTitle: UILabel!
     
-    @IBAction func showMenu(sender: UIButton) {
+    @IBAction func showMenu(_ sender: UIButton) {
         showMenu()
     }
     
     override func viewDidLoad() {
         viewControllerTitle.attributedText = UiHelpers.letterPressedText(viewControllerTitle.text!)
-        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), forState: .Normal)
+        showMenuButton.setImage(UiHelpers.maskedImageNamed("menu", color: UiConstants.lightColor), for: UIControlState())
         super.viewDidLoad()
     }
 
