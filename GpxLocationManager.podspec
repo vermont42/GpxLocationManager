@@ -11,7 +11,7 @@ GpxLocationManager allows the developer to import and use GPS data from GPX file
   s.author           = { "vermont42" => "vermontcoder@gmail.com" }
   s.source           = { :git => "https://github.com/vermont42/GpxLocationManager.git", :tag => s.version.to_s }
   s.social_media_url = "https://twitter.com/vermont42"
-  s.platform     = :ios, "10.0"
+  s.platform     = :ios, "8.0"
   s.requires_arc = true
   s.source_files = "RaceRunner/GpxLocationManager.swift", "RaceRunner/GpxParser.swift", "RaceRunner/LocationManager.swift"
   s.frameworks = "CoreLocation"
