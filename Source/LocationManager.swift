@@ -126,6 +126,25 @@ open class LocationManager {
             }
         }
     }
+    @available(iOS 9.0, *)
+    open var allowsBackgroundLocationUpdates: Bool {
+        get {
+            switch locationManagerType {
+            case .gpx:
+                return gpxLocationManager.allowsBackgroundLocationUpdates
+            case .coreLocation:
+                return cLLocationManager.allowsBackgroundLocationUpdates
+            }
+        }
+        set {
+            switch locationManagerType {
+            case .gpx:
+                gpxLocationManager.allowsBackgroundLocationUpdates = newValue
+            case .coreLocation:
+                cLLocationManager.allowsBackgroundLocationUpdates = newValue
+            }
+        }
+    }
     open func requestAlwaysAuthorization() {
         switch locationManagerType {
         case .gpx:

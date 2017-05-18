@@ -59,6 +59,7 @@ open class GpxLocationManager {
     open var location: CLLocation! { get { return locations[lastLocation] } }
     open weak var delegate: CLLocationManagerDelegate!
     open var shouldKill = false
+    open var allowsBackgroundLocationUpdates = false
     
     open func startUpdatingLocation() {
         self.isUpdatingLocations = false
