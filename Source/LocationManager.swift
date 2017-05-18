@@ -18,6 +18,14 @@ open class LocationManager {
             self = .coreLocation
         }
     }
+    open func authorizationStatus() -> CLAuthorizationStatus {
+        switch locationManagerType {
+        case .gpx:
+            return GpxLocationManager.authorizationStatus()
+        case .coreLocation:
+            return CLLocationManager.authorizationStatus()
+        }
+    }
     open var location: CLLocation! {
         get {
             switch locationManagerType {

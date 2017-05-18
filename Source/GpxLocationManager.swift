@@ -37,7 +37,6 @@ open class GpxLocationManager {
     fileprivate var isMonotiringSignficiantLocationChanges = false
     
     open func requestWhenInUseAuthorization() {}
-    open func requestAlwaysAuthorization() {}
     open func startUpdatingHeading() {}
     open func stopUpdatingHeading() {}
     open func dismissHeadingCalibrationDisplay() {}
@@ -64,6 +63,12 @@ open class GpxLocationManager {
     open func startUpdatingLocation() {
         self.isUpdatingLocations = false
         startLocationUpdateMachineIfNeeded()
+    }
+    
+    open func requestAlwaysAuthorization() {
+        self.callerQueue.async(execute: {
+            self.delegate.locationManager?(self.dummyCLLocationManager, didChangeAuthorization: .authorizedAlways)
+        })
     }
     
     open func startMonitoringSignificantLocationChanges() {
