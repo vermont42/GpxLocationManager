@@ -182,19 +182,33 @@ open class LocationManager {
 
     open let locationManagerType: LocationManagerType
     
-    public init() {
-        cLLocationManager = CLLocationManager()
-        locationManagerType = .coreLocation
+    public init(type: LocationManagerType) {
+        switch type {
+        case .gpx:
+            gpxLocationManager = GpxLocationManager()
+        case .coreLocation:
+            cLLocationManager = CLLocationManager()
+        }
+        
+        locationManagerType = type
     }
     
-    public init(gpxFile: String) {
-        gpxLocationManager = GpxLocationManager(gpxFile: gpxFile)
-        locationManagerType = .gpx
+    public func setLocations(gpxFile: String) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.setLocations(gpxFile: gpxFile)
+        case .coreLocation:
+            return
+        }
     }
     
-    public init(locations: [CLLocation]) {
-        gpxLocationManager = GpxLocationManager(locations: locations)
-        locationManagerType = .gpx
+    public func setLocations(locations: [CLLocation]) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.setLocations(locations: locations)
+        case .coreLocation:
+            return
+        }
     }
     
     open func stopUpdatingLocation() {

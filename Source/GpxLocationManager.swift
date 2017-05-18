@@ -97,28 +97,20 @@ open class GpxLocationManager {
     }
     
     public init() {
-        abort()
+        callerQueue = OperationQueue.current?.underlyingQueue
+        dummyCLLocationManager = CLLocationManager()
+        self.locations = []
     }
     
-    public init(gpxFile: String) {
+    public func setLocations(gpxFile: String) {
         if let parser = GpxParser(file: gpxFile) {
             let (_, coordinates): (String, [CLLocation]) = parser.parse()
             self.locations = coordinates
-            sharedInit()
-        }
-        else {
-            abort()
         }
     }
     
-    public init(locations: [CLLocation]) {
+    public func setLocations(locations: [CLLocation]) {
         self.locations = locations
-        sharedInit()
-    }
-    
-    private func sharedInit() {
-        callerQueue = OperationQueue.current?.underlyingQueue
-        dummyCLLocationManager = CLLocationManager()
     }
     
     fileprivate func startLocationUpdateMachineIfNeeded() {
