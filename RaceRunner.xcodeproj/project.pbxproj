@@ -7,18 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D634F6D1ECCE04B008B1894 /* GpxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D634F6A1ECCE04B008B1894 /* GpxLocationManager.swift */; };
+		3D634F6E1ECCE04B008B1894 /* GpxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D634F6B1ECCE04B008B1894 /* GpxParser.swift */; };
+		3D634F6F1ECCE04B008B1894 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D634F6C1ECCE04B008B1894 /* LocationManager.swift */; };
 		E11655AC1AEAFB5200633C16 /* RunModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E11655AB1AEAFB5200633C16 /* RunModel.swift */; };
 		E138E8CE1BA0A0FB00BA20E5 /* iSmoothRun.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E138E8CD1BA0A0FB00BA20E5 /* iSmoothRun.gpx */; };
 		E13AE5921AAD12280074F933 /* MulticolorPolyline.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13AE5911AAD12280074F933 /* MulticolorPolyline.swift */; };
 		E13B39931ABA705E007F61ED /* DarkSky.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B39921ABA705E007F61ED /* DarkSky.swift */; };
 		E13B48B51B911BDA001C997A /* UiConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B48B41B911BDA001C997A /* UiConstants.swift */; };
 		E13B48B71B921A9F001C997A /* UiHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E13B48B61B921A9F001C997A /* UiHelpers.swift */; };
-		E14360C31AE4AAA4003F27B4 /* GpxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14360C11AE4AAA4003F27B4 /* GpxLocationManager.swift */; };
 		E159C2541AAB8304007C6EA1 /* RaceRunner.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E159C2521AAB8304007C6EA1 /* RaceRunner.xcdatamodeld */; };
 		E16F35761B8EBC4100C88426 /* UIViewController+NoOp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16F35751B8EBC4100C88426 /* UIViewController+NoOp.swift */; };
 		E1804DB61ABBA0D300625188 /* RunDetailsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1804DB51ABBA0D300625188 /* RunDetailsVC.swift */; };
 		E185F8531AE1CB19008BF394 /* RunnerIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = E185F8521AE1CB19008BF394 /* RunnerIcons.swift */; };
-		E1B45F071AE96EFC00AF73AB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B45F061AE96EFC00AF73AB /* LocationManager.swift */; };
 		E1C22BCC1AF05DA1003A5712 /* MarqueeLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = E1C22BCA1AF05DA1003A5712 /* MarqueeLabel.m */; };
 		E1C2ED501AB63BE200A29728 /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C2ED4F1AB63BE200A29728 /* LogCell.swift */; };
 		E1CBD2D71AC4D616006F0B85 /* SettingsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1CBD2D61AC4D616006F0B85 /* SettingsManager.swift */; };
@@ -26,7 +27,6 @@
 		E1D521681ABA93CD00B46300 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D521661ABA93CD00B46300 /* Location.swift */; };
 		E1D521691ABA93CD00B46300 /* Run.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D521671ABA93CD00B46300 /* Run.swift */; };
 		E1D5A01C1AC5170F008A3806 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1D5A01B1AC5170E008A3806 /* AVFoundation.framework */; };
-		E1DA7D6D1B9B8BA2006BC362 /* GpxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1DA7D6C1B9B8BA2006BC362 /* GpxParser.swift */; };
 		E1E027831B9A34FE00700DE1 /* Runkeeper.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E1E027821B9A34FE00700DE1 /* Runkeeper.gpx */; };
 		E1E8B9241AAB73F000D04E38 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E8B9231AAB73F000D04E38 /* AppDelegate.swift */; };
 		E1E8B9291AAB73F000D04E38 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1E8B9271AAB73F000D04E38 /* Main.storyboard */; };
@@ -46,6 +46,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D634F6A1ECCE04B008B1894 /* GpxLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GpxLocationManager.swift; path = Source/GpxLocationManager.swift; sourceTree = SOURCE_ROOT; };
+		3D634F6B1ECCE04B008B1894 /* GpxParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GpxParser.swift; path = Source/GpxParser.swift; sourceTree = SOURCE_ROOT; };
+		3D634F6C1ECCE04B008B1894 /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationManager.swift; path = Source/LocationManager.swift; sourceTree = SOURCE_ROOT; };
 		6BAE29B09F03FADB483809E0 /* SuggestedColors.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = SuggestedColors.plist; sourceTree = "<group>"; };
 		E11655AB1AEAFB5200633C16 /* RunModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunModel.swift; sourceTree = "<group>"; };
 		E138E8CD1BA0A0FB00BA20E5 /* iSmoothRun.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iSmoothRun.gpx; sourceTree = "<group>"; };
@@ -53,12 +56,10 @@
 		E13B39921ABA705E007F61ED /* DarkSky.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DarkSky.swift; sourceTree = "<group>"; };
 		E13B48B41B911BDA001C997A /* UiConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UiConstants.swift; sourceTree = "<group>"; };
 		E13B48B61B921A9F001C997A /* UiHelpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UiHelpers.swift; sourceTree = "<group>"; };
-		E14360C11AE4AAA4003F27B4 /* GpxLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxLocationManager.swift; sourceTree = "<group>"; };
 		E159C2531AAB8304007C6EA1 /* RaceRunner.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RaceRunner.xcdatamodel; sourceTree = "<group>"; };
 		E16F35751B8EBC4100C88426 /* UIViewController+NoOp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+NoOp.swift"; sourceTree = "<group>"; };
 		E1804DB51ABBA0D300625188 /* RunDetailsVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunDetailsVC.swift; sourceTree = "<group>"; };
 		E185F8521AE1CB19008BF394 /* RunnerIcons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RunnerIcons.swift; sourceTree = "<group>"; };
-		E1B45F061AE96EFC00AF73AB /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E1C22BC71AF05D39003A5712 /* RaceRunner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "RaceRunner-Bridging-Header.h"; sourceTree = "<group>"; };
 		E1C22BCA1AF05DA1003A5712 /* MarqueeLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarqueeLabel.m; sourceTree = "<group>"; };
 		E1C22BCB1AF05DA1003A5712 /* MarqueeLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarqueeLabel.h; sourceTree = "<group>"; };
@@ -68,7 +69,6 @@
 		E1D521661ABA93CD00B46300 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		E1D521671ABA93CD00B46300 /* Run.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Run.swift; sourceTree = "<group>"; };
 		E1D5A01B1AC5170E008A3806 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		E1DA7D6C1B9B8BA2006BC362 /* GpxParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxParser.swift; sourceTree = "<group>"; };
 		E1E027821B9A34FE00700DE1 /* Runkeeper.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Runkeeper.gpx; sourceTree = "<group>"; };
 		E1E8B91E1AAB73F000D04E38 /* RaceRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RaceRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E1E8B9221AAB73F000D04E38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -131,13 +131,13 @@
 		E1E8B9201AAB73F000D04E38 /* RaceRunner */ = {
 			isa = PBXGroup;
 			children = (
+				3D634F6A1ECCE04B008B1894 /* GpxLocationManager.swift */,
+				3D634F6B1ECCE04B008B1894 /* GpxParser.swift */,
+				3D634F6C1ECCE04B008B1894 /* LocationManager.swift */,
 				E1E8B9451AAB742E00D04E38 /* CDManager.swift */,
 				E1E8B9471AAB742E00D04E38 /* ChildVC.swift */,
 				E13B39921ABA705E007F61ED /* DarkSky.swift */,
-				E14360C11AE4AAA4003F27B4 /* GpxLocationManager.swift */,
-				E1DA7D6C1B9B8BA2006BC362 /* GpxParser.swift */,
 				E1E8B9481AAB742E00D04E38 /* HelpVC.swift */,
-				E1B45F061AE96EFC00AF73AB /* LocationManager.swift */,
 				E1E8B9491AAB742E00D04E38 /* LogVC.swift */,
 				E1C2ED4F1AB63BE200A29728 /* LogCell.swift */,
 				E1E8B9271AAB73F000D04E38 /* Main.storyboard */,
@@ -262,8 +262,9 @@
 				E13B39931ABA705E007F61ED /* DarkSky.swift in Sources */,
 				E1FCB00E1AB8F43100B1D803 /* Stringifier.swift in Sources */,
 				E1D521681ABA93CD00B46300 /* Location.swift in Sources */,
-				E1DA7D6D1B9B8BA2006BC362 /* GpxParser.swift in Sources */,
+				3D634F6F1ECCE04B008B1894 /* LocationManager.swift in Sources */,
 				E185F8531AE1CB19008BF394 /* RunnerIcons.swift in Sources */,
+				3D634F6D1ECCE04B008B1894 /* GpxLocationManager.swift in Sources */,
 				E159C2541AAB8304007C6EA1 /* RaceRunner.xcdatamodeld in Sources */,
 				E1C2ED501AB63BE200A29728 /* LogCell.swift in Sources */,
 				E1E8B9561AAB742E00D04E38 /* SettingsVC.swift in Sources */,
@@ -278,13 +279,12 @@
 				E13AE5921AAD12280074F933 /* MulticolorPolyline.swift in Sources */,
 				E1E8B9501AAB742E00D04E38 /* CDManager.swift in Sources */,
 				E1E8B9241AAB73F000D04E38 /* AppDelegate.swift in Sources */,
+				3D634F6E1ECCE04B008B1894 /* GpxParser.swift in Sources */,
 				E1E8B9581AAB742E00D04E38 /* UnwindPanSegue.swift in Sources */,
 				E1E8B9571AAB742E00D04E38 /* SpectateVC.swift in Sources */,
 				E1D521691ABA93CD00B46300 /* Run.swift in Sources */,
-				E1B45F071AE96EFC00AF73AB /* LocationManager.swift in Sources */,
 				E1CBD2D71AC4D616006F0B85 /* SettingsManager.swift in Sources */,
 				E1E8B94E1AAB742E00D04E38 /* MenuVC.swift in Sources */,
-				E14360C31AE4AAA4003F27B4 /* GpxLocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
