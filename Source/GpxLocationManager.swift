@@ -48,7 +48,7 @@ open class GpxLocationManager {
     open func requestStateForRegion(_ region: CLRegion) {}
     open func startMonitoringVisits() {}
     open func stopMonitoringVisits() {}
-    open func allowDeferredLocationUpdatesUntilTraveled(_ distance: CLLocationDistance = 0, timeout: TimeInterval) {}
+    open func allowDeferredLocationUpdates(untilTraveled distance: CLLocationDistance = 0, timeout: TimeInterval) {}
     open func disallowDeferredLocationUpdates() {}
     open class func authorizationStatus() -> CLAuthorizationStatus { return CLAuthorizationStatus.authorizedAlways }
     open class func locationServicesEnabled() -> Bool { return true }

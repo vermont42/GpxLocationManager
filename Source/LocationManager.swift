@@ -179,6 +179,24 @@ open class LocationManager {
         }
     }
     
+    open func allowDeferredLocationUpdates(untilTraveled distance: CLLocationDistance, timeout: TimeInterval) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
+        case .coreLocation:
+            cLLocationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
+        }
+    }
+    
+    open func disallowDeferredLocationUpdates() {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.disallowDeferredLocationUpdates()
+        case .coreLocation:
+            cLLocationManager.disallowDeferredLocationUpdates()
+        }
+    }
+    
     var monitoredRegions: Set<CLRegion> {
         get {
             switch locationManagerType {
