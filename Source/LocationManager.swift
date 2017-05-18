@@ -179,6 +179,44 @@ open class LocationManager {
         }
     }
     
+    var monitoredRegions: Set<CLRegion> {
+        get {
+            switch locationManagerType {
+            case .gpx:
+                return gpxLocationManager.monitoredRegions
+            case .coreLocation:
+                return cLLocationManager.monitoredRegions
+            }
+        }
+    }
+    
+    open func stopMonitoring(for region: CLRegion) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.stopMonitoring(for: region)
+        case .coreLocation:
+            cLLocationManager.stopMonitoring(for: region)
+        }
+    }
+    
+    open func startMonitoring(for region: CLRegion) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.startMonitoring(for: region)
+        case .coreLocation:
+            cLLocationManager.startMonitoring(for: region)
+        }
+    }
+    
+    open func startMonitoringSignificantLocationChanges() {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.startMonitoringSignificantLocationChanges()
+        case .coreLocation:
+            cLLocationManager.startMonitoringSignificantLocationChanges()
+        }
+    }
+    
     open func startUpdatingLocation() {
         switch locationManagerType {
         case .gpx:

@@ -16,26 +16,28 @@ open class GpxLocationManager {
     open var activityType: CLActivityType = .other
     open var headingFilter: CLLocationDegrees = 1
     open var headingOrientation: CLDeviceOrientation = .portrait
-    open var monitoredRegions: Set<NSObject>! { get { return Set<NSObject>() } }
     open var maximumRegionMonitoringDistance: CLLocationDistance { get { return -1 } }
     open var rangedRegions: Set<NSObject>! { get { return Set<NSObject>() } }
     open var heading: CLHeading! { get { return nil } }
     open var secondLength = 1.0
+    open var minimumSignficiantLocationUpdateDistnace: CLLocationDistance = 200
+    open var monitoredRegions: Set<CLRegion> = []
     fileprivate var locations: [CLLocation] = []
     fileprivate var lastLocation = 0
     fileprivate var hasStarted = false
-    fileprivate var isPaused = false
     fileprivate var callerQueue: DispatchQueue!
     fileprivate var updateQueue: DispatchQueue!
     fileprivate var dateFormatter = DateFormatter()
     static let dateFudge: TimeInterval = 1.0
     fileprivate static let dateFormat = "yyyy-MM-dd HH:mm:ss"
     fileprivate var dummyCLLocationManager: CLLocationManager!
+    fileprivate var lastDeleiveredSignificantLocationUpdate: CLLocation?
+    fileprivate var lastGeofenceEventLocationUpdate: CLLocation?
+    fileprivate var isUpdatingLocations = false
+    fileprivate var isMonotiringSignficiantLocationChanges = false
     
     open func requestWhenInUseAuthorization() {}
     open func requestAlwaysAuthorization() {}
-    open func startMonitoringSignificantLocationChanges() {}
-    open func stopMonitoringSignificantLocationChanges() {}
     open func startUpdatingHeading() {}
     open func stopUpdatingHeading() {}
     open func dismissHeadingCalibrationDisplay() {}
@@ -60,52 +62,28 @@ open class GpxLocationManager {
     open var shouldKill = false
     
     open func startUpdatingLocation() {
-        if !hasStarted {
-            hasStarted = true
-            dummyCLLocationManager = CLLocationManager()
-            let startDate = Date()
-            let timeInterval = round(startDate.timeIntervalSince(locations[0].timestamp))
-            for i in 0 ..< locations.count {
-                locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, course: locations[i].course, speed: locations[i].speed, timestamp: locations[i].timestamp.addingTimeInterval(timeInterval))
-            }
-            callerQueue = OperationQueue.current?.underlyingQueue
-            let updateQueue = DispatchQueue(label: "update queue", attributes: [])
-            updateQueue.async(execute: {
-                var currentIndex: Int = 0
-                var timeIntervalSinceStart = 0.0
-                var loopsCompleted = 0
-                let routeDuration = round(self.locations[self.locations.count - 1].timestamp.timeIntervalSince(self.locations[0].timestamp))
-                while true {
-                    if self.shouldKill {
-                        return
-                    }
-                    var currentLocation = self.locations[currentIndex]
-                    currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
-                    if abs(currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
-                        if !self.isPaused {
-                            self.callerQueue.async(execute: {
-                                self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
-
-                            })
-                        }
-                        currentIndex += 1
-                    }
-                    timeIntervalSinceStart += 1.0
-                    if currentIndex == self.locations.count {
-                        currentIndex = 0
-                        loopsCompleted += 1
-                    }
-                    Thread.sleep(forTimeInterval: self.secondLength)
-                }
-            })
-        }
-        else {
-            self.isPaused = false
-        }
+        self.isUpdatingLocations = false
+        startLocationUpdateMachineIfNeeded()
+    }
+    
+    open func startMonitoringSignificantLocationChanges() {
+        isMonotiringSignficiantLocationChanges = true
+        startLocationUpdateMachineIfNeeded()
+    }
+    open func stopMonitoringSignificantLocationChanges() {
+        isMonotiringSignficiantLocationChanges = false
     }
     
     open func stopUpdatingLocation() {
-        self.isPaused = true
+        self.isUpdatingLocations = true
+    }
+    
+    open func startMonitoring(for region: CLRegion) {
+        // stubbed
+    }
+    
+    open func stopMonitoring(for region: CLRegion) {
+        // stubbed
     }
     
     open func kill() {
@@ -120,6 +98,7 @@ open class GpxLocationManager {
         if let parser = GpxParser(file: gpxFile) {
             let (_, coordinates): (String, [CLLocation]) = parser.parse()
             self.locations = coordinates
+            sharedInit()
         }
         else {
             abort()
@@ -128,6 +107,84 @@ open class GpxLocationManager {
     
     public init(locations: [CLLocation]) {
         self.locations = locations
+        sharedInit()
+    }
+    
+    private func sharedInit() {
+        callerQueue = OperationQueue.current?.underlyingQueue
+        dummyCLLocationManager = CLLocationManager()
+    }
+    
+    fileprivate func startLocationUpdateMachineIfNeeded() {
+        if !hasStarted {
+            hasStarted = true
+            let startDate = Date()
+            let timeInterval = round(startDate.timeIntervalSince(locations[0].timestamp))
+            for i in 0 ..< locations.count {
+                locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, course: locations[i].course, speed: locations[i].speed, timestamp: locations[i].timestamp.addingTimeInterval(timeInterval))
+            }
+            let updateQueue = DispatchQueue(label: "update queue", attributes: [])
+            updateQueue.async(execute: {
+                var currentIndex: Int = 0
+                var timeIntervalSinceStart = 0.0
+                var loopsCompleted = 0
+                let routeDuration = round(self.locations[self.locations.count - 1].timestamp.timeIntervalSince(self.locations[0].timestamp))
+                while true {
+                    if self.shouldKill {
+                        return
+                    }
+                    var currentLocation = self.locations[currentIndex]
+                    currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
+                    if abs(currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
+                        if !self.isUpdatingLocations {
+                            self.callerQueue.async(execute: {
+                                self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
+                                
+                            })
+                        }
+                        if !self.isMonotiringSignficiantLocationChanges {
+                            if let lastLocation = self.lastDeleiveredSignificantLocationUpdate, lastLocation.distance(from: currentLocation) < self.minimumSignficiantLocationUpdateDistnace {
+                                // skip this location
+                            } else {
+                                self.lastDeleiveredSignificantLocationUpdate = currentLocation
+                                self.callerQueue.async(execute: {
+                                    self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
+                                    
+                                })
+                            }
+                        }
+                        if let lastGeofencedLocation = self.lastGeofenceEventLocationUpdate {
+                            for region in self.monitoredRegions {
+                                if let circularRegion = region as? CLCircularRegion {
+                                    if circularRegion.contains(lastGeofencedLocation.coordinate) && !circularRegion.contains(currentLocation.coordinate) {
+                                        self.callerQueue.async(execute: {
+                                            self.delegate.locationManager?(self.dummyCLLocationManager, didExitRegion: circularRegion)
+                                            
+                                        })
+                                    } else if !circularRegion.contains(lastGeofencedLocation.coordinate) && circularRegion.contains(currentLocation.coordinate) {
+                                        self.callerQueue.async(execute: {
+                                            self.delegate.locationManager?(self.dummyCLLocationManager, didEnterRegion: circularRegion)
+                                            
+                                        })
+                                    }
+                                } else if let _ = region as? CLBeaconRegion {
+                                    assertionFailure("Beacon Regions are not currently supported by GpxLocationManager!")
+                                }
+                            }
+                        }
+                        self.lastGeofenceEventLocationUpdate = currentLocation
+                        
+                        currentIndex += 1
+                    }
+                    timeIntervalSinceStart += 1.0
+                    if currentIndex == self.locations.count {
+                        currentIndex = 0
+                        loopsCompleted += 1
+                    }
+                    Thread.sleep(forTimeInterval: self.secondLength)
+                }
+            })
+        }
     }
     
     fileprivate func makeLoc(_ latitude: NSString, longitude: NSString, altitude: NSString, timestamp: NSString) -> CLLocation {
