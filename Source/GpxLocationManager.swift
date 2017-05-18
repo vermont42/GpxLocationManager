@@ -85,11 +85,11 @@ open class GpxLocationManager {
     }
     
     open func startMonitoring(for region: CLRegion) {
-        // stubbed
+        self.monitoredRegions.insert(region)
     }
     
     open func stopMonitoring(for region: CLRegion) {
-        // stubbed
+        self.monitoredRegions.remove(region)
     }
     
     open func kill() {
