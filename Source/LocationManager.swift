@@ -18,6 +18,14 @@ open class LocationManager {
             self = .coreLocation
         }
     }
+    open func authorizationStatus() -> CLAuthorizationStatus {
+        switch locationManagerType {
+        case .gpx:
+            return GpxLocationManager.authorizationStatus()
+        case .coreLocation:
+            return CLLocationManager.authorizationStatus()
+        }
+    }
     open var location: CLLocation! {
         get {
             switch locationManagerType {
@@ -118,6 +126,25 @@ open class LocationManager {
             }
         }
     }
+    @available(iOS 9.0, *)
+    open var allowsBackgroundLocationUpdates: Bool {
+        get {
+            switch locationManagerType {
+            case .gpx:
+                return gpxLocationManager.allowsBackgroundLocationUpdates
+            case .coreLocation:
+                return cLLocationManager.allowsBackgroundLocationUpdates
+            }
+        }
+        set {
+            switch locationManagerType {
+            case .gpx:
+                gpxLocationManager.allowsBackgroundLocationUpdates = newValue
+            case .coreLocation:
+                cLLocationManager.allowsBackgroundLocationUpdates = newValue
+            }
+        }
+    }
     open func requestAlwaysAuthorization() {
         switch locationManagerType {
         case .gpx:
@@ -155,19 +182,33 @@ open class LocationManager {
 
     open let locationManagerType: LocationManagerType
     
-    public init() {
-        cLLocationManager = CLLocationManager()
-        locationManagerType = .coreLocation
+    public init(type: LocationManagerType) {
+        switch type {
+        case .gpx:
+            gpxLocationManager = GpxLocationManager()
+        case .coreLocation:
+            cLLocationManager = CLLocationManager()
+        }
+        
+        locationManagerType = type
     }
     
-    public init(gpxFile: String) {
-        gpxLocationManager = GpxLocationManager(gpxFile: gpxFile)
-        locationManagerType = .gpx
+    public func setLocations(gpxFile: String) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.setLocations(gpxFile: gpxFile)
+        case .coreLocation:
+            return
+        }
     }
     
-    public init(locations: [CLLocation]) {
-        gpxLocationManager = GpxLocationManager(locations: locations)
-        locationManagerType = .gpx
+    public func setLocations(locations: [CLLocation]) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.setLocations(locations: locations)
+        case .coreLocation:
+            return
+        }
     }
     
     open func stopUpdatingLocation() {
@@ -176,6 +217,62 @@ open class LocationManager {
             gpxLocationManager.stopUpdatingLocation()
         case .coreLocation:
             cLLocationManager.stopUpdatingLocation()
+        }
+    }
+    
+    open func allowDeferredLocationUpdates(untilTraveled distance: CLLocationDistance, timeout: TimeInterval) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
+        case .coreLocation:
+            cLLocationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
+        }
+    }
+    
+    open func disallowDeferredLocationUpdates() {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.disallowDeferredLocationUpdates()
+        case .coreLocation:
+            cLLocationManager.disallowDeferredLocationUpdates()
+        }
+    }
+    
+    var monitoredRegions: Set<CLRegion> {
+        get {
+            switch locationManagerType {
+            case .gpx:
+                return gpxLocationManager.monitoredRegions
+            case .coreLocation:
+                return cLLocationManager.monitoredRegions
+            }
+        }
+    }
+    
+    open func stopMonitoring(for region: CLRegion) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.stopMonitoring(for: region)
+        case .coreLocation:
+            cLLocationManager.stopMonitoring(for: region)
+        }
+    }
+    
+    open func startMonitoring(for region: CLRegion) {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.startMonitoring(for: region)
+        case .coreLocation:
+            cLLocationManager.startMonitoring(for: region)
+        }
+    }
+    
+    open func startMonitoringSignificantLocationChanges() {
+        switch locationManagerType {
+        case .gpx:
+            gpxLocationManager.startMonitoringSignificantLocationChanges()
+        case .coreLocation:
+            cLLocationManager.startMonitoringSignificantLocationChanges()
         }
     }
     
