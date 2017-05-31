@@ -59,6 +59,7 @@ open class GpxLocationManager {
     open var location: CLLocation! { get { return locations[lastLocation] } }
     open weak var delegate: CLLocationManagerDelegate!
     open var shouldKill = false
+    open var shouldReset = false
     open var allowsBackgroundLocationUpdates = false
     
     open func startUpdatingLocation() {
@@ -86,6 +87,7 @@ open class GpxLocationManager {
     
     open func startMonitoring(for region: CLRegion) {
         self.monitoredRegions.insert(region)
+        startLocationUpdateMachineIfNeeded()
     }
     
     open func stopMonitoring(for region: CLRegion) {
@@ -106,11 +108,13 @@ open class GpxLocationManager {
         if let parser = GpxParser(file: gpxFile) {
             let (_, coordinates): (String, [CLLocation]) = parser.parse()
             self.locations = coordinates
+            self.shouldReset = true
         }
     }
     
     public func setLocations(locations: [CLLocation]) {
         self.locations = locations
+        self.shouldReset = true
     }
     
     fileprivate func startLocationUpdateMachineIfNeeded() {
@@ -129,6 +133,12 @@ open class GpxLocationManager {
                 let routeDuration = round(self.locations[self.locations.count - 1].timestamp.timeIntervalSince(self.locations[0].timestamp))
                 while true {
                     if self.shouldKill {
+                        return
+                    }
+                    if self.shouldReset {
+                        self.shouldReset = false
+                        self.hasStarted = false
+                        self.startLocationUpdateMachineIfNeeded()
                         return
                     }
                     var currentLocation = self.locations[currentIndex]
