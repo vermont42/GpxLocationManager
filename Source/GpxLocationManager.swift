@@ -120,7 +120,7 @@ open class GpxLocationManager {
     fileprivate func startLocationUpdateMachineIfNeeded() {
         if !hasStarted {
             hasStarted = true
-            let startDate = Date()
+            let startDate = locations[0].timestamp
             let timeInterval = round(startDate.timeIntervalSince(locations[0].timestamp))
             for i in 0 ..< locations.count {
                 locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, course: locations[i].course, speed: locations[i].speed, timestamp: locations[i].timestamp.addingTimeInterval(timeInterval))
@@ -143,7 +143,9 @@ open class GpxLocationManager {
                     }
                     var currentLocation = self.locations[currentIndex]
                     currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
-                    if abs(currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
+                    
+                    let timeIntervalBetweenExpectedUpdateAndNextLocation = currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))
+                    if abs(timeIntervalBetweenExpectedUpdateAndNextLocation) < GpxLocationManager.dateFudge {
                         if self.isUpdatingLocations {
                             self.callerQueue.async(execute: {
                                 self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
