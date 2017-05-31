@@ -62,7 +62,7 @@ open class GpxLocationManager {
     open var allowsBackgroundLocationUpdates = false
     
     open func startUpdatingLocation() {
-        self.isUpdatingLocations = false
+        self.isUpdatingLocations = true
         startLocationUpdateMachineIfNeeded()
     }
     
@@ -81,7 +81,7 @@ open class GpxLocationManager {
     }
     
     open func stopUpdatingLocation() {
-        self.isUpdatingLocations = true
+        self.isUpdatingLocations = false
     }
     
     open func startMonitoring(for region: CLRegion) {
@@ -134,7 +134,7 @@ open class GpxLocationManager {
                     var currentLocation = self.locations[currentIndex]
                     currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
                     if abs(currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
-                        if !self.isUpdatingLocations {
+                        if self.isUpdatingLocations {
                             self.callerQueue.async(execute: {
                                 self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
                                 
