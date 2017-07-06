@@ -19,6 +19,7 @@ open class GpxLocationManager {
     open var maximumRegionMonitoringDistance: CLLocationDistance { get { return -1 } }
     open var rangedRegions: Set<NSObject>! { get { return Set<NSObject>() } }
     open var heading: CLHeading! { get { return nil } }
+    open var shouldRepeatLocations = false
     open var secondLength = 1.0
     open var minimumSignficiantLocationUpdateDistnace: CLLocationDistance = 200
     open var monitoredRegions: Set<CLRegion> = []
@@ -59,10 +60,11 @@ open class GpxLocationManager {
     open var location: CLLocation! { get { return locations[lastLocation] } }
     open weak var delegate: CLLocationManagerDelegate!
     open var shouldKill = false
+    open var shouldReset = false
     open var allowsBackgroundLocationUpdates = false
     
     open func startUpdatingLocation() {
-        self.isUpdatingLocations = false
+        self.isUpdatingLocations = true
         startLocationUpdateMachineIfNeeded()
     }
     
@@ -81,11 +83,12 @@ open class GpxLocationManager {
     }
     
     open func stopUpdatingLocation() {
-        self.isUpdatingLocations = true
+        self.isUpdatingLocations = false
     }
     
     open func startMonitoring(for region: CLRegion) {
         self.monitoredRegions.insert(region)
+        startLocationUpdateMachineIfNeeded()
     }
     
     open func stopMonitoring(for region: CLRegion) {
@@ -106,17 +109,19 @@ open class GpxLocationManager {
         if let parser = GpxParser(file: gpxFile) {
             let (_, coordinates): (String, [CLLocation]) = parser.parse()
             self.locations = coordinates
+            self.shouldReset = true
         }
     }
     
     public func setLocations(locations: [CLLocation]) {
         self.locations = locations
+        self.shouldReset = true
     }
     
     fileprivate func startLocationUpdateMachineIfNeeded() {
         if !hasStarted {
             hasStarted = true
-            let startDate = Date()
+            let startDate = locations[0].timestamp
             let timeInterval = round(startDate.timeIntervalSince(locations[0].timestamp))
             for i in 0 ..< locations.count {
                 locations[i] = CLLocation(coordinate: locations[i].coordinate, altitude: locations[i].altitude, horizontalAccuracy: locations[i].horizontalAccuracy, verticalAccuracy: locations[i].verticalAccuracy, course: locations[i].course, speed: locations[i].speed, timestamp: locations[i].timestamp.addingTimeInterval(timeInterval))
@@ -126,15 +131,30 @@ open class GpxLocationManager {
                 var currentIndex: Int = 0
                 var timeIntervalSinceStart = 0.0
                 var loopsCompleted = 0
+                var hasCompletedLocations = false
                 let routeDuration = round(self.locations[self.locations.count - 1].timestamp.timeIntervalSince(self.locations[0].timestamp))
                 while true {
                     if self.shouldKill {
                         return
                     }
-                    var currentLocation = self.locations[currentIndex]
-                    currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
-                    if abs(currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))) < GpxLocationManager.dateFudge {
-                        if !self.isUpdatingLocations {
+                    if self.shouldReset {
+                        self.shouldReset = false
+                        self.hasStarted = false
+                        self.startLocationUpdateMachineIfNeeded()
+                        return
+                    }
+                    var currentLocation: CLLocation!
+                    if (hasCompletedLocations) {
+                        let lastLoc = self.locations.last!
+                        currentLocation = CLLocation(coordinate: lastLoc.coordinate, altitude: lastLoc.altitude, horizontalAccuracy: lastLoc.horizontalAccuracy, verticalAccuracy: lastLoc.verticalAccuracy, course: lastLoc.course, speed: 0.0, timestamp: startDate.addingTimeInterval(timeIntervalSinceStart))
+                    } else {
+                        currentLocation = self.locations[currentIndex]
+                        currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
+                    }
+                    
+                    let timeIntervalBetweenExpectedUpdateAndNextLocation = currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))
+                    if abs(timeIntervalBetweenExpectedUpdateAndNextLocation) < GpxLocationManager.dateFudge {
+                        if self.isUpdatingLocations {
                             self.callerQueue.async(execute: {
                                 self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
                                 
@@ -174,10 +194,20 @@ open class GpxLocationManager {
                         
                         currentIndex += 1
                     }
-                    timeIntervalSinceStart += 1.0
-                    if currentIndex == self.locations.count {
-                        currentIndex = 0
-                        loopsCompleted += 1
+                    
+                    if (abs(timeIntervalBetweenExpectedUpdateAndNextLocation) >= GpxLocationManager.dateFudge && currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart)) < 0) {
+                        // if our currentLocation is before startDate and too big to fudge, it's probably bad. skip over it without moving timeIntervalSinceStart.
+                        currentIndex += 1
+                    } else {
+                        timeIntervalSinceStart += 1.0
+                    }
+                    if currentIndex >= self.locations.count {
+                        if self.shouldRepeatLocations {
+                            currentIndex = 0
+                            loopsCompleted += 1
+                        } else {
+                            hasCompletedLocations = true
+                        }
                     }
                     Thread.sleep(forTimeInterval: self.secondLength)
                 }
