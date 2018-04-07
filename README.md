@@ -63,6 +63,8 @@ If you use or are intrigued by `GpxLocationManager`, please consider starring th
 
 ## Credits
 
+Josh Adams created `GpxLocationManager`. He and Nehal Kanetkar maintain it.
+
 `GpxLocationManager` does not use any third-party code, but RaceRunner is based on [MoonRunner](https://github.com/mluedke2/moonrunner) and uses [MarqueeLabel](https://github.com/cbpowell/MarqueeLabel) and a modified version of [Sweather](https://github.com/bfolder/Sweather). All three were released under the MIT license, reproduced below.
 
 
