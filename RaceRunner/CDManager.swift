@@ -24,6 +24,7 @@ class CDManager {
             print("\(error.localizedDescription)")
             abort()
         }
+        // Not fixing this warning because sample app will be rewritten.
         context = NSManagedObjectContext()
         context.persistentStoreCoordinator = coordinator
     }

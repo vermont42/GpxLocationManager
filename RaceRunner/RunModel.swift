@@ -94,7 +94,7 @@ class RunModel: NSObject, CLLocationManagerDelegate {
     class func initializeRunModelWithGpxFile(_ gpxFile: String) {
         runModel.gpxFile = gpxFile
         runModel.runToSimulate = nil
-        runModel.locationManager = LocationManager(type: .gpx)
+        runModel.locationManager = LocationManager(type: .gpxFile(gpxFile))
         runModel.locationManager.setLocations(gpxFile: gpxFile)
         finishSimulatorSetup()
     }
@@ -107,8 +107,7 @@ class RunModel: NSObject, CLLocationManagerDelegate {
             let location = uncastedLocation as! Location
             cLLocations.append(CLLocation(coordinate: CLLocationCoordinate2D(latitude: location.latitude.doubleValue, longitude: location.longitude.doubleValue), altitude: location.altitude.doubleValue, horizontalAccuracy: RunModel.freezeDriedAccuracy, verticalAccuracy: RunModel.freezeDriedAccuracy, timestamp: location.timestamp as Date))
         }
-        runModel.locationManager = LocationManager(type: .coreLocation)
-        runModel.locationManager.setLocations(locations: cLLocations)
+        runModel.locationManager = LocationManager(type: .locations(cLLocations))
         finishSimulatorSetup()
     }
     
@@ -250,7 +249,7 @@ class RunModel: NSObject, CLLocationManagerDelegate {
         }
     }
     
-    func eachSecond() {
+    @objc func eachSecond() {
         seconds += 1
         runDelegate?.receiveProgress(distance, time: seconds)
     }

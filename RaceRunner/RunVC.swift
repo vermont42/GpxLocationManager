@@ -265,7 +265,8 @@ class RunVC: ChildVC, MKMapViewDelegate, RunDelegate {
             })
             return unwindSegue
         }
-        
+
+        // Not fixing this warning because sample app will be rewritten.
         return super.segueForUnwinding(to: toViewController, from: fromViewController, identifier: identifier)!
     }
     

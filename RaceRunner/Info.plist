@@ -22,9 +22,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>RaceRunner would like to access your location.</string>
-	<key>UIBackgroundModes</key>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>GpxLocationManager would like to access your location to demo CLLocationManager.</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>GpxLocationManager would like to access your location to demo CLLocationManager. Background use of location allows you to use other apps while GpxLocationManager is running.</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>GpxLocationManager would like to access your location to demo CLLocationManager.</string>	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
 	</array>
