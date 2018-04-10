@@ -64,7 +64,8 @@ open class DarkSky {
         let url = DarkSky.basePath + DarkSky.apiKey + "/" + method
         let request = URLRequest(url: URL(string: url)!)
         let currentQueue = OperationQueue.current;
-        
+
+        // Not fixing this warning because sample app will be rewritten.
         NSURLConnection.sendAsynchronousRequest(request, queue: currentQueue!, completionHandler: { (response, data, error) -> Void in
             let error: NSError? = error as NSError?
             var dictionary: NSDictionary?

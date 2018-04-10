@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Josh Adams. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
 open class GpxLocationManager {
@@ -23,19 +22,19 @@ open class GpxLocationManager {
     open var secondLength = 1.0
     open var minimumSignficiantLocationUpdateDistnace: CLLocationDistance = 200
     open var monitoredRegions: Set<CLRegion> = []
-    fileprivate var locations: [CLLocation] = []
-    fileprivate var lastLocation = 0
-    fileprivate var hasStarted = false
-    fileprivate var callerQueue: DispatchQueue!
-    fileprivate var updateQueue: DispatchQueue!
-    fileprivate var dateFormatter = DateFormatter()
+    private var locations: [CLLocation] = []
+    private var lastLocation = 0
+    private var hasStarted = false
+    private var callerQueue: DispatchQueue!
+    private var updateQueue: DispatchQueue!
+    private var dateFormatter = DateFormatter()
     static let dateFudge: TimeInterval = 1.0
-    fileprivate static let dateFormat = "yyyy-MM-dd HH:mm:ss"
-    fileprivate var dummyCLLocationManager: CLLocationManager!
-    fileprivate var lastDeleiveredSignificantLocationUpdate: CLLocation?
-    fileprivate var lastGeofenceEventLocationUpdate: CLLocation?
-    fileprivate var isUpdatingLocations = false
-    fileprivate var isMonotiringSignficiantLocationChanges = false
+    private static let dateFormat = "yyyy-MM-dd HH:mm:ss"
+    private var dummyCLLocationManager: CLLocationManager!
+    private var lastDeleiveredSignificantLocationUpdate: CLLocation?
+    private var lastGeofenceEventLocationUpdate: CLLocation?
+    private var isUpdatingLocations = false
+    private var isMonotiringSignficiantLocationChanges = false
     
     open func requestWhenInUseAuthorization() {}
     open func startUpdatingHeading() {}
@@ -118,7 +117,7 @@ open class GpxLocationManager {
         self.shouldReset = true
     }
     
-    fileprivate func startLocationUpdateMachineIfNeeded() {
+    private func startLocationUpdateMachineIfNeeded() {
         if !hasStarted {
             hasStarted = true
             let startDate = locations[0].timestamp
@@ -215,7 +214,7 @@ open class GpxLocationManager {
         }
     }
     
-    fileprivate func makeLoc(_ latitude: NSString, longitude: NSString, altitude: NSString, timestamp: NSString) -> CLLocation {
+    private func makeLoc(_ latitude: NSString, longitude: NSString, altitude: NSString, timestamp: NSString) -> CLLocation {
         return CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude.doubleValue, longitude: longitude.doubleValue), altitude: altitude.doubleValue, horizontalAccuracy: 5.0, verticalAccuracy: 5.0, timestamp: dateFormatter.date(from: timestamp as String)!)
     }
 }

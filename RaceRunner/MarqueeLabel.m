@@ -885,6 +885,7 @@ CGPoint MLOffsetCGPoint(CGPoint point, CGFloat offset);
     
     // Set values
     animation.values = values;
+    // Not fixing this warning because sample app will be rewritten.
     animation.delegate = self;
     
     return animation;

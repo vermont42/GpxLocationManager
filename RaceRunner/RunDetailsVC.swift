@@ -24,7 +24,7 @@ class RunDetailsVC: UIViewController, MKMapViewDelegate, UIAlertViewDelegate, UI
     @IBOutlet var paceOrAltitude: UISegmentedControl!
     @IBOutlet var route: MarqueeLabel!
     @IBOutlet var customTitleButton: UIButton!
-    
+    // Not fixing this warning because sample app will be rewritten.
     var alertView: UIAlertView!
     var colorPaceSegments: [MulticolorPolyline] = []
     var colorAltitudeSegments: [MulticolorPolyline] = []

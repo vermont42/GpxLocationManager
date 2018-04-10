@@ -25,6 +25,6 @@ class UiHelpers {
     }
     
     class func letterPressedText(_ plainText: String) -> NSAttributedString {
-        return NSAttributedString(string: plainText, attributes: [NSTextEffectAttributeName: NSTextEffectLetterpressStyle])
+        return NSAttributedString(string: plainText, attributes: [NSAttributedStringKey.textEffect: NSAttributedString.TextEffectStyle.letterpressStyle])
     }
 }
