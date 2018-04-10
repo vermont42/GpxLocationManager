@@ -124,7 +124,7 @@ class RunModel: NSObject, CLLocationManagerDelegate {
         runModel.gpxFile = nil
         runModel.secondLength = 1.0
         if runModel.locationManager == nil {
-            runModel.locationManager = LocationManager(type: .cLLocationManager)
+            runModel.locationManager = LocationManager(type: .coreLocation)
             configureLocationManager()
         }
         runModel.locationManager.startUpdatingLocation()

@@ -15,10 +15,10 @@ open class LocationManager {
     public enum LocationManagerType {
         case gpxFile(String)
         case locations([CLLocation])
-        case cLLocationManager
+        case coreLocation
 
         init() {
-            self = .cLLocationManager
+            self = .coreLocation
         }
     }
 
@@ -26,7 +26,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             return GpxLocationManager.authorizationStatus()
-        case .cLLocationManager:
+        case .coreLocation:
             return CLLocationManager.authorizationStatus()
         }
     }
@@ -36,7 +36,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.location
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.location
             }
         }
@@ -47,7 +47,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.delegate
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.delegate
             }
         }
@@ -55,7 +55,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 gpxLocationManager.delegate = newValue
-            case .cLLocationManager:
+            case .coreLocation:
                 cLLocationManager.delegate = newValue
             }
         }
@@ -66,7 +66,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.desiredAccuracy
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.desiredAccuracy
             }
         }
@@ -74,7 +74,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 gpxLocationManager.desiredAccuracy = newValue
-            case .cLLocationManager:
+            case .coreLocation:
                 cLLocationManager.desiredAccuracy = newValue
             }
         }
@@ -85,7 +85,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.activityType
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.activityType
             }
         }
@@ -93,7 +93,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 gpxLocationManager.activityType = newValue
-            case .cLLocationManager:
+            case .coreLocation:
                 cLLocationManager.activityType = newValue
             }
         }
@@ -104,7 +104,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.distanceFilter
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.distanceFilter
             }
         }
@@ -112,7 +112,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 gpxLocationManager.distanceFilter = newValue
-            case .cLLocationManager:
+            case .coreLocation:
                 cLLocationManager.distanceFilter = newValue
             }
         }
@@ -123,7 +123,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.pausesLocationUpdatesAutomatically
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.pausesLocationUpdatesAutomatically
             }
         }
@@ -131,7 +131,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 gpxLocationManager.pausesLocationUpdatesAutomatically = newValue
-            case .cLLocationManager:
+            case .coreLocation:
                 cLLocationManager.pausesLocationUpdatesAutomatically = newValue
             }
         }
@@ -142,7 +142,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.allowsBackgroundLocationUpdates
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.allowsBackgroundLocationUpdates
             }
         }
@@ -150,7 +150,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 gpxLocationManager.allowsBackgroundLocationUpdates = newValue
-            case .cLLocationManager:
+            case .coreLocation:
                 cLLocationManager.allowsBackgroundLocationUpdates = newValue
             }
         }
@@ -160,7 +160,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.requestAlwaysAuthorization()
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.requestAlwaysAuthorization()
         }
     }
@@ -170,7 +170,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.secondLength
-            case .cLLocationManager:
+            case .coreLocation:
                 return 1.0
             }
         }
@@ -178,7 +178,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 gpxLocationManager.secondLength = newValue
-            case .cLLocationManager:
+            case .coreLocation:
                 break
             }
         }
@@ -188,7 +188,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.kill()
-        case .cLLocationManager:
+        case .coreLocation:
             break
         }
     }
@@ -204,13 +204,13 @@ open class LocationManager {
         case .locations(let locations):
             gpxLocationManager = GpxLocationManager()
             setLocations(locations: locations)
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager = CLLocationManager()
         }
     }
 
     public init() {
-        locationManagerType = .cLLocationManager
+        locationManagerType = .coreLocation
         cLLocationManager = CLLocationManager()
     }
     
@@ -220,8 +220,8 @@ open class LocationManager {
             gpxLocationManager.setLocations(gpxFile: gpxFile)
         case .locations:
             fatalError("locationManagerType of this instance is .locations but GPX filename was passed.")
-        case .cLLocationManager:
-            fatalError("locationManagerType of this instance is .cLLocationManager but GPX filename was passed.")
+        case .coreLocation:
+            fatalError("locationManagerType of this instance is .coreLocation but GPX filename was passed.")
         }
     }
     
@@ -229,8 +229,8 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.setLocations(locations: locations)
-        case .cLLocationManager:
-            fatalError("locationManagerType of this instance is .cLLocationManager but caller attempted to set locations.")
+        case .coreLocation:
+            fatalError("locationManagerType of this instance is .coreLocation but caller attempted to set locations.")
         }
     }
     
@@ -238,7 +238,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.stopUpdatingLocation()
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.stopUpdatingLocation()
         }
     }
@@ -247,7 +247,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.allowDeferredLocationUpdates(untilTraveled: distance, timeout: timeout)
         }
     }
@@ -256,7 +256,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.disallowDeferredLocationUpdates()
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.disallowDeferredLocationUpdates()
         }
     }
@@ -266,7 +266,7 @@ open class LocationManager {
             switch locationManagerType {
             case .gpxFile, .locations:
                 return gpxLocationManager.monitoredRegions
-            case .cLLocationManager:
+            case .coreLocation:
                 return cLLocationManager.monitoredRegions
             }
         }
@@ -276,7 +276,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.stopMonitoring(for: region)
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.stopMonitoring(for: region)
         }
     }
@@ -285,7 +285,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.startMonitoring(for: region)
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.startMonitoring(for: region)
         }
     }
@@ -294,7 +294,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.startMonitoringSignificantLocationChanges()
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.startMonitoringSignificantLocationChanges()
         }
     }
@@ -303,7 +303,7 @@ open class LocationManager {
         switch locationManagerType {
         case .gpxFile, .locations:
             gpxLocationManager.startUpdatingLocation()
-        case .cLLocationManager:
+        case .coreLocation:
             cLLocationManager.startUpdatingLocation()
         }
     }
