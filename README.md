@@ -1,5 +1,7 @@
 GpxLocationManager
 ===================
+[![Build Status](https://travis-ci.org/vermont42/GpxLocationManager.svg?branch=master)](https://travis-ci.org/vermont42/GpxLocationManager)
+
 [DEMO](https://vimeo.com/138813570)
 
 Xcode’s iOS-app simulator helpfully provides four sets of GPS data for development of apps using `CLLocationManager`: Apple campus, city bike ride, city run, and highway drive. I developed an app that uses GPS and found this data deficient in two ways. First, the data contain no altitudes other than “0”. Altitude tracking is important for my app, and this inability to test my app’s altitude tracking was unacceptable. Second, the simulator provides data only at normal speed. During my develop/run/debug/run cycle, I became impatient waiting for the simulator to provide GPS data to my app, even using the relatively fast-moving highway-drive mode.
