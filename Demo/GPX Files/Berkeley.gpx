@@ -5,7 +5,7 @@ xmlns="http://www.topografix.com/GPX/1/1"
 xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1"
 xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <trk>
-<name>Hill Run</name>
+<name>Berkeley</name>
 <desc></desc>
 <trkseg>
 <trkpt lat="37.857243" lon="-122.222733">
