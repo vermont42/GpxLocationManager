@@ -8,18 +8,21 @@
 
 /* Begin PBXBuildFile section */
 		E155BE33207ECE1500A69BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE32207ECE1500A69BAF /* AppDelegate.swift */; };
-		E155BE35207ECE1500A69BAF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE34207ECE1500A69BAF /* ViewController.swift */; };
-		E155BE38207ECE1500A69BAF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E155BE36207ECE1500A69BAF /* Main.storyboard */; };
+		E155BE35207ECE1500A69BAF /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE34207ECE1500A69BAF /* DemoViewController.swift */; };
 		E155BE3A207ECE1500A69BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E155BE39207ECE1500A69BAF /* Assets.xcassets */; };
 		E155BE3D207ECE1500A69BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E155BE3B207ECE1500A69BAF /* LaunchScreen.storyboard */; };
 		E155BE4D207ECF3200A69BAF /* GpxLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E155BE5B207ECF8400A69BAF /* GpxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE58207ECF8400A69BAF /* GpxParser.swift */; };
 		E155BE5C207ECF8400A69BAF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE59207ECF8400A69BAF /* LocationManager.swift */; };
 		E155BE5D207ECF8400A69BAF /* GpxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */; };
-		E155BE5F207ECFAC00A69BAF /* iSmoothRun.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* iSmoothRun.gpx */; };
+		E155BE5F207ECFAC00A69BAF /* Berkeley.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */; };
 		E155BE61207ED0AD00A69BAF /* GpxLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */; };
 		E155BE69207ED1E800A69BAF /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE68207ED1E800A69BAF /* LocationManagerTests.swift */; };
-		E155BE70207ED24100A69BAF /* iSmoothRun.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* iSmoothRun.gpx */; };
+		E155BE70207ED24100A69BAF /* Berkeley.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */; };
+		E1B2359920825BAE00BB8196 /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B2359820825BAE00BB8196 /* DemoView.swift */; };
+		E1B2359C20825DAC00BB8196 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */; };
+		E1B2359D20825DAC00BB8196 /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */; };
+		E1B2359F208297F700BB8196 /* Orinda.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E1B2359E208297F600BB8196 /* Orinda.gpx */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +38,7 @@
 /* Begin PBXFileReference section */
 		E155BE2F207ECE1500A69BAF /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E155BE32207ECE1500A69BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E155BE34207ECE1500A69BAF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		E155BE37207ECE1500A69BAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E155BE34207ECE1500A69BAF /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
 		E155BE39207ECE1500A69BAF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E155BE3C207ECE1500A69BAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E155BE3E207ECE1500A69BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -46,10 +48,14 @@
 		E155BE58207ECF8400A69BAF /* GpxParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxParser.swift; sourceTree = "<group>"; };
 		E155BE59207ECF8400A69BAF /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxLocationManager.swift; sourceTree = "<group>"; };
-		E155BE5E207ECFAB00A69BAF /* iSmoothRun.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iSmoothRun.gpx; sourceTree = "<group>"; };
+		E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Berkeley.gpx; sourceTree = "<group>"; };
 		E155BE66207ED1E800A69BAF /* GpxLocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GpxLocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E155BE68207ED1E800A69BAF /* LocationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
 		E155BE6A207ED1E800A69BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E1B2359820825BAE00BB8196 /* DemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoView.swift; sourceTree = "<group>"; };
+		E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
+		E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
+		E1B2359E208297F600BB8196 /* Orinda.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Orinda.gpx; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,12 +109,15 @@
 			isa = PBXGroup;
 			children = (
 				E155BE32207ECE1500A69BAF /* AppDelegate.swift */,
-				E155BE34207ECE1500A69BAF /* ViewController.swift */,
-				E155BE5E207ECFAB00A69BAF /* iSmoothRun.gpx */,
-				E155BE36207ECE1500A69BAF /* Main.storyboard */,
 				E155BE39207ECE1500A69BAF /* Assets.xcassets */,
-				E155BE3B207ECE1500A69BAF /* LaunchScreen.storyboard */,
+				E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */,
+				E1B2359820825BAE00BB8196 /* DemoView.swift */,
+				E155BE34207ECE1500A69BAF /* DemoViewController.swift */,
 				E155BE3E207ECE1500A69BAF /* Info.plist */,
+				E1B2359E208297F600BB8196 /* Orinda.gpx */,
+				E155BE3B207ECE1500A69BAF /* LaunchScreen.storyboard */,
+				E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */,
+				E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -116,11 +125,11 @@
 		E155BE4A207ECF3200A69BAF /* GpxLocationManager */ = {
 			isa = PBXGroup;
 			children = (
+				E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */,
 				E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */,
 				E155BE58207ECF8400A69BAF /* GpxParser.swift */,
-				E155BE59207ECF8400A69BAF /* LocationManager.swift */,
-				E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */,
 				E155BE4C207ECF3200A69BAF /* Info.plist */,
+				E155BE59207ECF8400A69BAF /* LocationManager.swift */,
 			);
 			path = GpxLocationManager;
 			sourceTree = "<group>";
@@ -259,10 +268,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1B2359F208297F700BB8196 /* Orinda.gpx in Resources */,
 				E155BE3D207ECE1500A69BAF /* LaunchScreen.storyboard in Resources */,
 				E155BE3A207ECE1500A69BAF /* Assets.xcassets in Resources */,
-				E155BE38207ECE1500A69BAF /* Main.storyboard in Resources */,
-				E155BE5F207ECFAC00A69BAF /* iSmoothRun.gpx in Resources */,
+				E155BE5F207ECFAC00A69BAF /* Berkeley.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +286,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E155BE70207ED24100A69BAF /* iSmoothRun.gpx in Resources */,
+				E155BE70207ED24100A69BAF /* Berkeley.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -288,8 +297,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E155BE35207ECE1500A69BAF /* ViewController.swift in Sources */,
+				E155BE35207ECE1500A69BAF /* DemoViewController.swift in Sources */,
+				E1B2359920825BAE00BB8196 /* DemoView.swift in Sources */,
+				E1B2359C20825DAC00BB8196 /* UIViewExtension.swift in Sources */,
 				E155BE33207ECE1500A69BAF /* AppDelegate.swift in Sources */,
+				E1B2359D20825DAC00BB8196 /* NSLayoutConstraintExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,14 +334,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		E155BE36207ECE1500A69BAF /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E155BE37207ECE1500A69BAF /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		E155BE3B207ECE1500A69BAF /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

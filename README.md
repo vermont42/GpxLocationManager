@@ -46,6 +46,8 @@ If you use or are intrigued by `GpxLocationManager`, please consider starring th
 
 `GpxLocationManager` correctly parses GPX files created by iSmoothRun, Runmeter, and Runkeeper. Josh Adams has not tested GPX files from other sources.
 
+At least two apps currently
+
 ## Credits
 
 Josh Adams ([Twitter](https://twitter.com/vermont42) | [GitHub](https://github.com/vermont42)) created `GpxLocationManager`. He and Nehal Kanetkar ([Twitter](https://twitter.com/KanetkarNehal) | [GitHub](https://github.com/nkanetka)) maintain it.
