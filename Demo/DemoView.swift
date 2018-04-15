@@ -45,8 +45,7 @@ class DemoView: UIView {
 
   override init(frame: CGRect) {
     super.init(frame: frame)
-    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper].forEach {
-      guard let control = $0 as? UIView else { fatalError("Could not cast \($0) to UIView.") }
+    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper].forEach { control in
       control.enableAutoLayout()
       addSubview(control)
     }

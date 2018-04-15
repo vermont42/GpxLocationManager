@@ -84,6 +84,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		219C77A82083CA3200285352 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E155BE39207ECE1500A69BAF /* Assets.xcassets */,
+				E155BE3E207ECE1500A69BAF /* Info.plist */,
+				E155BE3B207ECE1500A69BAF /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		219C77A92083CB4000285352 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */,
+				E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		219C77AA2083CB5700285352 /* GPX Files */ = {
+			isa = PBXGroup;
+			children = (
+				E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */,
+				E1B2359E208297F600BB8196 /* Orinda.gpx */,
+			);
+			path = "GPX Files";
+			sourceTree = "<group>";
+		};
 		E155BE26207ECE1500A69BAF = {
 			isa = PBXGroup;
 			children = (
@@ -108,16 +136,12 @@
 		E155BE31207ECE1500A69BAF /* Demo */ = {
 			isa = PBXGroup;
 			children = (
+				219C77A92083CB4000285352 /* Extensions */,
+				219C77AA2083CB5700285352 /* GPX Files */,
+				219C77A82083CA3200285352 /* Resources */,
 				E155BE32207ECE1500A69BAF /* AppDelegate.swift */,
-				E155BE39207ECE1500A69BAF /* Assets.xcassets */,
-				E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */,
 				E1B2359820825BAE00BB8196 /* DemoView.swift */,
 				E155BE34207ECE1500A69BAF /* DemoViewController.swift */,
-				E155BE3E207ECE1500A69BAF /* Info.plist */,
-				E1B2359E208297F600BB8196 /* Orinda.gpx */,
-				E155BE3B207ECE1500A69BAF /* LaunchScreen.storyboard */,
-				E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */,
-				E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -458,7 +482,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3L2PL4QC9;
-				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = biz.joshadams.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -473,7 +497,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3L2PL4QC9;
-				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/Demo/Resources/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = biz.joshadams.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

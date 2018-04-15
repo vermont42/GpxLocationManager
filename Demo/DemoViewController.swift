@@ -10,6 +10,21 @@ import MapKit
 import CoreLocation
 import GpxLocationManager
 
+enum DemoType {
+    case gpx
+    case locations
+    case coreLocation
+
+    static func from(_ index: Int) -> DemoType? {
+        switch index {
+        case 0: return .gpx
+        case 1: return .locations
+        case 2: return .coreLocation
+        default: return nil
+        }
+    }
+}
+
 class DemoViewController: UIViewController, CLLocationManagerDelegate {
   private let gpxFile1 = "Berkeley"
   private let gpxFile2 = "Orinda"
@@ -71,15 +86,13 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   @objc func valueChanged(_ sender: UISegmentedControl) {
     currentLocationManager?.kill()
     currentLocationManager?.stopUpdatingLocation()
-    switch sender.selectedSegmentIndex {
-    case 0:
-      startGpxFileDemo()
-    case 1:
-      startLocationsDemo()
-    case 2:
-      startCoreLocationDemo()
-    default:
-      fatalError("Unsupported index selected.")
+    guard let demoType = DemoType.from(sender.selectedSegmentIndex) else {
+        fatalError("Unsupported index selected.")
+    }
+    switch demoType {
+    case .gpx: startGpxFileDemo()
+    case .locations: startLocationsDemo()
+    case .coreLocation: startCoreLocationDemo()
     }
   }
 
