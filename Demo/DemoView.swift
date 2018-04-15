@@ -41,7 +41,7 @@ class DemoView: UIView {
   } ()
 
   private let standard: CGFloat = 8.0
-  private let disabledAlpha: CGFloat = 0.5
+  private let disabledAlpha: CGFloat = 0.4
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -80,15 +80,15 @@ class DemoView: UIView {
 
   internal func enableSpeedControls() {
     [speedLabelLabel, speedLabel, speedStepper].forEach {
-      $0.alpha = disabledAlpha
+      $0.alpha = 1.0
     }
-    speedStepper.isEnabled = false
+    speedStepper.isEnabled = true
   }
 
   internal func disableSpeedControls() {
     [speedLabelLabel, speedLabel, speedStepper].forEach {
-      $0.alpha = 1.0
+      $0.alpha = disabledAlpha
     }
-    speedStepper.isEnabled = true
+    speedStepper.isEnabled = false
   }
 }
