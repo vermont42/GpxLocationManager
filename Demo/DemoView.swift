@@ -13,9 +13,7 @@ class DemoView: UIView {
   private let standard: CGFloat = 8.0
   private let disabledAlpha: CGFloat = 0.4
 
-  internal let mapView: MKMapView = {
-    return MKMapView()
-  } ()
+  internal let mapView = MKMapView()
 
   internal let gpxControl: UISegmentedControl = {
     let gpxControl = UISegmentedControl(items: ["GPX File", "Locations", "Device GPS"])
@@ -23,9 +21,7 @@ class DemoView: UIView {
     return gpxControl
   } ()
 
-  internal let speedStepper: UIStepper = {
-    return UIStepper()
-  } ()
+  internal let speedStepper = UIStepper()
 
   private let speedLabelLabel: UILabel = {
     let speedLabelLabel = UILabel()
@@ -44,8 +40,11 @@ class DemoView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper].forEach { control in
-      control.enableAutoLayout()
-      addSubview(control)
+      guard let view = control as? UIView else {
+        fatalError("Attempted to set UIView properties of non-UIView subclass.")
+      }
+      view.enableAutoLayout()
+      addSubview(view)
     }
 
     mapView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).activate()
