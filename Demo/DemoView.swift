@@ -10,9 +10,11 @@ import UIKit
 import MapKit
 
 class DemoView: UIView {
+  private let standard: CGFloat = 8.0
+  private let disabledAlpha: CGFloat = 0.4
+
   internal let mapView: MKMapView = {
-    let mapView = MKMapView()
-    return mapView
+    return MKMapView()
   } ()
 
   internal let gpxControl: UISegmentedControl = {
@@ -22,8 +24,7 @@ class DemoView: UIView {
   } ()
 
   internal let speedStepper: UIStepper = {
-    let speedStepper = UIStepper()
-    return speedStepper
+    return UIStepper()
   } ()
 
   private let speedLabelLabel: UILabel = {
@@ -39,9 +40,6 @@ class DemoView: UIView {
     speedLabel.textColor = UIColor.white
     return speedLabel
   } ()
-
-  private let standard: CGFloat = 8.0
-  private let disabledAlpha: CGFloat = 0.4
 
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -78,16 +76,12 @@ class DemoView: UIView {
   }
 
   internal func enableSpeedControls() {
-    [speedLabelLabel, speedLabel, speedStepper].forEach {
-      $0.alpha = 1.0
-    }
+    [speedLabelLabel, speedLabel, speedStepper].forEach { $0.alpha = 1.0 }
     speedStepper.isEnabled = true
   }
 
   internal func disableSpeedControls() {
-    [speedLabelLabel, speedLabel, speedStepper].forEach {
-      $0.alpha = disabledAlpha
-    }
+    [speedLabelLabel, speedLabel, speedStepper].forEach { $0.alpha = disabledAlpha }
     speedStepper.isEnabled = false
   }
 }

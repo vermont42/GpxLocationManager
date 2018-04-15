@@ -11,18 +11,18 @@ import CoreLocation
 import GpxLocationManager
 
 enum DemoType {
-    case gpx
-    case locations
-    case coreLocation
+  case gpx
+  case locations
+  case coreLocation
 
-    static func from(_ index: Int) -> DemoType? {
-        switch index {
-        case 0: return .gpx
-        case 1: return .locations
-        case 2: return .coreLocation
-        default: return nil
-        }
-    }
+  static func from(_ index: Int) -> DemoType? {
+      switch index {
+      case 0: return .gpx
+      case 1: return .locations
+      case 2: return .coreLocation
+      default: return nil
+      }
+  }
 }
 
 class DemoViewController: UIViewController, CLLocationManagerDelegate {
