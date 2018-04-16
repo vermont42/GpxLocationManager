@@ -40,11 +40,8 @@ class DemoView: UIView {
   override init(frame: CGRect) {
     super.init(frame: frame)
     [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper].forEach { control in
-      guard let view = control as? UIView else {
-        fatalError("Attempted to set UIView properties of non-UIView subclass.")
-      }
-      view.enableAutoLayout()
-      addSubview(view)
+      control.enableAutoLayout()
+      addSubview(control)
     }
 
     mapView.topAnchor.constraint(equalTo: layoutMarginsGuide.topAnchor).activate()
