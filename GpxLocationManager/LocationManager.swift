@@ -32,13 +32,11 @@ open class LocationManager {
   }
 
   open var location: CLLocation! {
-    get {
-      switch locationManagerType {
-      case .gpxFile, .locations:
+    switch locationManagerType {
+    case .gpxFile, .locations:
         return gpxLocationManager.location
-      case .coreLocation:
+    case .coreLocation:
         return cLLocationManager.location
-      }
     }
   }
 
@@ -225,7 +223,7 @@ open class LocationManager {
 
   public func setLocations(gpxFile: String) {
     switch locationManagerType {
-    case .gpxFile(_):
+    case .gpxFile:
       gpxLocationManager.setLocations(gpxFile: gpxFile)
     case .locations:
       fatalError("locationManagerType of this instance is .locations but GPX filename was passed.")
@@ -271,13 +269,11 @@ open class LocationManager {
   }
 
   var monitoredRegions: Set<CLRegion> {
-    get {
-      switch locationManagerType {
-      case .gpxFile, .locations:
+    switch locationManagerType {
+    case .gpxFile, .locations:
         return gpxLocationManager.monitoredRegions
-      case .coreLocation:
+    case .coreLocation:
         return cLLocationManager.monitoredRegions
-      }
     }
   }
 

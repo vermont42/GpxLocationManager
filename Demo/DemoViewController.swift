@@ -32,7 +32,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   private let minSpeed = 1.0
   private let maxSpeed = 10.0
   private var currentSpeed = 10.0
-  private var currentLocationManager: LocationManager? = nil
+  private var currentLocationManager: LocationManager?
   private let regionSize: CLLocationDistance = 500.0
   private let distanceFilter: CLLocationDistance = 10.0
 
@@ -60,7 +60,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   private func startLocationsDemo() {
     demoView.enableSpeedControls()
     if let parser = GpxParser(file: gpxFile2) {
-      let (_ , locations) = parser.parse()
+      let (_, locations) = parser.parse()
       startUpdatingLocation(newLocationManager: LocationManager(type: .locations(locations)))
     }
   }

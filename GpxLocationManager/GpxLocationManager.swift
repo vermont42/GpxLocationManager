@@ -15,9 +15,9 @@ open class GpxLocationManager {
   open var activityType: CLActivityType = .other
   open var headingFilter: CLLocationDegrees = 1
   open var headingOrientation: CLDeviceOrientation = .portrait
-  open var maximumRegionMonitoringDistance: CLLocationDistance { get { return -1 } }
-  open var rangedRegions: Set<NSObject>! { get { return Set<NSObject>() } }
-  open var heading: CLHeading! { get { return nil } }
+  open var maximumRegionMonitoringDistance: CLLocationDistance { return -1 }
+  open var rangedRegions: Set<NSObject>! { return Set<NSObject>() }
+  open var heading: CLHeading! { return nil }
   open var shouldRepeatLocations = false
   open var secondLength = 1.0
   open var minimumSignficiantLocationUpdateDistnace: CLLocationDistance = 200
@@ -39,7 +39,7 @@ open class GpxLocationManager {
   open func startUpdatingHeading() {}
   open func stopUpdatingHeading() {}
   open func dismissHeadingCalibrationDisplay() {}
-  open func startMonitoringForRegion(_ region:CLRegion) {}
+  open func startMonitoringForRegion(_ region: CLRegion) {}
   open func stopMonitoringForRegion(_ region: CLRegion) {}
   open func startRangingBeaconsInRegion(_ region: CLBeaconRegion) {}
   open func stopRangingBeaconsInRegion(_ region: CLBeaconRegion) {}
@@ -55,7 +55,7 @@ open class GpxLocationManager {
   open class func headingAvailable() -> Bool { return true }
   open class func isMonitoringAvailableForClass(_ regionClass: AnyClass! = nil) -> Bool { return true }
   open class func isRangingAvailable() -> Bool { return true }
-  open var location: CLLocation! { get { return locations[lastLocation] } }
+  open var location: CLLocation! { return locations[lastLocation] }
   open weak var delegate: CLLocationManagerDelegate!
   open var shouldKill = false
   open var shouldReset = false
@@ -82,7 +82,7 @@ open class GpxLocationManager {
     isMonotiringSignficiantLocationChanges = true
     startLocationUpdateMachineIfNeeded()
   }
-  
+
   open func stopMonitoringSignificantLocationChanges() {
     isMonotiringSignficiantLocationChanges = false
   }
@@ -149,7 +149,7 @@ open class GpxLocationManager {
             return
           }
           var currentLocation: CLLocation!
-          if (hasCompletedLocations) {
+          if hasCompletedLocations {
             let lastLoc = self.locations.last!
             currentLocation = CLLocation(coordinate: lastLoc.coordinate, altitude: lastLoc.altitude, horizontalAccuracy: lastLoc.horizontalAccuracy, verticalAccuracy: lastLoc.verticalAccuracy, course: lastLoc.course, speed: 0.0, timestamp: startDate.addingTimeInterval(timeIntervalSinceStart))
           } else {
@@ -157,8 +157,8 @@ open class GpxLocationManager {
             currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
           }
 
-          let timeIntervalBetweenExpectedUpdateAndNextLocation = currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))
-          if abs(timeIntervalBetweenExpectedUpdateAndNextLocation) < GpxLocationManager.dateFudge {
+          let timeBetweenExpectedUpdateAndNextLocation = currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))
+          if abs(timeBetweenExpectedUpdateAndNextLocation) < GpxLocationManager.dateFudge {
             if self.isUpdatingLocations {
               self.callerQueue.async(execute: {
                 self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
@@ -190,7 +190,7 @@ open class GpxLocationManager {
 
                     })
                   }
-                } else if let _ = region as? CLBeaconRegion {
+                } else if region as? CLBeaconRegion != nil {
                   assertionFailure("Beacon Regions are not currently supported by GpxLocationManager!")
                 }
               }
@@ -200,7 +200,7 @@ open class GpxLocationManager {
             currentIndex += 1
           }
 
-          if (abs(timeIntervalBetweenExpectedUpdateAndNextLocation) >= GpxLocationManager.dateFudge && currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart)) < 0) {
+          if abs(timeBetweenExpectedUpdateAndNextLocation) >= GpxLocationManager.dateFudge && currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart)) < 0 {
             // if our currentLocation is before startDate and too big to fudge, it's probably bad. skip over it without moving timeIntervalSinceStart.
             currentIndex += 1
           } else {
