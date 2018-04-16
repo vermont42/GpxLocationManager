@@ -16,12 +16,12 @@ enum DemoType {
   case coreLocation
 
   static func from(_ index: Int) -> DemoType? {
-      switch index {
-      case 0: return .gpx
-      case 1: return .locations
-      case 2: return .coreLocation
-      default: return nil
-      }
+    switch index {
+    case 0: return .gpx
+    case 1: return .locations
+    case 2: return .coreLocation
+    default: return nil
+    }
   }
 }
 
@@ -87,7 +87,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
     currentLocationManager?.kill()
     currentLocationManager?.stopUpdatingLocation()
     guard let demoType = DemoType.from(sender.selectedSegmentIndex) else {
-        fatalError("Unsupported index selected.")
+      fatalError("Unsupported index selected.")
     }
     switch demoType {
     case .gpx: startGpxFileDemo()
