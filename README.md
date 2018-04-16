@@ -13,6 +13,9 @@ The maintainers welcome pull requests for  `GpxLocationManager`.
 
 Adams demonstrated `GpxLocationManager` to the [Swift Language User Group](http://www.meetup.com/swift-language/) in [San Francisco](http://www.sanfrancisco.travel). [Realm](http://realm.io) was [kind](https://www.youtube.com/watch?v=LI7-Cu-9wWM) enough to record, transcribe, and host [his talk](https://realm.io/news/josh-adams-gpx-location-manager/).
 
+## Installation
+To get the project up and running, please install [SwiftLint](https://github.com/realm/SwiftLint) by running `brew install swiftlint`.
+
 ## Use
 Here are the steps to use `GpxLocationManager` in your app.
 
