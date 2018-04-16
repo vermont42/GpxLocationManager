@@ -1,0 +1,32 @@
+disabled_rules: # rule identifiers to exclude from running
+  - force_cast
+  - statement_position
+  - function_parameter_count
+  - valid_docs
+  - line_length
+  - type_name
+
+included: # paths to include during linting.
+  - Demo
+  - GpxLocationManager
+  - GpxLocationManagerTests
+
+file_length:
+  warning: 400
+  error: 450
+
+function_body_length:
+  warning: 300
+  error: 400
+
+type_body_length:
+  warning: 500
+  error: 600
+
+variable_name:
+  min_length:
+    warning: 1
+
+cyclomatic_complexity:
+  warning: 40
+  error: 40

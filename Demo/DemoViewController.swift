@@ -16,12 +16,12 @@ enum DemoType {
   case coreLocation
 
   static func from(_ index: Int) -> DemoType? {
-      switch index {
-      case 0: return .gpx
-      case 1: return .locations
-      case 2: return .coreLocation
-      default: return nil
-      }
+    switch index {
+    case 0: return .gpx
+    case 1: return .locations
+    case 2: return .coreLocation
+    default: return nil
+    }
   }
 }
 
@@ -32,7 +32,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   private let minSpeed = 1.0
   private let maxSpeed = 10.0
   private var currentSpeed = 10.0
-  private var currentLocationManager: LocationManager? = nil
+  private var currentLocationManager: LocationManager?
   private let regionSize: CLLocationDistance = 500.0
   private let distanceFilter: CLLocationDistance = 10.0
 
@@ -60,7 +60,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   private func startLocationsDemo() {
     demoView.enableSpeedControls()
     if let parser = GpxParser(file: gpxFile2) {
-      let (_ , locations) = parser.parse()
+      let (_, locations) = parser.parse()
       startUpdatingLocation(newLocationManager: LocationManager(type: .locations(locations)))
     }
   }
@@ -87,7 +87,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
     currentLocationManager?.kill()
     currentLocationManager?.stopUpdatingLocation()
     guard let demoType = DemoType.from(sender.selectedSegmentIndex) else {
-        fatalError("Unsupported index selected.")
+      fatalError("Unsupported index selected.")
     }
     switch demoType {
     case .gpx: startGpxFileDemo()

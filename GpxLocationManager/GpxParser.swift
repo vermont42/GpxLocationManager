@@ -24,19 +24,19 @@ open class GpxParser: NSObject, XMLParserDelegate {
   private static let dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
   private static let accuracy: CLLocationAccuracy = 5.0
   private enum ParsingState: String {
-    case Trkpt = "trkpt"
-    case Name = "name"
-    case Ele = "ele"
-    case Time = "time"
+    case trackpoint = "trkpt"
+    case name = "name"
+    case elevation = "ele"
+    case time = "time"
     case speed = "speed"
     case course = "course"
     init() {
-      self = .Name
+      self = .name
     }
   }
   private var alreadySetName = false
-  private var parsingState: ParsingState = .Name
-  
+  private var parsingState: ParsingState = .name
+
   public init?(file: String) {
     super.init()
     let url = Bundle.main.url(forResource: file, withExtension: "gpx")
@@ -47,31 +47,31 @@ open class GpxParser: NSObject, XMLParserDelegate {
     parser?.delegate = self
     dateFormatter.dateFormat = GpxParser.dateFormat
   }
-  
+
   public func parse() -> (String, [CLLocation]) {
     parser?.parse()
     return (name, locations)
   }
-  
-  public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String]) {
+
+  public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
     switch elementName {
-    case ParsingState.Trkpt.rawValue:
+    case ParsingState.trackpoint.rawValue:
       curLatString = attributeDict["lat"]! as NSString
       curLonString = attributeDict["lon"]! as NSString
-      parsingState = .Trkpt
+      parsingState = .trackpoint
       startedTrackPoints = true
-    case ParsingState.Name.rawValue:
+    case ParsingState.name.rawValue:
       if !alreadySetName {
         buffer = ""
-        parsingState = .Name
+        parsingState = .name
       }
-    case ParsingState.Ele.rawValue:
+    case ParsingState.elevation.rawValue:
       buffer = ""
-      parsingState = .Ele
-    case ParsingState.Time.rawValue:
+      parsingState = .elevation
+    case ParsingState.time.rawValue:
       if startedTrackPoints {
         buffer = ""
-        parsingState = .Time
+        parsingState = .time
       }
     case ParsingState.speed.rawValue:
       parsingState = .speed
@@ -81,23 +81,23 @@ open class GpxParser: NSObject, XMLParserDelegate {
       break
     }
   }
-  
+
   public func parser(_ parser: XMLParser, foundCharacters string: String) {
-    if (startedTrackPoints || (parsingState == .Name && !alreadySetName)) && string != "\n" {
-      buffer = buffer + string
+    if (startedTrackPoints || (parsingState == .name && !alreadySetName)) && string != "\n" {
+      buffer += string
     }
   }
-  
+
   public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
     switch elementName {
-    case ParsingState.Trkpt.rawValue:
+    case ParsingState.trackpoint.rawValue:
       locations.append(CLLocation(coordinate: CLLocationCoordinate2D(latitude: curLatString.doubleValue, longitude: curLonString.doubleValue), altitude: curEleString.doubleValue, horizontalAccuracy: GpxParser.accuracy, verticalAccuracy: GpxParser.accuracy, timestamp: dateFormatter.date(from: curTimeString)!))
-    case ParsingState.Name.rawValue:
+    case ParsingState.name.rawValue:
       name = buffer
       alreadySetName = true
-    case ParsingState.Ele.rawValue:
+    case ParsingState.elevation.rawValue:
       curEleString = buffer as NSString
-    case ParsingState.Time.rawValue:
+    case ParsingState.time.rawValue:
       if startedTrackPoints {
         curTimeString = buffer
       }
