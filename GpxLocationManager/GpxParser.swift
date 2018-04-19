@@ -39,8 +39,15 @@ open class GpxParser: NSObject, XMLParserDelegate {
 
   public init?(file: String) {
     super.init()
-    let url = Bundle.main.url(forResource: file, withExtension: "gpx")
+    var url: URL?
+    url = Bundle.main.url(forResource: file, withExtension: "gpx")
     if url == nil {
+      url = Bundle(for: GpxParser.self).url(forResource: file, withExtension: "gpx")
+    }
+    if url == nil {
+      return nil
+    }
+    guard url != nil else {
       return nil
     }
     parser = XMLParser(contentsOf: url!)

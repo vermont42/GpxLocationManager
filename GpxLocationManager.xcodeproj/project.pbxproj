@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E114704D2088000200A98DFF /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E114704C2088000200A98DFF /* LocationManagerTests.swift */; };
+		E114704F2088000200A98DFF /* GpxLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */; };
 		E155BE33207ECE1500A69BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE32207ECE1500A69BAF /* AppDelegate.swift */; };
 		E155BE35207ECE1500A69BAF /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE34207ECE1500A69BAF /* DemoViewController.swift */; };
 		E155BE3A207ECE1500A69BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E155BE39207ECE1500A69BAF /* Assets.xcassets */; };
@@ -16,9 +18,10 @@
 		E155BE5C207ECF8400A69BAF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE59207ECF8400A69BAF /* LocationManager.swift */; };
 		E155BE5D207ECF8400A69BAF /* GpxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */; };
 		E155BE5F207ECFAC00A69BAF /* Berkeley.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */; };
-		E155BE61207ED0AD00A69BAF /* GpxLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */; };
-		E155BE69207ED1E800A69BAF /* LocationManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE68207ED1E800A69BAF /* LocationManagerTests.swift */; };
-		E155BE70207ED24100A69BAF /* Berkeley.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */; };
+		E1B19B7620894EBC00428342 /* Orinda.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E1B2359E208297F600BB8196 /* Orinda.gpx */; };
+		E1B19B7720894EC000428342 /* Berkeley.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */; };
+		E1B19B7820894F2800428342 /* GpxLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */; };
+		E1B19B7920894F2800428342 /* GpxLocationManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1B2359920825BAE00BB8196 /* DemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B2359820825BAE00BB8196 /* DemoView.swift */; };
 		E1B2359C20825DAC00BB8196 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */; };
 		E1B2359D20825DAC00BB8196 /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */; };
@@ -26,16 +29,40 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E155BE6B207ED1E800A69BAF /* PBXContainerItemProxy */ = {
+		E11470502088000200A98DFF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E155BE27207ECE1500A69BAF /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E155BE2E207ECE1500A69BAF;
-			remoteInfo = Demo;
+			remoteGlobalIDString = E155BE48207ECF3200A69BAF;
+			remoteInfo = GpxLocationManager;
+		};
+		E1B19B7A20894F2800428342 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E155BE27207ECE1500A69BAF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E155BE48207ECF3200A69BAF;
+			remoteInfo = GpxLocationManager;
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		E1B19B7C20894F2800428342 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E1B19B7920894F2800428342 /* GpxLocationManager.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		E114704A2088000200A98DFF /* GpxLocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GpxLocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E114704C2088000200A98DFF /* LocationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
+		E114704E2088000200A98DFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E155BE2F207ECE1500A69BAF /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E155BE32207ECE1500A69BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E155BE34207ECE1500A69BAF /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
@@ -49,9 +76,6 @@
 		E155BE59207ECF8400A69BAF /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxLocationManager.swift; sourceTree = "<group>"; };
 		E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Berkeley.gpx; sourceTree = "<group>"; };
-		E155BE66207ED1E800A69BAF /* GpxLocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GpxLocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E155BE68207ED1E800A69BAF /* LocationManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManagerTests.swift; sourceTree = "<group>"; };
-		E155BE6A207ED1E800A69BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E1B2359820825BAE00BB8196 /* DemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoView.swift; sourceTree = "<group>"; };
 		E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
 		E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
@@ -59,22 +83,23 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E11470472088000200A98DFF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E114704F2088000200A98DFF /* GpxLocationManager.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E155BE2C207ECE1500A69BAF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E155BE61207ED0AD00A69BAF /* GpxLocationManager.framework in Frameworks */,
+				E1B19B7820894F2800428342 /* GpxLocationManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		E155BE45207ECF3200A69BAF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E155BE63207ED1E800A69BAF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -112,12 +137,21 @@
 			path = "GPX Files";
 			sourceTree = "<group>";
 		};
+		E114704B2088000200A98DFF /* GpxLocationManagerTests */ = {
+			isa = PBXGroup;
+			children = (
+				E114704C2088000200A98DFF /* LocationManagerTests.swift */,
+				E114704E2088000200A98DFF /* Info.plist */,
+			);
+			path = GpxLocationManagerTests;
+			sourceTree = "<group>";
+		};
 		E155BE26207ECE1500A69BAF = {
 			isa = PBXGroup;
 			children = (
 				E155BE31207ECE1500A69BAF /* Demo */,
 				E155BE4A207ECF3200A69BAF /* GpxLocationManager */,
-				E155BE67207ED1E800A69BAF /* GpxLocationManagerTests */,
+				E114704B2088000200A98DFF /* GpxLocationManagerTests */,
 				E155BE30207ECE1500A69BAF /* Products */,
 				E155BE60207ED0AD00A69BAF /* Frameworks */,
 			);
@@ -128,7 +162,7 @@
 			children = (
 				E155BE2F207ECE1500A69BAF /* Demo.app */,
 				E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */,
-				E155BE66207ED1E800A69BAF /* GpxLocationManagerTests.xctest */,
+				E114704A2088000200A98DFF /* GpxLocationManagerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -165,15 +199,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		E155BE67207ED1E800A69BAF /* GpxLocationManagerTests */ = {
-			isa = PBXGroup;
-			children = (
-				E155BE68207ED1E800A69BAF /* LocationManagerTests.swift */,
-				E155BE6A207ED1E800A69BAF /* Info.plist */,
-			);
-			path = GpxLocationManagerTests;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -188,6 +213,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		E11470492088000200A98DFF /* GpxLocationManagerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E11470522088000200A98DFF /* Build configuration list for PBXNativeTarget "GpxLocationManagerTests" */;
+			buildPhases = (
+				E11470462088000200A98DFF /* Sources */,
+				E11470472088000200A98DFF /* Frameworks */,
+				E11470482088000200A98DFF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E11470512088000200A98DFF /* PBXTargetDependency */,
+			);
+			name = GpxLocationManagerTests;
+			productName = GpxLocationManagerTests;
+			productReference = E114704A2088000200A98DFF /* GpxLocationManagerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E155BE2E207ECE1500A69BAF /* Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E155BE41207ECE1500A69BAF /* Build configuration list for PBXNativeTarget "Demo" */;
@@ -196,10 +239,12 @@
 				E155BE2C207ECE1500A69BAF /* Frameworks */,
 				E155BE2D207ECE1500A69BAF /* Resources */,
 				219C77B12084306D00285352 /* Run SwiftLint Script */,
+				E1B19B7C20894F2800428342 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E1B19B7B20894F2800428342 /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = GpxLocationManager;
@@ -225,25 +270,6 @@
 			productReference = E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		E155BE65207ED1E800A69BAF /* GpxLocationManagerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E155BE6D207ED1E900A69BAF /* Build configuration list for PBXNativeTarget "GpxLocationManagerTests" */;
-			buildPhases = (
-				E155BE62207ED1E800A69BAF /* Sources */,
-				E155BE63207ED1E800A69BAF /* Frameworks */,
-				E155BE64207ED1E800A69BAF /* Resources */,
-				219C77B32084309000285352 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				E155BE6C207ED1E800A69BAF /* PBXTargetDependency */,
-			);
-			name = GpxLocationManagerTests;
-			productName = GpxLocationManagerTests;
-			productReference = E155BE66207ED1E800A69BAF /* GpxLocationManagerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -254,6 +280,10 @@
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Josh Adams";
 				TargetAttributes = {
+					E11470492088000200A98DFF = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
 					E155BE2E207ECE1500A69BAF = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -262,11 +292,6 @@
 						CreatedOnToolsVersion = 9.2;
 						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
-					};
-					E155BE65207ED1E800A69BAF = {
-						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
-						TestTargetID = E155BE2E207ECE1500A69BAF;
 					};
 				};
 			};
@@ -285,12 +310,19 @@
 			targets = (
 				E155BE2E207ECE1500A69BAF /* Demo */,
 				E155BE48207ECF3200A69BAF /* GpxLocationManager */,
-				E155BE65207ED1E800A69BAF /* GpxLocationManagerTests */,
+				E11470492088000200A98DFF /* GpxLocationManagerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E11470482088000200A98DFF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E155BE2D207ECE1500A69BAF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -306,14 +338,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E155BE64207ED1E800A69BAF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E155BE70207ED24100A69BAF /* Berkeley.gpx in Resources */,
+				E1B19B7720894EC000428342 /* Berkeley.gpx in Resources */,
+				E1B19B7620894EBC00428342 /* Orinda.gpx in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -348,22 +374,17 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
 		};
-		219C77B32084309000285352 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\n    swiftlint\nelse\n    echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E11470462088000200A98DFF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E114704D2088000200A98DFF /* LocationManagerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E155BE2B207ECE1500A69BAF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -386,21 +407,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E155BE62207ED1E800A69BAF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E155BE69207ED1E800A69BAF /* LocationManagerTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E155BE6C207ED1E800A69BAF /* PBXTargetDependency */ = {
+		E11470512088000200A98DFF /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E155BE2E207ECE1500A69BAF /* Demo */;
-			targetProxy = E155BE6B207ED1E800A69BAF /* PBXContainerItemProxy */;
+			target = E155BE48207ECF3200A69BAF /* GpxLocationManager */;
+			targetProxy = E11470502088000200A98DFF /* PBXContainerItemProxy */;
+		};
+		E1B19B7B20894F2800428342 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E155BE48207ECF3200A69BAF /* GpxLocationManager */;
+			targetProxy = E1B19B7A20894F2800428342 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -416,6 +434,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E11470532088000200A98DFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V3L2PL4QC9;
+				INFOPLIST_FILE = GpxLocationManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = biz.joshadams.GpxLocationManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E11470542088000200A98DFF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = V3L2PL4QC9;
+				INFOPLIST_FILE = GpxLocationManagerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = biz.joshadams.GpxLocationManagerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E155BE3F207ECE1500A69BAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -530,6 +576,7 @@
 		E155BE42207ECE1500A69BAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3L2PL4QC9;
@@ -545,6 +592,7 @@
 		E155BE43207ECE1500A69BAF /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = V3L2PL4QC9;
@@ -608,41 +656,18 @@
 			};
 			name = Release;
 		};
-		E155BE6E207ED1E900A69BAF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V3L2PL4QC9;
-				INFOPLIST_FILE = GpxLocationManagerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = biz.joshadams.GpxLocationManagerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
-			};
-			name = Debug;
-		};
-		E155BE6F207ED1E900A69BAF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = V3L2PL4QC9;
-				INFOPLIST_FILE = GpxLocationManagerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = biz.joshadams.GpxLocationManagerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Demo";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E11470522088000200A98DFF /* Build configuration list for PBXNativeTarget "GpxLocationManagerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E11470532088000200A98DFF /* Debug */,
+				E11470542088000200A98DFF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E155BE2A207ECE1500A69BAF /* Build configuration list for PBXProject "GpxLocationManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -666,15 +691,6 @@
 			buildConfigurations = (
 				E155BE53207ECF3200A69BAF /* Debug */,
 				E155BE54207ECF3200A69BAF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E155BE6D207ED1E900A69BAF /* Build configuration list for PBXNativeTarget "GpxLocationManagerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E155BE6E207ED1E900A69BAF /* Debug */,
-				E155BE6F207ED1E900A69BAF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
