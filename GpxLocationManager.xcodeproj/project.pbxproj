@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		21619A852091066B008ED239 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21619A842091066B008ED239 /* LocationManager.swift */; };
+		21619A8920919F9D008ED239 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21619A8820919F9D008ED239 /* LocationService.swift */; };
 		E155BE33207ECE1500A69BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE32207ECE1500A69BAF /* AppDelegate.swift */; };
 		E155BE35207ECE1500A69BAF /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE34207ECE1500A69BAF /* DemoViewController.swift */; };
 		E155BE3A207ECE1500A69BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E155BE39207ECE1500A69BAF /* Assets.xcassets */; };
 		E155BE3D207ECE1500A69BAF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E155BE3B207ECE1500A69BAF /* LaunchScreen.storyboard */; };
 		E155BE4D207ECF3200A69BAF /* GpxLocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E155BE5B207ECF8400A69BAF /* GpxParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE58207ECF8400A69BAF /* GpxParser.swift */; };
-		E155BE5C207ECF8400A69BAF /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE59207ECF8400A69BAF /* LocationManager.swift */; };
+		E155BE5C207ECF8400A69BAF /* LocationManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE59207ECF8400A69BAF /* LocationManagers.swift */; };
 		E155BE5D207ECF8400A69BAF /* GpxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */; };
 		E155BE5F207ECFAC00A69BAF /* Berkeley.gpx in Resources */ = {isa = PBXBuildFile; fileRef = E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */; };
 		E155BE61207ED0AD00A69BAF /* GpxLocationManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E155BE49207ECF3200A69BAF /* GpxLocationManager.framework */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		21619A842091066B008ED239 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		21619A8820919F9D008ED239 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		E155BE2F207ECE1500A69BAF /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E155BE32207ECE1500A69BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E155BE34207ECE1500A69BAF /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
@@ -46,7 +50,7 @@
 		E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GpxLocationManager.h; sourceTree = "<group>"; };
 		E155BE4C207ECF3200A69BAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E155BE58207ECF8400A69BAF /* GpxParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxParser.swift; sourceTree = "<group>"; };
-		E155BE59207ECF8400A69BAF /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		E155BE59207ECF8400A69BAF /* LocationManagers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationManagers.swift; sourceTree = "<group>"; };
 		E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GpxLocationManager.swift; sourceTree = "<group>"; };
 		E155BE5E207ECFAB00A69BAF /* Berkeley.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Berkeley.gpx; sourceTree = "<group>"; };
 		E155BE66207ED1E800A69BAF /* GpxLocationManagerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GpxLocationManagerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -84,6 +88,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		21619A8620919F69008ED239 /* LocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				21619A842091066B008ED239 /* LocationManager.swift */,
+			);
+			path = LocationManager;
+			sourceTree = "<group>";
+		};
+		21619A8720919F6F008ED239 /* LocationService */ = {
+			isa = PBXGroup;
+			children = (
+				21619A8820919F9D008ED239 /* LocationService.swift */,
+			);
+			path = LocationService;
+			sourceTree = "<group>";
+		};
 		219C77A82083CA3200285352 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,11 +169,13 @@
 		E155BE4A207ECF3200A69BAF /* GpxLocationManager */ = {
 			isa = PBXGroup;
 			children = (
+				21619A8720919F6F008ED239 /* LocationService */,
+				21619A8620919F69008ED239 /* LocationManager */,
 				E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */,
 				E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */,
 				E155BE58207ECF8400A69BAF /* GpxParser.swift */,
 				E155BE4C207ECF3200A69BAF /* Info.plist */,
-				E155BE59207ECF8400A69BAF /* LocationManager.swift */,
+				E155BE59207ECF8400A69BAF /* LocationManagers.swift */,
 			);
 			path = GpxLocationManager;
 			sourceTree = "<group>";
@@ -380,7 +402,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E155BE5C207ECF8400A69BAF /* LocationManager.swift in Sources */,
+				21619A852091066B008ED239 /* LocationManager.swift in Sources */,
+				E155BE5C207ECF8400A69BAF /* LocationManagers.swift in Sources */,
+				21619A8920919F9D008ED239 /* LocationService.swift in Sources */,
 				E155BE5D207ECF8400A69BAF /* GpxLocationManager.swift in Sources */,
 				E155BE5B207ECF8400A69BAF /* GpxParser.swift in Sources */,
 			);

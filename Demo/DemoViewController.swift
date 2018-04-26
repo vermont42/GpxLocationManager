@@ -32,7 +32,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   private let minSpeed = 1.0
   private let maxSpeed = 10.0
   private var currentSpeed = 10.0
-  private var currentLocationManager: LocationManager?
+  private var currentLocationManager: LocationManagers?
   private let regionSize: CLLocationDistance = 500.0
   private let distanceFilter: CLLocationDistance = 10.0
 
@@ -54,20 +54,20 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
 
   private func startGpxFileDemo() {
     demoView.enableSpeedControls()
-    startUpdatingLocation(newLocationManager: LocationManager(type: .gpxFile(gpxFile1)))
+    startUpdatingLocation(newLocationManager: LocationManagers(type: .gpxFile(gpxFile1)))
   }
 
   private func startLocationsDemo() {
     demoView.enableSpeedControls()
     if let parser = GpxParser(file: gpxFile2) {
       let (_, locations) = parser.parse()
-      startUpdatingLocation(newLocationManager: LocationManager(type: .locations(locations)))
+      startUpdatingLocation(newLocationManager: LocationManagers(type: .locations(locations)))
     }
   }
 
   private func startCoreLocationDemo() {
     demoView.disableSpeedControls()
-    let coreLocationManager = LocationManager(type: .coreLocation)
+    let coreLocationManager = LocationManagers(type: .coreLocation)
     coreLocationManager.desiredAccuracy = kCLLocationAccuracyBest
     coreLocationManager.activityType = .fitness
     coreLocationManager.distanceFilter = distanceFilter
@@ -76,7 +76,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
     startUpdatingLocation(newLocationManager: coreLocationManager)
   }
 
-  private func startUpdatingLocation(newLocationManager: LocationManager) {
+  private func startUpdatingLocation(newLocationManager: LocationManagers) {
     currentLocationManager = newLocationManager
     currentLocationManager?.delegate = self
     currentLocationManager?.secondLength = 1.0 / currentSpeed
