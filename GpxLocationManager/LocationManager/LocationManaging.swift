@@ -13,7 +13,7 @@ enum LocationManagerType {
   case coreLocation
 }
 
-protocol LocationManager {
+protocol LocationManaging {
   var location: CLLocation { get }
   var delegate: CLLocationManagerDelegate { get set }
   var desiredAccuracy: CLLocationAccuracy { get set }

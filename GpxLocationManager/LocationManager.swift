@@ -8,7 +8,7 @@
 
 import CoreLocation
 
-open class LocationManagers {
+open class LocationManager {
   private var gpxLocationManager: GpxLocationManager!
   private var cLLocationManager: CLLocationManager!
 
