@@ -10,6 +10,7 @@ import CoreLocation
 
 enum LocationManagerType {
   case gpx
+  case locations
   case coreLocation
 }
 
