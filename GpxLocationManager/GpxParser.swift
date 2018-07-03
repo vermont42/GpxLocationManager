@@ -25,6 +25,7 @@ open class GpxParser: NSObject, XMLParserDelegate {
   private static let accuracy: CLLocationAccuracy = 5.0
   private enum ParsingState: String {
     case trackpoint = "trkpt"
+    case waypoint = "wpt"
     case name = "name"
     case elevation = "ele"
     case time = "time"
@@ -55,7 +56,7 @@ open class GpxParser: NSObject, XMLParserDelegate {
 
   public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String: String]) {
     switch elementName {
-    case ParsingState.trackpoint.rawValue:
+    case ParsingState.trackpoint.rawValue, ParsingState.waypoint.rawValue:
       curLatString = attributeDict["lat"]! as NSString
       curLonString = attributeDict["lon"]! as NSString
       parsingState = .trackpoint
@@ -90,7 +91,7 @@ open class GpxParser: NSObject, XMLParserDelegate {
 
   public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
     switch elementName {
-    case ParsingState.trackpoint.rawValue:
+    case ParsingState.trackpoint.rawValue, ParsingState.waypoint.rawValue:
       locations.append(CLLocation(coordinate: CLLocationCoordinate2D(latitude: curLatString.doubleValue, longitude: curLonString.doubleValue), altitude: curEleString.doubleValue, horizontalAccuracy: GpxParser.accuracy, verticalAccuracy: GpxParser.accuracy, timestamp: dateFormatter.date(from: curTimeString)!))
     case ParsingState.name.rawValue:
       name = buffer
