@@ -20,7 +20,7 @@ open class GpxLocationManager {
   open var heading: CLHeading! { return nil }
   open var shouldRepeatLocations = false
   open var secondLength = 1.0
-  open var minimumSignficiantLocationUpdateDistnace: CLLocationDistance = 200
+  open var minimumSignificantLocationUpdateDistance: CLLocationDistance = 200
   open var monitoredRegions: Set<CLRegion> = []
   private var locations: [CLLocation] = []
   private var lastLocation = 0
@@ -31,10 +31,10 @@ open class GpxLocationManager {
   static let dateFudge: TimeInterval = 1.0
   private static let dateFormat = "yyyy-MM-dd HH:mm:ss"
   private var dummyCLLocationManager: CLLocationManager!
-  private var lastDeleiveredSignificantLocationUpdate: CLLocation?
+  private var lastDeliveredSignificantLocationUpdate: CLLocation?
   private var lastGeofenceEventLocationUpdate: CLLocation?
   private var isUpdatingLocations = false
-  private var isMonotiringSignficiantLocationChanges = false
+  private var isMonitoringSignificantLocationChanges = false
 
   open func startUpdatingHeading() {}
   open func stopUpdatingHeading() {}
@@ -79,12 +79,12 @@ open class GpxLocationManager {
   }
 
   open func startMonitoringSignificantLocationChanges() {
-    isMonotiringSignficiantLocationChanges = true
+    isMonitoringSignificantLocationChanges = true
     startLocationUpdateMachineIfNeeded()
   }
 
   open func stopMonitoringSignificantLocationChanges() {
-    isMonotiringSignficiantLocationChanges = false
+    isMonitoringSignificantLocationChanges = false
   }
 
   open func stopUpdatingLocation() {
@@ -165,11 +165,11 @@ open class GpxLocationManager {
 
               })
             }
-            if self.isMonotiringSignficiantLocationChanges {
-              if let lastLocation = self.lastDeleiveredSignificantLocationUpdate, lastLocation.distance(from: currentLocation) < self.minimumSignficiantLocationUpdateDistnace {
+            if self.isMonitoringSignificantLocationChanges {
+              if let lastLocation = self.lastDeliveredSignificantLocationUpdate, lastLocation.distance(from: currentLocation) < self.minimumSignificantLocationUpdateDistance {
                 // skip this location
               } else {
-                self.lastDeleiveredSignificantLocationUpdate = currentLocation
+                self.lastDeliveredSignificantLocationUpdate = currentLocation
                 self.callerQueue.async(execute: {
                   self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
 
