@@ -124,6 +124,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   }
 
   func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-    currentHeading = newHeading.magneticHeading
+    currentHeading = newHeading.trueHeading
+    demoView.updateHeadingLabel(heading: currentHeading)
   }
 }

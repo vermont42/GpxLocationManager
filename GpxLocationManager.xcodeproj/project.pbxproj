@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C4AD3D32156CFC60006A150 /* GpxFakedHeading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4AD3D22156CFC60006A150 /* GpxFakedHeading.swift */; };
+		3C4AD3E02156D7A90006A150 /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4AD3DE2156D7A90006A150 /* CLLocationCoordinate2D.swift */; };
+		3C4AD3E12156D7A90006A150 /* CLLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4AD3DF2156D7A90006A150 /* CLLocation.swift */; };
+		3C4AD3E32156D7D20006A150 /* CLLocationDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4AD3E22156D7D20006A150 /* CLLocationDirection.swift */; };
 		E155BE33207ECE1500A69BAF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE32207ECE1500A69BAF /* AppDelegate.swift */; };
 		E155BE35207ECE1500A69BAF /* DemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E155BE34207ECE1500A69BAF /* DemoViewController.swift */; };
 		E155BE3A207ECE1500A69BAF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E155BE39207ECE1500A69BAF /* Assets.xcassets */; };
@@ -36,6 +40,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C4AD3D22156CFC60006A150 /* GpxFakedHeading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GpxFakedHeading.swift; sourceTree = "<group>"; };
+		3C4AD3DE2156D7A90006A150 /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
+		3C4AD3DF2156D7A90006A150 /* CLLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocation.swift; sourceTree = "<group>"; };
+		3C4AD3E22156D7D20006A150 /* CLLocationDirection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLLocationDirection.swift; sourceTree = "<group>"; };
 		E155BE2F207ECE1500A69BAF /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E155BE32207ECE1500A69BAF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E155BE34207ECE1500A69BAF /* DemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +120,16 @@
 			path = "GPX Files";
 			sourceTree = "<group>";
 		};
+		3C4AD3DD2156D78F0006A150 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3C4AD3E22156D7D20006A150 /* CLLocationDirection.swift */,
+				3C4AD3DF2156D7A90006A150 /* CLLocation.swift */,
+				3C4AD3DE2156D7A90006A150 /* CLLocationCoordinate2D.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		E155BE26207ECE1500A69BAF = {
 			isa = PBXGroup;
 			children = (
@@ -149,11 +167,13 @@
 		E155BE4A207ECF3200A69BAF /* GpxLocationManager */ = {
 			isa = PBXGroup;
 			children = (
+				3C4AD3DD2156D78F0006A150 /* Extensions */,
 				E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */,
 				E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */,
 				E155BE58207ECF8400A69BAF /* GpxParser.swift */,
 				E155BE4C207ECF3200A69BAF /* Info.plist */,
 				E155BE59207ECF8400A69BAF /* LocationManager.swift */,
+				3C4AD3D22156CFC60006A150 /* GpxFakedHeading.swift */,
 			);
 			path = GpxLocationManager;
 			sourceTree = "<group>";
@@ -382,6 +402,10 @@
 			files = (
 				E155BE5C207ECF8400A69BAF /* LocationManager.swift in Sources */,
 				E155BE5D207ECF8400A69BAF /* GpxLocationManager.swift in Sources */,
+				3C4AD3D32156CFC60006A150 /* GpxFakedHeading.swift in Sources */,
+				3C4AD3E12156D7A90006A150 /* CLLocation.swift in Sources */,
+				3C4AD3E02156D7A90006A150 /* CLLocationCoordinate2D.swift in Sources */,
+				3C4AD3E32156D7D20006A150 /* CLLocationDirection.swift in Sources */,
 				E155BE5B207ECF8400A69BAF /* GpxParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
