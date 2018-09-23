@@ -3,10 +3,8 @@
 //  Eunomia
 //
 //  Created by Ian Grossberg on 8/24/18.
-//  Copyright © 2018 Adorkable. All rights reserved.
 //
 
-import Foundation
 import CoreLocation
 
 extension CLLocation {

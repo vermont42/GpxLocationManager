@@ -105,8 +105,8 @@
 		219C77A92083CB4000285352 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */,
 				E1B2359B20825DAC00BB8196 /* NSLayoutConstraintExtension.swift */,
+				E1B2359A20825DAC00BB8196 /* UIViewExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -123,9 +123,9 @@
 		3C4AD3DD2156D78F0006A150 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3C4AD3E22156D7D20006A150 /* CLLocationDirection.swift */,
 				3C4AD3DF2156D7A90006A150 /* CLLocation.swift */,
 				3C4AD3DE2156D7A90006A150 /* CLLocationCoordinate2D.swift */,
+				3C4AD3E22156D7D20006A150 /* CLLocationDirection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -154,12 +154,12 @@
 		E155BE31207ECE1500A69BAF /* Demo */ = {
 			isa = PBXGroup;
 			children = (
-				219C77A92083CB4000285352 /* Extensions */,
-				219C77AA2083CB5700285352 /* GPX Files */,
-				219C77A82083CA3200285352 /* Resources */,
 				E155BE32207ECE1500A69BAF /* AppDelegate.swift */,
 				E1B2359820825BAE00BB8196 /* DemoView.swift */,
 				E155BE34207ECE1500A69BAF /* DemoViewController.swift */,
+				219C77A92083CB4000285352 /* Extensions */,
+				219C77AA2083CB5700285352 /* GPX Files */,
+				219C77A82083CA3200285352 /* Resources */,
 			);
 			path = Demo;
 			sourceTree = "<group>";
@@ -168,12 +168,12 @@
 			isa = PBXGroup;
 			children = (
 				3C4AD3DD2156D78F0006A150 /* Extensions */,
+				3C4AD3D22156CFC60006A150 /* GpxFakedHeading.swift */,
 				E155BE4B207ECF3200A69BAF /* GpxLocationManager.h */,
 				E155BE5A207ECF8400A69BAF /* GpxLocationManager.swift */,
 				E155BE58207ECF8400A69BAF /* GpxParser.swift */,
 				E155BE4C207ECF3200A69BAF /* Info.plist */,
 				E155BE59207ECF8400A69BAF /* LocationManager.swift */,
-				3C4AD3D22156CFC60006A150 /* GpxFakedHeading.swift */,
 			);
 			path = GpxLocationManager;
 			sourceTree = "<group>";

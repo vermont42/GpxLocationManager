@@ -335,10 +335,10 @@ extension LocationManager {
 
   open func stopUpdatingHeading() {
     switch locationManagerType {
-      case .gpxFile, .locations:
-        gpxLocationManager.stopUpdatingHeading()
-      case .coreLocation:
-        cLLocationManager.stopUpdatingHeading()
+    case .gpxFile, .locations:
+      gpxLocationManager.stopUpdatingHeading()
+    case .coreLocation:
+      cLLocationManager.stopUpdatingHeading()
     }
   }
 }
