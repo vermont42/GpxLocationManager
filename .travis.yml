@@ -7,6 +7,6 @@ xcode_scheme: GpxLocationManager
 before_install:
   - brew update
 script:
-  - xcodebuild -scheme Demo -quiet -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' build
-  - xcodebuild -scheme GpxLocationManager -quiet -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' build
-  - xcodebuild -scheme GpxLocationManagerTests -quiet -destination 'platform=iOS Simulator,name=iPhone 8,OS=latest' test
+  - ./scripts/build.sh Demo
+  - ./scripts/build.sh GpxLocationManager
+  - ./scripts/test.sh GpxLocationManagerTests
