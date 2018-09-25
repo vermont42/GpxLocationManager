@@ -154,7 +154,17 @@ open class GpxLocationManager {
             currentLocation = CLLocation(coordinate: lastLoc.coordinate, altitude: lastLoc.altitude, horizontalAccuracy: lastLoc.horizontalAccuracy, verticalAccuracy: lastLoc.verticalAccuracy, course: lastLoc.course, speed: 0.0, timestamp: startDate.addingTimeInterval(timeIntervalSinceStart))
           } else {
             currentLocation = self.locations[currentIndex]
-            currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
+
+            let timeInterval = (routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted) + self.secondLength // true of the previous and the current span
+            let speed: CLLocationSpeed
+            if currentLocation.speed != -1 && currentLocation.speed != Double.infinity {
+                speed = currentLocation.speed
+            } else if self.locations.count >= currentIndex {
+                speed = self.locations[currentIndex + 1].distance(from: currentLocation) / timeInterval
+            } else {
+                speed = 0
+            }
+            currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: speed, timestamp: currentLocation.timestamp.addingTimeInterval(timeInterval))
           }
 
           let timeBetweenExpectedUpdateAndNextLocation = currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))

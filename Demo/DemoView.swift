@@ -25,7 +25,7 @@ class DemoView: UIView {
 
   private let speedLabelLabel: UILabel = {
     let speedLabelLabel = UILabel()
-    speedLabelLabel.text = "Speed: "
+    speedLabelLabel.text = "Speed Rate: "
     speedLabelLabel.textColor = UIColor.white
     return speedLabelLabel
   } ()
@@ -37,9 +37,23 @@ class DemoView: UIView {
     return speedLabel
   } ()
 
+  private let actualSpeedLabelLabel: UILabel = {
+    let actualSpeedLabelLabel = UILabel()
+    actualSpeedLabelLabel.text = "Actual Speed: "
+    actualSpeedLabelLabel.textColor = UIColor.white
+    return actualSpeedLabelLabel
+  } ()
+
+  internal let actualSpeedLabel: UILabel = {
+    let actualSpeedLabel = UILabel()
+    actualSpeedLabel.text = " "
+    actualSpeedLabel.textColor = UIColor.white
+    return actualSpeedLabel
+  } ()
+    
   override init(frame: CGRect) {
     super.init(frame: frame)
-    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper].forEach { control in
+    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper, actualSpeedLabel, actualSpeedLabelLabel].forEach { control in
       control.enableAutoLayout()
       addSubview(control)
     }
@@ -54,13 +68,20 @@ class DemoView: UIView {
     gpxControl.bottomAnchor.constraint(equalTo: speedStepper.topAnchor, constant: standard * -1.0).activate()
 
     speedStepper.leadingAnchor.constraint(equalTo: speedLabel.trailingAnchor, constant: standard).activate()
-    speedStepper.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: standard * -1.0).activate()
+    speedStepper.bottomAnchor.constraint(equalTo: actualSpeedLabel.topAnchor, constant: standard * -1.0).activate()
 
     speedLabel.centerXAnchor.constraint(equalTo: centerXAnchor).activate()
     speedLabel.centerYAnchor.constraint(equalTo: speedStepper.centerYAnchor).activate()
 
     speedLabelLabel.trailingAnchor.constraint(equalTo: speedLabel.leadingAnchor, constant: standard * -1.0).activate()
     speedLabelLabel.centerYAnchor.constraint(equalTo: speedStepper.centerYAnchor).activate()
+
+    actualSpeedLabel.centerXAnchor.constraint(equalTo: centerXAnchor).activate()
+    actualSpeedLabel.centerYAnchor.constraint(equalTo: actualSpeedLabelLabel.centerYAnchor).activate()
+
+    actualSpeedLabelLabel.trailingAnchor.constraint(equalTo: actualSpeedLabel.leadingAnchor, constant: standard * -1.0).activate()
+    actualSpeedLabelLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: standard * -1.0).activate()
+
   }
 
   required init(coder aDecoder: NSCoder) {
@@ -72,12 +93,16 @@ class DemoView: UIView {
   }
 
   internal func enableSpeedControls() {
-    [speedLabelLabel, speedLabel, speedStepper].forEach { $0.alpha = 1.0 }
+    [speedLabelLabel, speedLabel, speedStepper, actualSpeedLabel, actualSpeedLabelLabel].forEach { $0.alpha = 1.0 }
     speedStepper.isEnabled = true
   }
 
   internal func disableSpeedControls() {
-    [speedLabelLabel, speedLabel, speedStepper].forEach { $0.alpha = disabledAlpha }
+    [speedLabelLabel, speedLabel, speedStepper, actualSpeedLabel, actualSpeedLabelLabel].forEach { $0.alpha = disabledAlpha }
     speedStepper.isEnabled = false
+  }
+
+  internal func updateActualSpeedLabel(speed: Double) {
+    actualSpeedLabel.text = "\(String(format: "%.2f", speed)) m/s"
   }
 }
