@@ -37,9 +37,23 @@ class DemoView: UIView {
     return speedLabel
   } ()
 
+  private let headingLabelLabel: UILabel = {
+    let headingLabelLabel = UILabel()
+    headingLabelLabel.text = "Heading: "
+    headingLabelLabel.textColor = UIColor.white
+    return headingLabelLabel
+  } ()
+
+  internal let headingLabel: UILabel = {
+    let headingLabel = UILabel()
+    headingLabel.text = " "
+    headingLabel.textColor = UIColor.white
+    return headingLabel
+  } ()
+
   override init(frame: CGRect) {
     super.init(frame: frame)
-    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper].forEach { control in
+    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper, headingLabelLabel, headingLabel].forEach { control in
       control.enableAutoLayout()
       addSubview(control)
     }
@@ -54,13 +68,19 @@ class DemoView: UIView {
     gpxControl.bottomAnchor.constraint(equalTo: speedStepper.topAnchor, constant: standard * -1.0).activate()
 
     speedStepper.leadingAnchor.constraint(equalTo: speedLabel.trailingAnchor, constant: standard).activate()
-    speedStepper.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: standard * -1.0).activate()
+    speedStepper.bottomAnchor.constraint(equalTo: headingLabel.topAnchor, constant: standard * -1.0).activate()
 
     speedLabel.centerXAnchor.constraint(equalTo: centerXAnchor).activate()
     speedLabel.centerYAnchor.constraint(equalTo: speedStepper.centerYAnchor).activate()
 
     speedLabelLabel.trailingAnchor.constraint(equalTo: speedLabel.leadingAnchor, constant: standard * -1.0).activate()
     speedLabelLabel.centerYAnchor.constraint(equalTo: speedStepper.centerYAnchor).activate()
+
+    headingLabel.centerXAnchor.constraint(equalTo: centerXAnchor).activate()
+    headingLabel.centerYAnchor.constraint(equalTo: headingLabelLabel.centerYAnchor).activate()
+
+    headingLabelLabel.trailingAnchor.constraint(equalTo: headingLabel.leadingAnchor, constant: standard * -1.0).activate()
+    headingLabelLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).activate()
   }
 
   required init(coder aDecoder: NSCoder) {
@@ -79,5 +99,9 @@ class DemoView: UIView {
   internal func disableSpeedControls() {
     [speedLabelLabel, speedLabel, speedStepper].forEach { $0.alpha = disabledAlpha }
     speedStepper.isEnabled = false
+  }
+
+  internal func updateHeadingLabel(heading: Double) {
+    headingLabel.text = "\(String(format: "%.2f", heading))°"
   }
 }

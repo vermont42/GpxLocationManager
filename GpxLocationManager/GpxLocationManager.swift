@@ -34,10 +34,9 @@ open class GpxLocationManager {
   private var lastDeliveredSignificantLocationUpdate: CLLocation?
   private var lastGeofenceEventLocationUpdate: CLLocation?
   private var isUpdatingLocations = false
+  private var isUpdatingHeading = false
   private var isMonitoringSignificantLocationChanges = false
 
-  open func startUpdatingHeading() {}
-  open func stopUpdatingHeading() {}
   open func dismissHeadingCalibrationDisplay() {}
   open func startMonitoringForRegion(_ region: CLRegion) {}
   open func stopMonitoringForRegion(_ region: CLRegion) {}
@@ -60,6 +59,15 @@ open class GpxLocationManager {
   open var shouldKill = false
   open var shouldReset = false
   open var allowsBackgroundLocationUpdates = false
+
+  open func startUpdatingHeading() {
+    self.isUpdatingHeading = true
+    startLocationUpdateMachineIfNeeded()
+  }
+
+  open func stopUpdatingHeading() {
+    self.isUpdatingHeading = false
+  }
 
   open func startUpdatingLocation() {
     self.isUpdatingLocations = true
@@ -154,7 +162,14 @@ open class GpxLocationManager {
             currentLocation = CLLocation(coordinate: lastLoc.coordinate, altitude: lastLoc.altitude, horizontalAccuracy: lastLoc.horizontalAccuracy, verticalAccuracy: lastLoc.verticalAccuracy, course: lastLoc.course, speed: 0.0, timestamp: startDate.addingTimeInterval(timeIntervalSinceStart))
           } else {
             currentLocation = self.locations[currentIndex]
-            currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: currentLocation.course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
+            let course: CLLocationDirection
+            if self.locations.count >= currentIndex {
+                let nextLocation = self.locations[currentIndex + 1]
+                course = currentLocation.heading(to: nextLocation)
+            } else {
+                course = currentLocation.course
+            }
+            currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
           }
 
           let timeBetweenExpectedUpdateAndNextLocation = currentLocation.timestamp.timeIntervalSince(startDate.addingTimeInterval(timeIntervalSinceStart))
@@ -163,6 +178,12 @@ open class GpxLocationManager {
               self.callerQueue.async(execute: {
                 self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateLocations: [currentLocation])
 
+              })
+            }
+            if self.isUpdatingHeading {
+              let heading = GpxFakedHeading(trueNorth: currentLocation.course)
+              self.callerQueue.async(execute: {
+                self.delegate.locationManager?(self.dummyCLLocationManager, didUpdateHeading: heading)
               })
             }
             if self.isMonitoringSignificantLocationChanges {
