@@ -164,10 +164,10 @@ open class GpxLocationManager {
             currentLocation = self.locations[currentIndex]
             let course: CLLocationDirection
             if self.locations.count >= currentIndex {
-                let nextLocation = self.locations[currentIndex + 1]
-                course = currentLocation.heading(to: nextLocation)
+              let nextLocation = self.locations[currentIndex + 1]
+              course = currentLocation.heading(to: nextLocation)
             } else {
-                course = currentLocation.course
+              course = currentLocation.course
             }
             currentLocation = CLLocation(coordinate: currentLocation.coordinate, altitude: currentLocation.altitude, horizontalAccuracy: currentLocation.horizontalAccuracy, verticalAccuracy: currentLocation.verticalAccuracy, course: course, speed: currentLocation.speed, timestamp: currentLocation.timestamp.addingTimeInterval((routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted)))
           }
