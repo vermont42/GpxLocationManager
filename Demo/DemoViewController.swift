@@ -116,7 +116,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   }
 
   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    demoView.mapView.setRegion(MKCoordinateRegionMakeWithDistance(locations[0].coordinate, regionSize, regionSize), animated: true)
+    demoView.mapView.setRegion(MKCoordinateRegion.init(center: locations[0].coordinate, latitudinalMeters: regionSize, longitudinalMeters: regionSize), animated: true)
     demoView.mapView.removeAnnotations(demoView.mapView.annotations)
     let pin = MKPointAnnotation()
     pin.coordinate = locations[0].coordinate
