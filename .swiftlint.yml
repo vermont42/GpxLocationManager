@@ -5,6 +5,7 @@ disabled_rules: # rule identifiers to exclude from running
   - valid_docs
   - line_length
   - type_name
+  - identifier_name
 
 included: # paths to include during linting.
   - Demo

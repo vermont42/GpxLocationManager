@@ -200,7 +200,7 @@ open class LocationManager {
     }
   }
 
-  open let locationManagerType: LocationManagerType
+  public let locationManagerType: LocationManagerType
 
   public init(type: LocationManagerType) {
     locationManagerType = type
