@@ -8,11 +8,11 @@
 import CoreLocation
 
 extension CLLocationDirection {
-    var inDegrees: Measurement<UnitAngle> {
-        return Measurement(value: self, unit: UnitAngle.degrees)
-    }
+  var inDegrees: Measurement<UnitAngle> {
+    return Measurement(value: self, unit: UnitAngle.degrees)
+  }
 
-    var inRadians: Measurement<UnitAngle> {
-        return self.inDegrees.converted(to: .radians)
-    }
+  var inRadians: Measurement<UnitAngle> {
+    return self.inDegrees.converted(to: .radians)
+  }
 }

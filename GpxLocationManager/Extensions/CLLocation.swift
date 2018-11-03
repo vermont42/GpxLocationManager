@@ -8,11 +8,11 @@
 import CoreLocation
 
 extension CLLocation {
-    func heading(to: CLLocation) -> Measurement<UnitAngle> {
-        return self.coordinate.heading(to: to.coordinate)
-    }
+  func heading(to: CLLocation) -> Measurement<UnitAngle> {
+    return self.coordinate.heading(to: to.coordinate)
+  }
 
-    func heading(to: CLLocation) -> CLLocationDirection {
-        return self.coordinate.heading(to: to.coordinate)
-    }
+  func heading(to: CLLocation) -> CLLocationDirection {
+    return self.coordinate.heading(to: to.coordinate)
+  }
 }
