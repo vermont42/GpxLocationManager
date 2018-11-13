@@ -25,15 +25,15 @@ class DemoView: UIView {
 
   private let speedLabelLabel: UILabel = {
     let speedLabelLabel = UILabel()
-    speedLabelLabel.text = "Speed Rate: "
-    speedLabelLabel.textColor = UIColor.white
+    speedLabelLabel.text = "Speed: "
+    speedLabelLabel.textColor = .white
     return speedLabelLabel
   } ()
 
   internal let speedLabel: UILabel = {
     let speedLabel = UILabel()
     speedLabel.text = " "
-    speedLabel.textColor = UIColor.white
+    speedLabel.textColor = .white
     return speedLabel
   } ()
 
@@ -54,14 +54,14 @@ class DemoView: UIView {
   private let headingLabelLabel: UILabel = {
     let headingLabelLabel = UILabel()
     headingLabelLabel.text = "Heading: "
-    headingLabelLabel.textColor = UIColor.white
+    headingLabelLabel.textColor = .white
     return headingLabelLabel
   } ()
 
   internal let headingLabel: UILabel = {
     let headingLabel = UILabel()
     headingLabel.text = " "
-    headingLabel.textColor = UIColor.white
+    headingLabel.textColor = .white
     return headingLabel
   } ()
 
