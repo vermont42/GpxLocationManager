@@ -11,12 +11,12 @@ import CoreLocation
 import GpxLocationManager
 
 class LocationManagerTests: XCTestCase, CLLocationManagerDelegate {
-    func testInitializer() {
-      let manager1 = LocationManager(type: .gpxFile("iSmoothRun.gpx"))
-      manager1.delegate = self
-      let manager2 = LocationManager(type: .locations([]))
-      manager2.delegate = self
-      let manager3 = LocationManager(type: .coreLocation)
-      manager3.delegate = self
-    }
+  func testInitializer() {
+    let manager1 = LocationManager(type: .gpxFile("iSmoothRun.gpx"))
+    manager1.delegate = self
+    let manager2 = LocationManager(type: .locations([]))
+    manager2.delegate = self
+    let manager3 = LocationManager(type: .coreLocation)
+    manager3.delegate = self
+  }
 }

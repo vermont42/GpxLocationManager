@@ -165,10 +165,10 @@ open class GpxLocationManager {
 
             let course: CLLocationDirection
             if self.locations.count >= currentIndex {
-                let nextLocation = self.locations[currentIndex + 1]
-                course = currentLocation.heading(to: nextLocation)
+              let nextLocation = self.locations[currentIndex + 1]
+              course = currentLocation.heading(to: nextLocation)
             } else {
-                course = currentLocation.course
+              course = currentLocation.course
             }
 
             let timeInterval = (routeDuration + TimeInterval(1.0)) * TimeInterval(loopsCompleted) + self.secondLength // true of the previous and the current span
