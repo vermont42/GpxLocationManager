@@ -175,7 +175,7 @@ open class GpxLocationManager {
             let speed: CLLocationSpeed
             if currentLocation.speed != -1 && currentLocation.speed != Double.infinity {
                 speed = currentLocation.speed
-            } else if self.locations.count >= currentIndex {
+            } else if self.locations.count > currentIndex + 1 {
                 speed = self.locations[currentIndex + 1].distance(from: currentLocation) / timeInterval
             } else {
                 speed = 0
