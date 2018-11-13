@@ -32,6 +32,7 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
   private let minSpeed = 1.0
   private let maxSpeed = 10.0
   private var currentSpeed = 10.0
+  private var currentHeading = 0.0
   private var currentLocationManager: LocationManager?
   private let regionSize: CLLocationDistance = 500.0
   private let distanceFilter: CLLocationDistance = 10.0
@@ -48,20 +49,25 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
     demoView.speedStepper.maximumValue = maxSpeed
     demoView.speedStepper.value = currentSpeed
     demoView.updateSpeedLabel(speed: currentSpeed)
+    demoView.updateHeadingLabel(heading: currentHeading)
     view = demoView
     startGpxFileDemo()
   }
 
   private func startGpxFileDemo() {
     demoView.enableSpeedControls()
-    startUpdatingLocation(newLocationManager: LocationManager(type: .gpxFile(gpxFile1)))
+    let locationManager =  LocationManager(type: .gpxFile(gpxFile1))
+    startUpdatingLocation(newLocationManager: locationManager)
+    startUpdatingHeading(newLocationManager: locationManager)
   }
 
   private func startLocationsDemo() {
     demoView.enableSpeedControls()
     if let parser = GpxParser(file: gpxFile2) {
       let (_, locations) = parser.parse()
-      startUpdatingLocation(newLocationManager: LocationManager(type: .locations(locations)))
+      let locationManager =  LocationManager(type: .locations(locations))
+      startUpdatingLocation(newLocationManager: locationManager)
+      startUpdatingHeading(newLocationManager: locationManager)
     }
   }
 
@@ -81,6 +87,12 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
     currentLocationManager?.delegate = self
     currentLocationManager?.secondLength = 1.0 / currentSpeed
     currentLocationManager?.startUpdatingLocation()
+  }
+
+  private func startUpdatingHeading(newLocationManager: LocationManager) {
+    currentLocationManager = newLocationManager
+    currentLocationManager?.delegate = self
+    currentLocationManager?.startUpdatingHeading()
   }
 
   @objc func valueChanged(_ sender: UISegmentedControl) {
@@ -111,5 +123,10 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
     demoView.mapView.addAnnotation(pin)
 
     demoView.updateActualSpeedLabel(speed: locations[0].speed)
+  }
+
+  func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    currentHeading = newHeading.trueHeading
+    demoView.updateHeadingLabel(heading: currentHeading)
   }
 }

@@ -313,3 +313,32 @@ open class LocationManager {
     }
   }
 }
+
+extension LocationManager {
+  open var heading: CLHeading? {
+    switch locationManagerType {
+    case .gpxFile, .locations:
+      return gpxLocationManager.heading
+    case .coreLocation:
+      return cLLocationManager.heading
+    }
+  }
+
+  open func startUpdatingHeading() {
+    switch locationManagerType {
+    case .gpxFile, .locations:
+      gpxLocationManager.startUpdatingHeading()
+    case .coreLocation:
+      cLLocationManager.startUpdatingHeading()
+    }
+  }
+
+  open func stopUpdatingHeading() {
+    switch locationManagerType {
+    case .gpxFile, .locations:
+      gpxLocationManager.stopUpdatingHeading()
+    case .coreLocation:
+      cLLocationManager.stopUpdatingHeading()
+    }
+  }
+}

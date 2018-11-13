@@ -50,10 +50,24 @@ class DemoView: UIView {
     actualSpeedLabel.textColor = UIColor.white
     return actualSpeedLabel
   } ()
-    
+
+  private let headingLabelLabel: UILabel = {
+    let headingLabelLabel = UILabel()
+    headingLabelLabel.text = "Heading: "
+    headingLabelLabel.textColor = UIColor.white
+    return headingLabelLabel
+  } ()
+
+  internal let headingLabel: UILabel = {
+    let headingLabel = UILabel()
+    headingLabel.text = " "
+    headingLabel.textColor = UIColor.white
+    return headingLabel
+  } ()
+
   override init(frame: CGRect) {
     super.init(frame: frame)
-    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper, actualSpeedLabel, actualSpeedLabelLabel].forEach { control in
+    [mapView, gpxControl, speedLabelLabel, speedLabel, speedStepper, actualSpeedLabel, actualSpeedLabelLabel, headingLabelLabel, headingLabel].forEach { control in
       control.enableAutoLayout()
       addSubview(control)
     }
@@ -80,8 +94,13 @@ class DemoView: UIView {
     actualSpeedLabel.centerYAnchor.constraint(equalTo: actualSpeedLabelLabel.centerYAnchor).activate()
 
     actualSpeedLabelLabel.trailingAnchor.constraint(equalTo: actualSpeedLabel.leadingAnchor, constant: standard * -1.0).activate()
-    actualSpeedLabelLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor, constant: standard * -1.0).activate()
+    actualSpeedLabelLabel.bottomAnchor.constraint(equalTo: headingLabel.topAnchor, constant: standard * -1.0).activate()
 
+    headingLabel.centerXAnchor.constraint(equalTo: centerXAnchor).activate()
+    headingLabel.centerYAnchor.constraint(equalTo: headingLabelLabel.centerYAnchor).activate()
+
+    headingLabelLabel.trailingAnchor.constraint(equalTo: headingLabel.leadingAnchor, constant: standard * -1.0).activate()
+    headingLabelLabel.bottomAnchor.constraint(equalTo: layoutMarginsGuide.bottomAnchor).activate()
   }
 
   required init(coder aDecoder: NSCoder) {
@@ -104,5 +123,9 @@ class DemoView: UIView {
 
   internal func updateActualSpeedLabel(speed: Double) {
     actualSpeedLabel.text = "\(String(format: "%.2f", speed)) m/s"
+  }
+
+  internal func updateHeadingLabel(heading: Double) {
+    headingLabel.text = "\(String(format: "%.2f", heading))°"
   }
 }
