@@ -40,14 +40,14 @@ class DemoView: UIView {
   private let actualSpeedLabelLabel: UILabel = {
     let actualSpeedLabelLabel = UILabel()
     actualSpeedLabelLabel.text = "Actual Speed: "
-    actualSpeedLabelLabel.textColor = UIColor.white
+    actualSpeedLabelLabel.textColor = .white
     return actualSpeedLabelLabel
   } ()
 
   internal let actualSpeedLabel: UILabel = {
     let actualSpeedLabel = UILabel()
     actualSpeedLabel.text = " "
-    actualSpeedLabel.textColor = UIColor.white
+    actualSpeedLabel.textColor = .white
     return actualSpeedLabel
   } ()
 
