@@ -121,6 +121,8 @@ class DemoViewController: UIViewController, CLLocationManagerDelegate {
     let pin = MKPointAnnotation()
     pin.coordinate = locations[0].coordinate
     demoView.mapView.addAnnotation(pin)
+
+    demoView.updateActualSpeedLabel(speed: locations[0].speed)
   }
 
   func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
